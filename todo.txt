@@ -1,0 +1,17 @@
+
+
+
+
+- manche funktionalitaet (z.b. festlegen des initalVoteBonus)
+  in onCreateAccount (o.ae.) implementieren. bisher alles in
+  onLogin implementiert
+  // server > server.js
+
+- checken obs okay ist, 3 verschiedene new Dates() auszufuehren,
+  obwohl alle 3 den gleichen Zeitpunkt darstellen sollen.
+  Problem koennte runtime execution delay sein
+  // server > server.js
+
+- UTC vs. GMT+01 checken. aktuell wird glaube ich falsch gespeichert,
+  da custom-methode convertDateToUTC() in lib > common.js
+  // server > server.js
