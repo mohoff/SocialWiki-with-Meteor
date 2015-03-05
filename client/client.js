@@ -1,4 +1,9 @@
 Meteor.subscribe("heroes");
+Meteor.subscribe("userData", function() {
+  console.log("- SUBSCRIBED to userData");
+});
+
+//console.log("userData:" + userData);
 
 // can be user from all templates. Use with UI._globalHelpers...
 Template.registerHelper("normalizeString", function(input){
@@ -9,10 +14,40 @@ Template.registerHelper("normalizeString", function(input){
 });
 
 Template.body.helpers({
-  heroes: function () {
+  heroes: function() {
     return Heroes.find();
       //{}, {sort: {createdAt: -1}});
   },
+  lastLoginAt: function(){
+    var data = Meteor.users.findOne();
+    var date = data.lastLoginAt;
+    //console.log(dateString);
+    return formatDate(date);
+  },
+  initalVoteBonus: function(){
+    var data = Meteor.users.findOne();
+    return data.initalVoteBonus;
+  },
+  consecutiveLogins: function(){
+    var data = Meteor.users.findOne();
+    return data.consecutiveLogins;
+  },
+  currentVoteBonus: function(){
+    var data = Meteor.users.findOne();
+    return data.currentVoteBonus;
+  }
+
+
+
+
+});
+
+Template.userData.helpers({
+  /*lastLoginAt: function(){
+    console.log("lastLoginAt: " + JSON.stringify( Meteor.users.findOne()));
+    return lastLoginAt;
+  }*/
+
 });
 
 // WORKS but not sure if this UI._globalHelpers syntax is the way to go

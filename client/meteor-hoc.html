@@ -5,6 +5,15 @@
 <body>
   <h1>Welcome to Meteor!</h1>
 
+  {{#if currentUser}}
+    <b>userData:</b><br />
+    lastLoginAt: {{lastLoginAt}}<br />
+    initialVoteBonus: {{initalVoteBonus}}<br />
+    consecutiveLogins: {{consecutiveLogins}}<br />
+    currentVoteBonus: {{currentVoteBonus}}<br />
+  {{/if}}
+
+  <br />
   {{> loginButtons}}
 
   {{#if currentUser}}
@@ -51,6 +60,11 @@
 
     <input type="submit" name="Submit" />
   </form>
+</template>
+
+<template name="userData">
+  lastSeen: {{userData.lastLoginAt}}<br />
+
 </template>
 
 <template name="hero">

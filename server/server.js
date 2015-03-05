@@ -5,6 +5,9 @@ Meteor.startup(function () {
 Meteor.publish("heroes", function() {
   return Heroes.find();
 });
+Meteor.publish("userData", function() {
+  return userData(this.userId);
+});
 
 Meteor.methods({
   addHero: function (input) {
