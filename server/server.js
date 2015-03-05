@@ -34,13 +34,13 @@ Accounts.onLogin(function (user) {
   console.log("-- BEFORE LOGIN: lastLoginAt: " + lastLoginAt);
 
   // is it OK to create new dates 3 times? they might be slightly different due to runtime delay
-  var UTCTimestamp = convertDateToUTC(new Date());
-  console.log("-- current UTCTimestamp: " + UTCTimestamp);
+  var currentTimestamp = new Date();
+  console.log("-- currentTimestamp: " + currentTimestamp);
   var yesterdayStart = new Date();
   var yesterdayEnd = new Date();
-  yesterdayStart.setDate(UTCTimestamp.getDate() - 1);
+  yesterdayStart.setDate(currentTimestamp.getDate() - 1);
   yesterdayStart.setHours(0,0,0,0);
-  yesterdayEnd.setDate(UTCTimestamp.getDate() - 1);
+  yesterdayEnd.setDate(currentTimestamp.getDate() - 1);
   yesterdayEnd.setHours(23,59,59,999);
 
   var isInLoginStreak = false;
@@ -53,11 +53,11 @@ Accounts.onLogin(function (user) {
     isInLoginStreak = false;
     isNewMonth = false;
 
-    if(UTCTimestamp >= yesterdayStart && UTCTimestamp <= yesterdayEnd){
+    if(currentTimestamp >= yesterdayStart && currentTimestamp <= yesterdayEnd){
       isInLoginStreak = true;
       console.log("-- isInLoginStreak");
     }
-    if(UTCTimestamp.getMonth() != lastLoginAt.getMonth()){
+    if(currentTimestamp.getMonth() != lastLoginAt.getMonth()){
       isNewMonth = true;
       console.log("-- isNewMonth");
     }
@@ -100,7 +100,7 @@ Accounts.onLogin(function (user) {
   }
 
   console.log('-- STORED: initalVoteBonus:' + initalVoteBonus);
-  console.log('-- STORED: lastLoginAt:' + UTCTimestamp);
+  console.log('-- STORED: lastLoginAt:' + currentTimestamp);
   console.log('-- STORED: consecutiveLogins:' + consecutiveLogins);
   console.log('-- STORED: currentVoteBonus:' + currentVoteBonus);
 
@@ -113,7 +113,7 @@ Accounts.onLogin(function (user) {
       },*/
       $set: {
         'initalVoteBonus': initalVoteBonus,
-        'lastLoginAt': UTCTimestamp,
+        'lastLoginAt': currentTimestamp,  // gets converted to millis internally (so UTC format)
         'consecutiveLogins': consecutiveLogins,
         'currentVoteBonus': currentVoteBonus
       }
