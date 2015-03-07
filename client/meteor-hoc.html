@@ -8,7 +8,7 @@
   {{#if currentUser}}
     <b>userData:</b><br />
     lastLoginAt: {{lastLoginAt}}<br />
-    initialVoteBonus: {{initalVoteBonus}}<br />
+    initialVoteBonus: {{initialVoteBonus}}<br />
     consecutiveLogins: {{consecutiveLogins}}<br />
     currentVoteBonus: {{currentVoteBonus}}<br />
   {{/if}}
@@ -70,6 +70,10 @@
 <template name="hero">
   <div class="herowrapper">
     <!-- TEST ENTRY <br /> -->
+    <a href="#" data-id={{_id}} data-votefor="crusade" data-votetype="up" class="upvote btn {{votedClass 'up' 'crusade'}}">UPVOTE</a><br />
+    {{scoreCrusade}}<br />
+    <a href="#" data-id={{_id}} data-votefor="crusade" data-votetype="down" class="downvote btn {{votedClass 'down' 'crusade'}}">DOWNVOTE</a><br />
+    ----
     <img src={{path_to_avatar}} alt="pic" />
     CreatedAt: {{createdAt}}<br />
     CreatedFrom: {{createdFrom}}<br />

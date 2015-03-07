@@ -2,3 +2,15 @@
 .herowrapper {
   background-color: #ddd;
 }
+
+.voteableGray {
+  color: #ccc;
+}
+
+.upvotedGreen {
+  color: #00FF00;
+}
+
+.downvotedRed {
+  color: #FF0000;
+}

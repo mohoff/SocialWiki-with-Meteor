@@ -10,7 +10,7 @@ Meteor.publish("userData", function() {
 });
 
 Meteor.methods({
-  addHero: function (input) {
+  addHero: function(input) {
     console.log("we are in addHero.");
     console.log(input);
 
@@ -18,6 +18,138 @@ Meteor.methods({
     console.log('Hero successfully added.');
 
     // BADGES je nach anzahl mit for-schleif ein json-obj rein
+  },
+
+  voteOLD: function(heroid, voteFor, voteType){
+    var votePower;
+    var userIdentifier;
+
+    var sub_vote = {};
+    var sub_identifierToArray = {};
+
+    // check if user hasn't voted already
+    //      throw new Meteor.Error("logged-out",
+    //        "The user must be logged in to post a comment.");
+    //
+
+
+
+    if(Meteor.user()){
+      var voteBasePoints = Meteor.user().initialVoteBonus;
+      var voteStackingPoints = Meteor.user().currentVoteBonus;
+      votePower = voteBasePoints + voteStackingPoints;
+      userIdentifier = Meteor.user()._id;
+
+
+      sub_identifierToArray['hero.ratings.'+voteFor+'.'+voteType+'votersDailyRegistered'] = userIdentifier;
+
+    } else {
+      votePower = 1;
+      userIdentifier = this.connection.clientAddress;
+      sub_identifierToArray['hero.ratings.'+voteFor+'.'+voteType+'votersDailyUnregistered'] = userIdentifier;
+    }
+
+    //var col = db.collection('heroes');
+    var db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
+    var col = db.collection("heroes");
+    var batch = col.initializeOrderedBulkOp();
+    batch.find({_id: heroid}).upsert().updateOne({"$addToSet": sub_identifierToArray});
+    // Execute the operations
+    batch.execute(function(err, result) {
+      if (err) throw err;
+      console.log("nUpserted: ", result.nUpserted);
+      console.log("nInserted: ", result.nInserted);
+      console.log("nModified: ", result.nModified); // <- will tell if a value was added or not
+      console.log("RESULT: ", JSON.stringify(result));
+      //db.close();
+    });
+    console.log("END OF BATCH!");
+
+    /*
+    var updateResult = Heroes.update(
+      { _id: heroid},
+      {
+        $addToSet:
+          sub_identifierToArray
+      },
+      function(err, result) {
+        if (err) {
+          console.log('Error updating: ' + err);
+        } else {
+          console.log('updating successful: ' + err + ' result: ' + result);
+        }
+      }
+    );*/
+    //console.log("UPDATERESULT-nModified: " + updateResult.nModified);
+
+
+    console.log("- VOTE: heroname(" + heroid + "), voteFor(" + voteFor + "), voteType(" + voteType + ")");
+    console.log("-- by user: " + userIdentifier);
+    console.log("-- with votepower: " + votePower);
+
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountAlltime'] = votePower;
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountMonthly'] = votePower;
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountDaily'] = votePower;
+
+    Heroes.update(
+      { _id: heroid},
+      {
+        $inc:
+          sub_vote
+        /*$addToSet:
+          sub_identifierToArray*/
+      }
+    );
+
+  },
+  unvoteOLD: function(heroid, voteFor, voteType){
+    var votePower;
+    var userIdentifier;
+
+    var sub_vote = {};
+    var sub_identifierToArray = {};
+
+    // check if user hasn't voted already
+    //      throw new Meteor.Error("logged-out",
+    //        "The user must be logged in to post a comment.");
+    //
+
+
+
+    if(Meteor.user()){
+      var voteBasePoints = Meteor.user().initialVoteBonus;
+      var voteStackingPoints = Meteor.user().currentVoteBonus;
+      votePower = voteBasePoints + voteStackingPoints;
+      userIdentifier = Meteor.user()._id;
+
+
+      sub_identifierToArray['hero.ratings.'+voteFor+'.'+voteType+'votersDailyRegistered'] = userIdentifier;
+
+    } else {
+      votePower = 1;
+      userIdentifier = this.connection.clientAddress;
+      sub_identifierToArray['hero.ratings.'+voteFor+'.'+voteType+'votersDailyUnregistered'] = userIdentifier;
+    }
+    votePower = -votePower; // that votePower gets applied as decrement
+
+    console.log("- UNVOTE: heroname(" + heroid + "), voteFor(" + voteFor + "), voteType(" + voteType + ")");
+    console.log("-- by user: " + userIdentifier);
+    console.log("-- with votepower: " + votePower);
+
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountAlltime'] = votePower;
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountMonthly'] = votePower;
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountDaily'] = votePower;
+
+    Heroes.update(
+      { _id: heroid},
+      {
+        $inc:
+          sub_vote,
+        $pull:
+          sub_identifierToArray
+      }
+    );
+
   }
 });
 
@@ -68,7 +200,7 @@ Accounts.onLogin(function (user) {
   // default values
   var consecutiveLogins = 1;
   var currentVoteBonus = 0;
-  var initalVoteBonus = 5;
+  var initialVoteBonus = 5;
   var loginStreak = 0;
 
   // overwrite default values if values present in user object
@@ -82,7 +214,7 @@ Accounts.onLogin(function (user) {
     loginStreak = user.loginStreak;
   }
   if(user.initalVoteBonus){
-    initalVoteBonus = user.initalVoteBonus;
+    initialVoteBonus = user.initialVoteBonus;
   }
 
   // isNewMonth and isInLoginStreak verification
@@ -92,14 +224,14 @@ Accounts.onLogin(function (user) {
     //consecutiveLogins = 1;
     //currentVoteBonus = 0;
   } else if(isInLoginStreak){
-    currentVoteBonus = initalVoteBonus + consecutiveLogins - 1;
+    currentVoteBonus = initialVoteBonus + consecutiveLogins - 1;
   } else {
     // set loginstreakbonus points = 0
     //currentVoteBonus = 0;
     //consecutiveLogins = 0;
   }
 
-  console.log('-- STORED: initalVoteBonus:' + initalVoteBonus);
+  console.log('-- STORED: initialVoteBonus:' + initialVoteBonus);
   console.log('-- STORED: lastLoginAt:' + currentTimestamp);
   console.log('-- STORED: consecutiveLogins:' + consecutiveLogins);
   console.log('-- STORED: currentVoteBonus:' + currentVoteBonus);
@@ -112,7 +244,7 @@ Accounts.onLogin(function (user) {
         lastLoginAt: { $type: "date"}
       },*/
       $set: {
-        'initalVoteBonus': initalVoteBonus,
+        'initialVoteBonus': initialVoteBonus,
         'lastLoginAt': currentTimestamp,  // gets converted to millis internally (so UTC format)
         'consecutiveLogins': consecutiveLogins,
         'currentVoteBonus': currentVoteBonus

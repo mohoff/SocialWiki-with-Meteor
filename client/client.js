@@ -24,9 +24,9 @@ Template.body.helpers({
     //console.log(dateString);
     return formatDate(date);
   },
-  initalVoteBonus: function(){
+  initialVoteBonus: function(){
     var data = Meteor.users.findOne();
-    return data.initalVoteBonus;
+    return data.initialVoteBonus;
   },
   consecutiveLogins: function(){
     var data = Meteor.users.findOne();
@@ -37,9 +37,6 @@ Template.body.helpers({
     return data.currentVoteBonus;
   }
 
-
-
-
 });
 
 Template.userData.helpers({
@@ -47,7 +44,6 @@ Template.userData.helpers({
     console.log("lastLoginAt: " + JSON.stringify( Meteor.users.findOne()));
     return lastLoginAt;
   }*/
-
 });
 
 // WORKS but not sure if this UI._globalHelpers syntax is the way to go
@@ -62,6 +58,133 @@ Template.hero.helpers({
     var path = "/img_heroes/" + normalizedName + "/avatar.jpg";
     //console.log("PATHTOAVATAR: " + path);
     return path;
+  },
+
+  scoreCrusade: function(){
+    var upvotes = this.hero.ratings.crusade.upvoteCountAlltime;
+    var downvotes = this.hero.ratings.crusade.downvoteCountAlltime;
+    return upvotes-downvotes;
+  },
+
+  votedClass: function(upOrDown, voteFor){
+    console.log("params:" + upOrDown + ", " + voteFor);
+    var userId = Meteor.userId();
+    var voteSource, userIdentifier;
+    if(userId){
+      voteSource = 'R';
+      userIdentifier = userId;
+    } else {
+      voteSource = 'Unr';
+      userIdentifier = this.connection.clientAddress; // clientIP
+    }
+    var storedVoters = this.hero.ratings[voteFor][upOrDown + "votersDaily"+voteSource+"egistered"]
+
+    console.log("- Invoked " + upOrDown + "vote from: " + userIdentifier);
+    console.log("-- stored " + upOrDown + "voters: " + JSON.stringify(storedVoters));
+
+    var hasAlreadyVoted = _.contains(storedVoters, userIdentifier);
+    if(hasAlreadyVoted){
+      if(upOrDown == 'up'){
+        return 'upvotedGreen';
+      } else if (upOrDown == 'down'){
+        return 'downvotedRed';
+      }
+      console.log("-- userIdentifier has already voted (" + upOrDown + ")");
+    } else {
+      console.log("-- userIdentifier has NOT voted, thus voteableGray");
+      return 'voteableGray';
+    }
+  }
+});
+
+Template.hero.events({
+  'click .downvote': function(event){
+    event.preventDefault();
+    var voteFor = event.target.getAttribute('data-votefor');
+
+    var currentUser = Meteor.user(); // does that always return currentUser? Maybe Meteor.user() is better?
+    Meteor.call('vote', this, currentUser, voteFor, 'down'); // this = Hero (collection), voteFor = crusade,pve,etc..
+  },
+
+  'click .upvote': function(event){
+    event.preventDefault();
+    var voteFor = event.target.getAttribute('data-votefor');
+
+    var currentUser = Meteor.user(); // does that always return currentUser? Maybe Meteor.user() is better?
+    Meteor.call('vote', this, currentUser, voteFor, 'up'); // this = Hero (collection), voteFor = crusade,pve,etc..
+
+    /*if(voteType == "up"){ // if upvote was clicked
+      if(classes.indexOf("upvotedGreen") > -1){ // if already upvoted
+        // try to un-upvote
+        Meteor.call('unvote', heroId, voteFor, voteType);
+      } else if((classes.indexOf("voteableGray") > -1)){
+        // try to upvote
+        Meteor.call('vote', heroId, voteFor, voteType);
+      }
+    } else if(voteType == "down"){
+      if(classes.indexOf("downvotedRed") > -1){ // if already downvoted
+        // try to un-downvote
+      } else if((classes.indexOf("voteableGray") > -1)){
+        // try to downvote
+      }
+    }*/
+
+    //sub_identifierToArray['hero.ratings.'+voteFor+'.'+voteType+'votersDailyRegistered'] = userIdentifier;
+
+    /*var neModifier = { $ne: this.userId };
+    var sub_isInArray = {};
+    sub_isInArray['_id'] = heroId;
+    sub_isInArray['hero.ratings.'+voteFor+'.'+voteType+'votersDailyRegistered'] = neModifier;
+
+    var sub_addToSet = {};
+    sub_addToSet['hero.ratings.'+voteFor+'.'+voteType+'votersDailyRegistered'] = this.userId;
+
+    var currentUser = Meteor.users.findOne();
+    var votePower = currentUser.currentVoteBonus + currentUser.initialVoteBonus;
+    var sub_vote = {};
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountAlltime'] = votePower;
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountMonthly'] = votePower;
+    sub_vote['hero.ratings.'+voteFor+'.'+voteType+'voteCountDaily'] = votePower;
+
+    console.log("soweitsogut");
+
+    var affected = Heroes.update(
+      sub_isInArray
+    , {
+      $addToSet: sub_addToSet,
+      $inc: sub_vote
+    });
+
+    console.log("soweitsogut2");
+
+    console.log("AFFECTED: " + affected);
+    if (!affected){
+      throw new Meteor.Error('invalid', "You weren't able to upvote that post");
+    }
+
+*/
+    // falls es nicht in sessions schon als "gevoted" markiert ist, mache call:
+    // checkIfAlreadyVoted soll auch serverseitig passieren!
+
+    // falls doch:
+    // display popup(already voted)
+
+    // mit error function dazu damit user feedback gegeben werden kann ob vote erfolgreich war
+    /*Meteor.call('submitData', titleVal, contentVal, function(err){
+            if(err){
+                //show alert message "error"
+                return false;
+            }
+            else{
+                //show alert message "success"
+            }
+        });*/
+
+    // falls vote-call erfolgreich war, speichere das in sessions
+
+
+    // event.target references clicked element. can call data/id/class on it
+    //console.log("EVENT - heroname(" + heroId + "), voteFor(" + voteFor + "), voteType(" + voteType + ")");
   }
 });
 
@@ -116,17 +239,42 @@ Template.body.events({
           }
         ],
         "ratings": {
+          "forDay": new Date(),
           "pve": {
-            "upvotes": 0,
-            "downvotes": 0
+            "upvoteCountAlltime": 0,
+            "upvoteCountMonthly": 0,
+            "upvoteCountDaily": 0,
+            "upvotersDailyUnregistered": [],
+            "upvotersDailyRegistered": [],
+            "downvoteCountAlltime": 0,
+            "downvoteCountMonthly": 0,
+            "downvoteCountDaily": 0,
+            "downvotersDailyUnregistered": [],
+            "downvotersDailyRegistered": []
           },
           "arena": {
-            "upvotes": 0,
-            "downvotes": 0
+            "upvoteCountAlltime": 0,
+            "upvoteCountMonthly": 0,
+            "upvoteCountDaily": 0,
+            "upvotersDailyUnregistered": [],
+            "upvotersDailyRegistered": [],
+            "downvoteCountAlltime": 0,
+            "downvoteCountMonthly": 0,
+            "downvoteCountDaily": 0,
+            "downvotersDailyUnregistered": [],
+            "downvotersDailyRegistered": []
           },
           "crusade": {
-            "upvotes": 0,
-            "downvotes": 0
+            "upvoteCountAlltime": 0,
+            "upvoteCountMonthly": 0,
+            "upvoteCountDaily": 0,
+            "upvotersDailyUnregistered": [],
+            "upvotersDailyRegistered": [],
+            "downvoteCountAlltime": 0,
+            "downvoteCountMonthly": 0,
+            "downvoteCountDaily": 0,
+            "downvotersDailyUnregistered": [],
+            "downvotersDailyRegistered": []
           }
         },
         "synergy": [
