@@ -2,8 +2,16 @@ Meteor.subscribe("heroes");
 Meteor.subscribe("userData", function() {
   console.log("- SUBSCRIBED to userData");
 });
-
+var clientIp;
 //console.log("userData:" + userData);
+
+Meteor.startup(function(){
+  Meteor.call('getIP', function(error, result){
+    console.log("clientIP: " + result);
+    clientIp = result;
+  })
+})
+
 
 // can be user from all templates. Use with UI._globalHelpers...
 Template.registerHelper("normalizeString", function(input){
@@ -67,20 +75,20 @@ Template.hero.helpers({
   },
 
   votedClass: function(upOrDown, voteFor){
-    console.log("params:" + upOrDown + ", " + voteFor);
     var userId = Meteor.userId();
     var voteSource, userIdentifier;
+
     if(userId){
       voteSource = 'R';
       userIdentifier = userId;
     } else {
       voteSource = 'Unr';
-      userIdentifier = this.connection.clientAddress; // clientIP
+      userIdentifier = clientIp;
     }
     var storedVoters = this.hero.ratings[voteFor][upOrDown + "votersDaily"+voteSource+"egistered"]
 
-    console.log("- Invoked " + upOrDown + "vote from: " + userIdentifier);
-    console.log("-- stored " + upOrDown + "voters: " + JSON.stringify(storedVoters));
+    console.log("-UI- Invoked " + upOrDown + "vote from: " + userIdentifier);
+    console.log("-UI- stored " + upOrDown + "voters: " + JSON.stringify(storedVoters));
 
     var hasAlreadyVoted = _.contains(storedVoters, userIdentifier);
     if(hasAlreadyVoted){
@@ -89,9 +97,9 @@ Template.hero.helpers({
       } else if (upOrDown == 'down'){
         return 'downvotedRed';
       }
-      console.log("-- userIdentifier has already voted (" + upOrDown + ")");
+      console.log("-UI- userIdentifier has already voted (" + upOrDown + ")");
     } else {
-      console.log("-- userIdentifier has NOT voted, thus voteableGray");
+      console.log("-UI- userIdentifier has NOT voted, thus voteableGray");
       return 'voteableGray';
     }
   }
@@ -111,7 +119,16 @@ Template.hero.events({
     var voteFor = event.target.getAttribute('data-votefor');
 
     var currentUser = Meteor.user(); // does that always return currentUser? Maybe Meteor.user() is better?
-    Meteor.call('vote', this, currentUser, voteFor, 'up'); // this = Hero (collection), voteFor = crusade,pve,etc..
+    Meteor.call('vote', this, currentUser, voteFor, 'up', function(err, data) {
+      if(err){
+
+      }
+      console.log("DATA: " + data);
+
+    });
+
+
+    // this = Hero (collection), voteFor = crusade,pve,etc..
 
     /*if(voteType == "up"){ // if upvote was clicked
       if(classes.indexOf("upvotedGreen") > -1){ // if already upvoted

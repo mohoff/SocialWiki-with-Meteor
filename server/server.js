@@ -1,5 +1,9 @@
 Meteor.startup(function () {
   // code to run on server at startup
+  Meteor.onConnection(function(connection) {
+    console.log("clientIP: " + connection.clientAddress);
+    //Session.set("client_ip", connection.clientAddress);
+  });
 });
 
 Meteor.publish("heroes", function() {
@@ -10,6 +14,10 @@ Meteor.publish("userData", function() {
 });
 
 Meteor.methods({
+  getIP: function(){
+    return this.connection.clientAddress;
+  },
+
   addHero: function(input) {
     console.log("we are in addHero.");
     console.log(input);
