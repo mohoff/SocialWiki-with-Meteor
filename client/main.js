@@ -21,29 +21,44 @@ Accounts.ui.config({
   passwordSignupFields: 'USERNAME_AND_EMAIL'
 });
 
+Meteor.startup(function() {
+
+  if(Meteor.isClient){
+    Meteor.call('getIP', function(error, result){
+      console.log("clientIp: " + result);
+      //clientIp = result;
+      Session.set('clientIp', result);
+    });
+
+    /*Meteor.autorun(function(){
+      if(this.route && this.route.name){
+        console.log("ROUTENAME: " + this.route.name);
+      }
+    });*/
+
+  }
+});
+
+
+
 Template.main.helpers({
   /*heroes: function() {
     return Heroes.find();
       //{}, {sort: {createdAt: -1}});
   },*/
   lastLoginAt: function(){
-    console.log("hi last login");
-    var data = Meteor.users.findOne();
-    var date = data.lastLoginAt;
-    //console.log(dateString);
-    return formatDate(date);
+    var lastLoginAt = Meteor.user().lastLoginAt;
+    console.log("lastLoginAt: " + lastLoginAt);
+    return formatDate(lastLoginAt);
   },
   initialVoteBonus: function(){
-    var data = Meteor.users.findOne();
-    return data.initialVoteBonus;
+    return Meteor.user().initialVoteBonus;
   },
   consecutiveLogins: function(){
-    var data = Meteor.users.findOne();
-    return data.consecutiveLogins;
+    return Meteor.user().consecutiveLogins;
   },
   currentVoteBonus: function(){
-    var data = Meteor.users.findOne();
-    return data.currentVoteBonus;
+    return Meteor.user().currentVoteBonus;
   }
 
 });

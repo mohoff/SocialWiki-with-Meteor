@@ -15,3 +15,22 @@
 - UTC vs. GMT+01 checken. aktuell wird glaube ich falsch gespeichert,
   da custom-methode convertDateToUTC() in lib > common.js
   // server > server.js
+
+
+  /////////
+
+
+- Router.configure.waitOn umsetzen. sodass userData nur 1x abgeholt wird,
+  in Session geschrieben und von dort wieder abgeholt. sprich waitOn nicht
+  fuer alle routen, sondern nur '/'-route. falls direkt auf andere route von
+  user navigiert wird, wir von Session gelesen. falls nicht vorhanden, wird
+  neu abgefragt und in session gespeichert.
+
+- zwei lastLoginAts speichern aus den 2 vorangegangenen sessions, sodass user
+  selbst bei f5 der aktuellen session, immer noch den vorangegangenen lastLoginAt
+  sieht. Erst wenn onLogin wieder invoked wird, soll dieser wert geloescht werden,
+  mit dem timestamp der session vor f5 ueberschrieben und der wert nach f5 in den
+  neueren der beiden lsatLoginAts schreiben
+    * lastLoginOld
+    * lastLoginNew
+  bei onLogin, schreibe New in Old und setze New auf currentTimestamp

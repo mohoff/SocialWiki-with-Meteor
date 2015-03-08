@@ -37,7 +37,7 @@ Meteor.methods({
 
     if(Meteor.user()){
       var voteBasePoints = Meteor.user().initialVoteBonus;
-      var voteStackingPoints = Meteor.user().currentVoteBonus;
+      var voteStackingPoints = Meteor.user().currentVotePower;
       votePower = voteBasePoints + voteStackingPoints;
       userIdentifier = Meteor.user()._id;
 
@@ -119,7 +119,7 @@ Meteor.methods({
 
     if(Meteor.user()){
       var voteBasePoints = Meteor.user().initialVoteBonus;
-      var voteStackingPoints = Meteor.user().currentVoteBonus;
+      var voteStackingPoints = Meteor.user().currentVotePower;
       votePower = voteBasePoints + voteStackingPoints;
       userIdentifier = Meteor.user()._id;
 
@@ -167,17 +167,17 @@ Accounts.onLogin(function (user) {
   console.log("-- BEFORE LOGIN: lastLoginAt: " + lastLoginAt);
 
   // is it OK to create new dates 3 times? they might be slightly different due to runtime delay
-  var currentTimestamp = new Date();
+  var currentTimestamp = {};
+  currentTimestamp = new Date();
   console.log("-- currentTimestamp: " + currentTimestamp);
-  var yesterdayStart = new Date();
-  var yesterdayEnd = new Date();
-  yesterdayStart = currentTimestamp;
+  var yesterdayStart = new Date(currentTimestamp);
+  var yesterdayEnd = new Date(currentTimestamp);
   yesterdayStart.setDate(currentTimestamp.getDate() - 1);
   yesterdayStart.setHours(0,0,0,0);
-  yesterdayEnd = currentTimestamp;
   yesterdayEnd.setDate(currentTimestamp.getDate() - 1);
   yesterdayEnd.setHours(23,59,59,999);
   console.log("YesterdayStart: " + yesterdayStart + ", YesterdayEnd: " + yesterdayEnd);
+  console.log("-- currentTimestamp: " + currentTimestamp);
 
   var isInLoginStreak = false;
   var isNewMonth = false;
@@ -189,7 +189,7 @@ Accounts.onLogin(function (user) {
     isInLoginStreak = false;
     isNewMonth = false;
 
-    if(currentTimestamp >= yesterdayStart && currentTimestamp <= yesterdayEnd){
+    if(lastLoginAt >= yesterdayStart && lastLoginAt <= yesterdayEnd){
       isInLoginStreak = true;
       console.log("-- isInLoginStreak");
     }
@@ -203,17 +203,14 @@ Accounts.onLogin(function (user) {
 
   // default values
   var consecutiveLogins = 1;
-  var currentVoteBonus = 0;
   var initialVoteBonus = 5;
+  var currentVotePower = initialVoteBonus;
   var loginStreak = 0;
 
   // overwrite default values if values present in user object
   if(user.consecutiveLogins){
     consecutiveLogins = user.consecutiveLogins;
   }
-  /*if(user.currentVoteBonus){
-    currentVoteBonus = user.currentVoteBonus;
-  }*/
   if(user.loginStreak){
     loginStreak = user.loginStreak;
   }
@@ -226,19 +223,20 @@ Accounts.onLogin(function (user) {
     // reset loginstreak
     // reset loginstreakbonus points
     //consecutiveLogins = 1;
-    //currentVoteBonus = 0;
+    //currentVotePower = 0;
   } else if(isInLoginStreak){
-    currentVoteBonus = initialVoteBonus + consecutiveLogins - 1;
+    consecutiveLogins = consecutiveLogins + 1;
+    currentVotePower = initialVoteBonus + consecutiveLogins - 1;
   } else {
     // set loginstreakbonus points = 0
-    //currentVoteBonus = 0;
+    //currentVotePower = 0;
     //consecutiveLogins = 0;
   }
 
   console.log('-- STORED: initialVoteBonus:' + initialVoteBonus);
   console.log('-- STORED: lastLoginAt:' + currentTimestamp);
   console.log('-- STORED: consecutiveLogins:' + consecutiveLogins);
-  console.log('-- STORED: currentVoteBonus:' + currentVoteBonus);
+  console.log('-- STORED: currentVotePower:' + currentVotePower);
 
   // update user record with computed values
   Meteor.users.update(
@@ -251,7 +249,7 @@ Accounts.onLogin(function (user) {
         'initialVoteBonus': initialVoteBonus,
         'lastLoginAt': currentTimestamp,  // gets converted to millis internally (so UTC format)
         'consecutiveLogins': consecutiveLogins,
-        'currentVoteBonus': currentVoteBonus
+        'currentVotePower': currentVotePower
       }
     }
   );
