@@ -1,0 +1,19 @@
+<template name="nav">
+  <nav>
+    <a href="{{pathFor 'welcome'}}" alt="welcome">welcome / homepage</a><br />
+    <br />
+    view a hero: {{pathFor 'hero_view_detail'}}<br />
+    <br />
+    <a href="{{pathFor 'heroes_ranking' category='arena'}}" alt="ranking_arena">heroes for arena</a><br />
+    <a href="{{pathFor 'heroes_ranking' category='crusade'}}" alt="ranking_crusade">heroes for crusade</a><br />
+    <a href="{{pathFor 'heroes_ranking' category='pvefarming'}}" alt="ranking_pvefarming">heroes for pvefarming</a><br />
+    <br />
+    lineups: {{pathFor 'lineups'}}<br />
+    <br />
+    guides overview: {{pathFor 'guides'}}<br />
+    guides for the outland portal: {{pathFor 'guides_outlandportal'}}<br />
+    guides for crusade: {{pathFor 'guides_crusade'}}<br />
+    guides for pvefarming: {{pathFor 'guides_farming'}}<br />
+  </nav>
+  <br />
+</template>

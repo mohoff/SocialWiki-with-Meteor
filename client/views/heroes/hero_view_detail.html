@@ -1,0 +1,39 @@
+<template name="hero_view_detail">
+  <div class="herowrapper">
+    <!-- TEST ENTRY <br /> -->
+    <a href="#" data-id={{_id}} data-votefor="crusade" data-votetype="up" class="upvote btn {{votedClass 'up' 'crusade'}}">UPVOTE</a><br />
+    {{scoreCrusade}}<br />
+    <a href="#" data-id={{_id}} data-votefor="crusade" data-votetype="down" class="downvote btn {{votedClass 'down' 'crusade'}}">DOWNVOTE</a><br />
+    ----
+    <img src={{path_to_avatar}} alt="pic" />
+    CreatedAt: {{createdAt}}<br />
+    CreatedFrom: {{createdFrom}}<br />
+    UpdatedAt: {{updatedAt}}<br />
+    UpdatedFrom: {{updatedFrom}}<br />
+    Name: {{hero.name}}<br />
+    Vorname: {{hero.surname}}<br />
+    Growthstats / AGI: {{hero.growthstats.agi}}<br />
+    Growthstats / INT: {{hero.growthstats.int}}<br />
+    Growthstats / STR: {{hero.growthstats.str}}<br />
+    Type: {{hero.type}}<br />
+    Badges: {{#each hero.badges}}
+              {{this}},
+            {{/each}}<br />
+    Lineup-Order: {{hero.lineuporder}}<br />
+    Skills: {{#each hero.skills}}
+              Skill / Name: {{this.name}}<br />
+              Skill / Description: {{this.desc}}<br />
+              Skill / Initial Damage: {{this.lvl1.damage}}<br />
+              Skill / Damage per Lvl: {{this.perlvl.damage}}<br />
+              ///////<br />
+            {{/each}}
+    Ratings // PvE: {{hero.ratings.pve.upvotes}}:{{hero.ratings.pve.downvotes}}<br />
+    Ratings // Arena: {{hero.ratings.arena.upvotes}}:{{hero.ratings.arena.downvotes}}<br />
+    Ratings // Crusade: {{hero.ratings.crusade.upvotes}}:{{hero.ratings.crusade.downvotes}}<br />
+    Synergy: {{#each hero.synergy}}
+               {{this.name}}, Ups: {{this.upvotes}}, Downs: {{this.downvotes}}
+             {{/each}}<br />
+  </div>
+  <br />
+  <br />
+</template>

@@ -1,17 +1,10 @@
-Meteor.startup(function () {
+/*Meteor.startup(function () {
   // code to run on server at startup
   Meteor.onConnection(function(connection) {
     console.log("clientIP: " + connection.clientAddress);
     //Session.set("client_ip", connection.clientAddress);
   });
-});
-
-Meteor.publish("heroes", function() {
-  return Heroes.find();
-});
-Meteor.publish("userData", function() {
-  return userData(this.userId);
-});
+});*/
 
 Meteor.methods({
   getIP: function(){
@@ -178,10 +171,13 @@ Accounts.onLogin(function (user) {
   console.log("-- currentTimestamp: " + currentTimestamp);
   var yesterdayStart = new Date();
   var yesterdayEnd = new Date();
+  yesterdayStart = currentTimestamp;
   yesterdayStart.setDate(currentTimestamp.getDate() - 1);
   yesterdayStart.setHours(0,0,0,0);
+  yesterdayEnd = currentTimestamp;
   yesterdayEnd.setDate(currentTimestamp.getDate() - 1);
   yesterdayEnd.setHours(23,59,59,999);
+  console.log("YesterdayStart: " + yesterdayStart + ", YesterdayEnd: " + yesterdayEnd);
 
   var isInLoginStreak = false;
   var isNewMonth = false;
