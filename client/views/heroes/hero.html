@@ -3,9 +3,11 @@
 
   <div class="herowrapper">
     <!-- TEST ENTRY <br /> -->
-    <a href="#" data-id={{_id}} class="upvote {{votedClass 'up'}}">UPVOTE</a><br />
-    {{score}}<br />
-    <a href="#" data-id={{_id}} class="downvote {{votedClass 'down'}}">DOWNVOTE</a><br />
+    <div class="votecontrols">
+      <a href="#" data-id={{_id}} class="upvote {{votedClass 'up'}}">UPVOTE</a><br />
+      {{score}}<br />
+      <a href="#" data-id={{_id}} class="downvote {{votedClass 'down'}}">DOWNVOTE</a><br />
+    </div>
     ----
     <img src={{path_to_avatar}} alt="pic" />
     CreatedAt: {{createdAt}}<br />

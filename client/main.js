@@ -38,8 +38,8 @@ Meteor.startup(function() {
 
 // Template.registerHelper creates helpers which can be used by any template
 Template.registerHelper("lastLoginAt",function(value){
-  if(Meteor.user() && Meteor.user().lastLoginAt){
-    var lastLoginAt = Meteor.user().lastLoginAt;
+  if(Meteor.user() && Meteor.user().userdata.login.lastLoginAt){
+    var lastLoginAt = Meteor.user().userdata.login.lastLoginAt;
     console.log("lastLoginAt: " + lastLoginAt);
     return formatDate(lastLoginAt);
   } else {
@@ -48,30 +48,30 @@ Template.registerHelper("lastLoginAt",function(value){
 });
 
 Template.registerHelper("currentVotePower",function(value){
-  if(Meteor.user() && Meteor.user().currentVotePower){
-    return Meteor.user().currentVotePower;
+  if(Meteor.user() && Meteor.user().userdata.voting.currentVotePower){
+    return Meteor.user().userdata.voting.currentVotePower;
   } else {
     return 1; // for unregistered users, votePower = 1
   }
 });
 
 Template.registerHelper("initialVoteBonus",function(value){
-  if(Meteor.user() && Meteor.user().initialVoteBonus){
-    return Meteor.user().initialVoteBonus;
+  if(Meteor.user() && Meteor.user().userdata.voting.initialVoteBonus){
+    return Meteor.user().userdata.voting.initialVoteBonus;
   } else {
     return 1; // for unregistered users, votePower = 1
   }
 });
 
 Template.registerHelper("loginStreakLength",function(value){
-  if(Meteor.user() && Meteor.user().consecutiveLogins){
-    return Meteor.user().consecutiveLogins - 1; // -1 so 'today'-login is ignored
+  if(Meteor.user() && Meteor.user().userdata.login.consecutiveLogins){
+    return Meteor.user().userdata.login.consecutiveLogins - 1; // -1 so 'today'-login is ignored
   } else {
     return null;
   }
 });
 
-Template.body.events({
+Template.addhero.events({
   "submit #addheroform": function (event) {
 
     var str = parseFloat(event.target.growthstatsstr.value);
@@ -123,7 +123,7 @@ Template.body.events({
         ],
         "ratings": {
           "forDay": new Date(),
-          "pve": {
+          "pvefarming": {
             "upvoteCountAlltime": 0,
             "upvoteCountMonthly": 0,
             "upvoteCountDaily": 0,

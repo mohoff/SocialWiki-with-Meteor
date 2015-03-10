@@ -1,7 +1,8 @@
 - TERMINAL:
     * 'killmeteor' killt meteor-ghostinstaces, alias ist entsprechend angelegt
 
-
+- formatDate hours+minutes fix: alles <10 wird als single-digit angeyeigt,
+  obwohl double-digit besser ist
 
 - manche funktionalitaet (z.b. festlegen des initalVoteBonus)
   in onCreateAccount (o.ae.) implementieren. bisher alles in

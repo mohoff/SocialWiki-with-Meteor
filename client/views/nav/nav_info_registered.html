@@ -1,16 +1,15 @@
 <template name="navInfoRegistered">
   <li><p class="navbar-text last-seen-typo">last seen: {{lastLoginAt}}</p></li>
-
   <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
       <span class="label label-success label-as-badge">+{{currentVotePower}}</span>
     </a>
     <ul class="dropdown-menu inverse-dropdown">
       <!--<li>last seen: {{lastLoginAt}}</li>-->
-      <li>
-        Your Votepower:<br />
-        {{initialVoteBonus}} + {{loginStreakLength}} = {{currentVotePower}}
-      </li>
+      <li class="disabled default-cursor"><a href="#" alt="basevotepoints">Vote Points: {{initialVoteBonus}}</a></li>
+      <li class="disabled default-cursor"><a href="#" alt="loginstreake">Login Streak: {{loginStreakLength}}</a></li>
+      <li class="nav-divider"></li>
+      <li class="disabled default-cursor"><a href="#" alt="votepower">Your Vote Power: <span class="badge">{{currentVotePower}}</span></a></li>
     </ul>
   </li>
 </template>

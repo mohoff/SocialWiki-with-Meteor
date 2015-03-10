@@ -163,7 +163,12 @@ Accounts.onLogin(function (user) {
   );*/
 
   console.log("-- userId: " + userId);
-  var lastLoginAt = user.user.lastLoginAt;
+  var lastLoginAt;
+  if(user.user.userdata && user.user.userdata.login && user.user.userdata.login.newLoginAt){
+    lastLoginAt = user.user.userdata.login.newLoginAt; // newLoginAt becomes lastLoginAt by relogin
+  } else {
+    lastLoginAt = null;
+  }
   console.log("-- BEFORE LOGIN: lastLoginAt: " + lastLoginAt);
 
   // is it OK to create new dates 3 times? they might be slightly different due to runtime delay
@@ -200,23 +205,17 @@ Accounts.onLogin(function (user) {
   }
 
 
-
   // default values
   var consecutiveLogins = 1;
   var initialVoteBonus = 5;
-  var currentVotePower = initialVoteBonus;
-  var loginStreak = 0;
-
   // overwrite default values if values present in user object
-  if(user.consecutiveLogins){
-    consecutiveLogins = user.consecutiveLogins;
+  if(user.userdata && user.userdata.login && user.userdata.login.consecutiveLogins){
+    consecutiveLogins = user.userdata.login.consecutiveLogins;
   }
-  if(user.loginStreak){
-    loginStreak = user.loginStreak;
-  }
-  if(user.initalVoteBonus){
+  if(user.userdata && user.userdata.voting && user.userdata.voting.initalVoteBonus){
     initialVoteBonus = user.initialVoteBonus;
   }
+  var currentVotePower = initialVoteBonus;
 
   // isNewMonth and isInLoginStreak verification
   if(isNewMonth){
@@ -234,7 +233,8 @@ Accounts.onLogin(function (user) {
   }
 
   console.log('-- STORED: initialVoteBonus:' + initialVoteBonus);
-  console.log('-- STORED: lastLoginAt:' + currentTimestamp);
+  console.log('-- STORED: lastLoginAt:' + lastLoginAt);
+  console.log('-- STORED: newLoginAt:' + currentTimestamp);
   console.log('-- STORED: consecutiveLogins:' + consecutiveLogins);
   console.log('-- STORED: currentVotePower:' + currentVotePower);
 
@@ -246,10 +246,11 @@ Accounts.onLogin(function (user) {
         lastLoginAt: { $type: "date"}
       },*/
       $set: {
-        'initialVoteBonus': initialVoteBonus,
-        'lastLoginAt': currentTimestamp,  // gets converted to millis internally (so UTC format)
-        'consecutiveLogins': consecutiveLogins,
-        'currentVotePower': currentVotePower
+        'userdata.login.lastLoginAt': lastLoginAt,  // gets converted to millis internally (so UTC format)
+        'userdata.login.newLoginAt': currentTimestamp,  // gets converted to millis internally (so UTC format)
+        'userdata.login.consecutiveLogins': consecutiveLogins,
+        'userdata.voting.initialVoteBonus': initialVoteBonus,
+        'userdata.voting.currentVotePower': currentVotePower
       }
     }
   );
