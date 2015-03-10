@@ -22,45 +22,53 @@ Accounts.ui.config({
 });
 
 Meteor.startup(function() {
-
   if(Meteor.isClient){
     Meteor.call('getIP', function(error, result){
       console.log("clientIp: " + result);
       //clientIp = result;
       Session.set('clientIp', result);
     });
-
     /*Meteor.autorun(function(){
       if(this.route && this.route.name){
         console.log("ROUTENAME: " + this.route.name);
       }
     });*/
-
   }
 });
 
-
-
-Template.nav.helpers({
-  /*heroes: function() {
-    return Heroes.find();
-      //{}, {sort: {createdAt: -1}});
-  },*/
-  lastLoginAt: function(){
+// Template.registerHelper creates helpers which can be used by any template
+Template.registerHelper("lastLoginAt",function(value){
+  if(Meteor.user() && Meteor.user().lastLoginAt){
     var lastLoginAt = Meteor.user().lastLoginAt;
     console.log("lastLoginAt: " + lastLoginAt);
     return formatDate(lastLoginAt);
-  },
-  initialVoteBonus: function(){
-    return Meteor.user().initialVoteBonus;
-  },
-  loginStreakLength: function(){
-    return Meteor.user().consecutiveLogins - 1; // -1 so 'today'-login is ignored
-  },
-  currentVotePower: function(){
-    return Meteor.user().currentVotePower;
+  } else {
+    return null;
   }
+});
 
+Template.registerHelper("currentVotePower",function(value){
+  if(Meteor.user() && Meteor.user().currentVotePower){
+    return Meteor.user().currentVotePower;
+  } else {
+    return 1; // for unregistered users, votePower = 1
+  }
+});
+
+Template.registerHelper("initialVoteBonus",function(value){
+  if(Meteor.user() && Meteor.user().initialVoteBonus){
+    return Meteor.user().initialVoteBonus;
+  } else {
+    return 1; // for unregistered users, votePower = 1
+  }
+});
+
+Template.registerHelper("loginStreakLength",function(value){
+  if(Meteor.user() && Meteor.user().consecutiveLogins){
+    return Meteor.user().consecutiveLogins - 1; // -1 so 'today'-login is ignored
+  } else {
+    return null;
+  }
 });
 
 Template.body.events({
