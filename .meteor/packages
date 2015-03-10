@@ -5,9 +5,9 @@
 # but you can also edit it by hand.
 
 meteor-platform
-accounts-ui
 accounts-password
 underscore
 iron:router
 less
 nemo64:bootstrap
+ian:accounts-ui-bootstrap-3
