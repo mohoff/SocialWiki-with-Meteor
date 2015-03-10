@@ -41,7 +41,7 @@ Meteor.startup(function() {
 
 
 
-Template.main.helpers({
+Template.nav.helpers({
   /*heroes: function() {
     return Heroes.find();
       //{}, {sort: {createdAt: -1}});
@@ -54,11 +54,11 @@ Template.main.helpers({
   initialVoteBonus: function(){
     return Meteor.user().initialVoteBonus;
   },
-  consecutiveLogins: function(){
-    return Meteor.user().consecutiveLogins;
+  loginStreakLength: function(){
+    return Meteor.user().consecutiveLogins - 1; // -1 so 'today'-login is ignored
   },
-  currentVoteBonus: function(){
-    return Meteor.user().currentVoteBonus;
+  currentVotePower: function(){
+    return Meteor.user().currentVotePower;
   }
 
 });

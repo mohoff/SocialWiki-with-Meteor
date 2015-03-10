@@ -1,4 +1,5 @@
-
+- TERMINAL:
+    * 'killmeteor' killt meteor-ghostinstaces, alias ist entsprechend angelegt
 
 
 
@@ -19,6 +20,7 @@
 
   /////////
 
+- resets einbauen: (oder ists schon gemacht?), also fuer daily,monthly votes etcddd
 
 - Router.configure.waitOn umsetzen. sodass userData nur 1x abgeholt wird,
   in Session geschrieben und von dort wieder abgeholt. sprich waitOn nicht

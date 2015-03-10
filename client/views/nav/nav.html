@@ -1,4 +1,62 @@
 <template name="nav">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{pathFor 'welcome'}}">HoC-Kings</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <!--<li class="active"><a href="#">Home</a></li>-->
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Heroes
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu inverse-dropdown">
+              <li><a href="{{pathFor 'heroes_ranking' category='arena'}}" alt="heroes_arena">Arena</a></li>
+              <li><a href="{{pathFor 'heroes_ranking' category='crusade'}}" alt="heroes_crusade">Crusade</a></li>
+              <li><a href="{{pathFor 'heroes_ranking' category='pvefarming'}}" alt="heroes_pvefarming">PvE & Farming</a></li>
+            </ul>
+          </li>
+          <li><a href="{{pathFor 'lineups'}}" alt="lineups">Lineups</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Guides
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu inverse-dropdown">
+              <li><a href="{{pathFor 'guides_outlandportal'}}" alt="guides_outlandportal">Outland Portal</a></li>
+              <li><a href="{{pathFor 'guides_crusade'}}" alt="guides_crusade">Crusade</a></li>
+              <li><a href="{{pathFor 'guides_farming'}}" alt="guides_farming">Farming</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {{#if currentUser}}
+            <li><p class="navbar-text last-seen-typo">last seen: {{lastLoginAt}}</p></li>
+
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="label label-success label-as-badge">+{{currentVotePower}}</span>
+              </a>
+              <ul class="dropdown-menu inverse-dropdown">
+                <li>last seen: {{lastLoginAt}}</li>
+                <li>{{initialVoteBonus}} + {{loginStreakLength}} = {{currentVotePower}}</li>
+              </ul>
+            </li>
+            <!--<li><a href="#"><span class="badge badge-success">+{{currentVoteBonus}}</span></a></li>-->
+          {{/if}}
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> {{> loginButtons}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</template>
+
+
+<!--
+<template name="nav">
   <nav>
     <a href="{{pathFor 'welcome'}}" alt="welcome">welcome / homepage</a><br />
     <br />
@@ -17,3 +75,4 @@
   </nav>
   <br />
 </template>
+-->

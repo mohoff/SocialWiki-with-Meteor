@@ -1,19 +1,9 @@
 <template name="main">
 
-    {{> loginButtons}}
-    <br />
-    {{#if currentUser}}
-      <b>userData:</b><br />
-      lastLoginAt: {{lastLoginAt}}<br />
-      initialVoteBonus: {{initialVoteBonus}}<br />
-      consecutiveLogins: {{consecutiveLogins}}<br />
-      currentVoteBonus: {{currentVoteBonus}}<br />
-    {{/if}}
-    <br />
-    {{> yield region='nav'}}
+  {{> yield region='nav'}}
 
-    {{> yield}}
+  {{> yield}}
 
-    {{> yield region='footer'}}
+  {{> yield region='footer'}}
 
 </template>
