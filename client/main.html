@@ -1,11 +1,15 @@
 <template name="main">
+  <div id="wrap">
 
-  {{> yield region='nav'}}
+    {{> yield region='nav'}}
 
-  <div class="container">
-    {{> yield}}
+    <div class="container">
+      {{> yield}}
+    </div>
+    <!-- push-container to realize sticky footer -->
+    <div id="push"></div>
   </div>
 
-  {{> yield region='footer'}}
+    {{> yield region='footer'}}
 
 </template>

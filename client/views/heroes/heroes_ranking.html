@@ -1,8 +1,13 @@
 <template name="heroesRanking">
-  {{rankingCategory}} Ranking<br />
+  <h1>{{rankingCategory}} Ranking</h1>
+  search for: .... <br />
+  sort by: top, trend, controvers, ...<br />
+  <br />
   <br />
   {{#each this}}
-    {{> hero}}
+    <div class=".col-xs-12 .col-md-8">
+      {{> hero}}
+    </div>
   {{/each}}
-
+  <br />
 </template>
