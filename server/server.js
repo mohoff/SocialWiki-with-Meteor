@@ -171,6 +171,18 @@ Accounts.onLogin(function (user) {
   }
   console.log("-- BEFORE LOGIN: lastLoginAt: " + lastLoginAt);
 
+  // default values
+  var consecutiveLogins = 1;
+  var initialVoteBonus = 5;
+  // overwrite default values if values present in user object
+  if(user.userdata && user.userdata.login && user.userdata.login.consecutiveLogins){
+    consecutiveLogins = user.userdata.login.consecutiveLogins;
+  }
+  if(user.userdata && user.userdata.voting && user.userdata.voting.initalVoteBonus){
+    initialVoteBonus = user.initialVoteBonus;
+  }
+  var currentVotePower = initialVoteBonus;
+
   // is it OK to create new dates 3 times? they might be slightly different due to runtime delay
   var currentTimestamp = {};
   currentTimestamp = new Date();
@@ -184,52 +196,23 @@ Accounts.onLogin(function (user) {
   console.log("YesterdayStart: " + yesterdayStart + ", YesterdayEnd: " + yesterdayEnd);
   console.log("-- currentTimestamp: " + currentTimestamp);
 
-  var isInLoginStreak = false;
-  var isNewMonth = false;
 
-  if(!lastLoginAt){
-    isInLoginStreak = false;
-    isNewMonth = false;
-  } else {
-    isInLoginStreak = false;
-    isNewMonth = false;
-
-    if(lastLoginAt >= yesterdayStart && lastLoginAt <= yesterdayEnd){
-      isInLoginStreak = true;
-      console.log("-- isInLoginStreak");
+  if(lastLoginAt){
+    if(currentTimestamp.getDate() == lastLoginAt.getDate()){
+      // IS SAME DAY, don't check month and don't check login streak
+    } else {
+      if(currentTimestamp.getMonth() != lastLoginAt.getMonth()){
+        // IS NEW MONTH, reset all vote boni and login streaks anyway
+        console.log("-- isNewMonth");
+      } else {
+        if(lastLoginAt >= yesterdayStart && lastLoginAt <= yesterdayEnd){
+          // IS NEW DAY AND USER EXTENDS LOGIN STREAK
+          console.log("-- isInLoginStreak");
+          consecutiveLogins = consecutiveLogins + 1;
+          currentVotePower = initialVoteBonus + consecutiveLogins - 1;
+        }
+      }
     }
-    if(currentTimestamp.getMonth() != lastLoginAt.getMonth()){
-      isNewMonth = true;
-      console.log("-- isNewMonth");
-    }
-  }
-
-
-  // default values
-  var consecutiveLogins = 1;
-  var initialVoteBonus = 5;
-  // overwrite default values if values present in user object
-  if(user.userdata && user.userdata.login && user.userdata.login.consecutiveLogins){
-    consecutiveLogins = user.userdata.login.consecutiveLogins;
-  }
-  if(user.userdata && user.userdata.voting && user.userdata.voting.initalVoteBonus){
-    initialVoteBonus = user.initialVoteBonus;
-  }
-  var currentVotePower = initialVoteBonus;
-
-  // isNewMonth and isInLoginStreak verification
-  if(isNewMonth){
-    // reset loginstreak
-    // reset loginstreakbonus points
-    //consecutiveLogins = 1;
-    //currentVotePower = 0;
-  } else if(isInLoginStreak){
-    consecutiveLogins = consecutiveLogins + 1;
-    currentVotePower = initialVoteBonus + consecutiveLogins - 1;
-  } else {
-    // set loginstreakbonus points = 0
-    //currentVotePower = 0;
-    //consecutiveLogins = 0;
   }
 
   console.log('-- STORED: initialVoteBonus:' + initialVoteBonus);
