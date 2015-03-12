@@ -26,6 +26,67 @@ Template.hero.helpers({
     return score;
   },
 
+  scoreDiff: function(){
+    var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
+    userId = Meteor.userId();
+    voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
+
+    if(userId){
+      voteSource = 'R';
+      userIdentifier = userId;
+    } else {
+      voteSource = 'Unr';
+      userIdentifier = Session.get('clientIp');
+    }
+    // helper receives e.g. nested rating.crusade object, and checks if it contains the passed userIdentifier
+    upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+
+    if(Meteor.user() &&
+        Meteor.user().userdata &&
+        Meteor.user().userdata.voting &&
+        Meteor.user().userdata.voting.currentVotePower){
+      votePower = Meteor.user().userdata.voting.currentVotePower.toString();
+    } else {
+      votePower = "1";
+    }
+    var prefix;
+
+    if(upOrDownOrUnvote == 'up'){
+      prefix = '+';
+    } else if(upOrDownOrUnvote == 'down'){
+      prefix = '-';
+    } /* else if(upOrDownOrUnvote == 'unvote'){
+      // do nothing
+    }*/
+    return prefix + votePower;
+  },
+
+  scoreDiffStyle: function(){
+    var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
+    userId = Meteor.userId();
+    voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
+
+    if(userId){
+      voteSource = 'R';
+      userIdentifier = userId;
+    } else {
+      voteSource = 'Unr';
+      userIdentifier = Session.get('clientIp');
+    }
+    // helper receives e.g. nested rating.crusade object, and checks if it contains the passed userIdentifier
+    upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+
+    var classes;
+    if(upOrDownOrUnvote == 'up'){
+      classes = 'green';
+    } else if(upOrDownOrUnvote == 'down'){
+      classes = 'red';
+    } else if(upOrDownOrUnvote == 'unvote'){
+      classes = 'gone';
+    }
+    return classes;
+  },
+
   path_to_avatar: function(){
     var normalizedName = UI._globalHelpers['normalizeString'](this.hero.name);
     //var normalizedName = Meteor.call('normalizeString', this.hero.name);
@@ -64,12 +125,16 @@ Template.hero.helpers({
     if(hasAlreadyVoted){
       console.log("-UI- userIdentifier has already voted (" + upOrDown + ")");
       if(upOrDown == 'up'){
+        //Session.set(currentVote[this.hero._id] = 'up');
         return '/voted-up.png';
       } else if (upOrDown == 'down'){
+        //Session.set(currentVote[this.hero._id] = 'down');
+        console.log("jetzt wird auf down gesetzt: " + this.currentVote);
         return '/voted-down.png';
       }
     } else {
       console.log("-UI- userIdentifier has NOT voted, thus voteableGray");
+      //Session.set(currentVote[this.hero._id] = null);
       if(upOrDown == 'up'){
         return '/voteable-up.png';
       } else if (upOrDown == 'down'){

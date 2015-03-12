@@ -1,23 +1,28 @@
 <template name="hero">
-  <div class="col-xs-9">
+  <div class="col-xs-2 heroavatar">
+    <img src={{path_to_avatar}} class="img-responsive" alt="pic" />
+  </div>
+  <div class="col-xs-7 herooverview">
     <!-- TEST ENTRY <br /> -->
-
-    ----
-    <img src={{path_to_avatar}} alt="pic" />
+    <!--
     CreatedAt: {{createdAt}}<br />
     CreatedFrom: {{createdFrom}}<br />
     UpdatedAt: {{updatedAt}}<br />
     UpdatedFrom: {{updatedFrom}}<br />
+    -->
     Name: {{hero.name}}<br />
+    <!--
     Vorname: {{hero.surname}}<br />
     Growthstats / AGI: {{hero.growthstats.agi}}<br />
     Growthstats / INT: {{hero.growthstats.int}}<br />
     Growthstats / STR: {{hero.growthstats.str}}<br />
+    -->
     Type: {{hero.type}}<br />
     Badges: {{#each hero.badges}}
               {{this}},
             {{/each}}<br />
     Lineup-Order: {{hero.lineuporder}}<br />
+    <!--
     Skills: {{#each hero.skills}}
               Skill / Name: {{this.name}}<br />
               Skill / Description: {{this.desc}}<br />
@@ -25,6 +30,7 @@
               Skill / Damage per Lvl: {{this.perlvl.damage}}<br />
               ///////<br />
             {{/each}}
+    -->
     Synergy: {{#each hero.synergy}}
                {{this.name}}, Ups: {{this.upvotes}}, Downs: {{this.downvotes}}
              {{/each}}<br />
@@ -38,7 +44,7 @@
     <div class="score-wrapper">
       <span class="score-inner">
         <span class="score">{{score}}</span>
-        <span class="badge score-diff">+5{{scoreDiff}}</span>
+        <span class="badge score-diff {{scoreDiffStyle}}">{{scoreDiff}}</span>
       </span>
     </div>
     <div class="center-horizontal-inline">

@@ -14,6 +14,7 @@ var clientIp;
 
 Meteor.subscribe("heroes");
 Meteor.subscribe("userData", function() {
+  Session.set('loadedUserData', true);
   console.log("- SUBSCRIBED to userData");
 });
 
@@ -37,8 +38,12 @@ Meteor.startup(function() {
 });
 
 // Template.registerHelper creates helpers which can be used by any template
-Template.registerHelper("lastLoginAt",function(value){
+Template.registerHelper("lastLoginAt",function(){
+  console.log(" in lastLoginAt function...");
+  console.log(" Meteor.user(): " + JSON.stringify(Meteor.user()));
+  console.log(" lastLoginAt: " + Meteor.user().userdata.login.lastLoginAt);
   if(Meteor.user() && Meteor.user().userdata.login.lastLoginAt){
+    console.log("lastLoginAt exists");
     var lastLoginAt = Meteor.user().userdata.login.lastLoginAt;
     console.log("lastLoginAt: " + lastLoginAt);
     return formatDate(lastLoginAt);
