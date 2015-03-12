@@ -1,13 +1,7 @@
 <template name="hero">
-
-
-  <div class="herowrapper">
+  <div class="col-xs-9">
     <!-- TEST ENTRY <br /> -->
-    <div class="votecontrols">
-      <a href="#" data-id={{_id}} class="upvote {{votedClass 'up'}}">UPVOTE</a><br />
-      {{score}}<br />
-      <a href="#" data-id={{_id}} class="downvote {{votedClass 'down'}}">DOWNVOTE</a><br />
-    </div>
+
     ----
     <img src={{path_to_avatar}} alt="pic" />
     CreatedAt: {{createdAt}}<br />
@@ -35,8 +29,22 @@
                {{this.name}}, Ups: {{this.upvotes}}, Downs: {{this.downvotes}}
              {{/each}}<br />
   </div>
-  <br />
-
-
-
+  <div class="col-xs-3">
+    <div class="center-horizontal-inline">
+      <a href="#" class="upvote" data-id={{_id}}>
+        <img src="{{votedSrc 'up'}}" alt="upvote-button" />
+      </a>
+    </div>
+    <div class="score-wrapper">
+      <span class="score-inner">
+        <span class="score">{{score}}</span>
+        <span class="badge score-diff">+5{{scoreDiff}}</span>
+      </span>
+    </div>
+    <div class="center-horizontal-inline">
+      <a href="#" class="downvote" data-id={{_id}}>
+        <img src="{{votedSrc 'down'}}" alt="downvote-button" />
+      </a>
+    </div>
+  </div>
 </template>

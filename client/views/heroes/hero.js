@@ -43,7 +43,7 @@ Template.hero.helpers({
     return upvotes-downvotes;
   },*/
 
-  votedClass: function(upOrDown){
+  votedSrc: function(upOrDown){
     var userId = Meteor.userId();
     var voteSource, userIdentifier;
     var voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
@@ -62,15 +62,19 @@ Template.hero.helpers({
 
     var hasAlreadyVoted = _.contains(storedVoters, userIdentifier);
     if(hasAlreadyVoted){
-      if(upOrDown == 'up'){
-        return 'upvotedGreen';
-      } else if (upOrDown == 'down'){
-        return 'downvotedRed';
-      }
       console.log("-UI- userIdentifier has already voted (" + upOrDown + ")");
+      if(upOrDown == 'up'){
+        return '/voted-up.png';
+      } else if (upOrDown == 'down'){
+        return '/voted-down.png';
+      }
     } else {
       console.log("-UI- userIdentifier has NOT voted, thus voteableGray");
-      return 'voteableGray';
+      if(upOrDown == 'up'){
+        return '/voteable-up.png';
+      } else if (upOrDown == 'down'){
+        return '/voteable-down.png';
+      }
     }
   }
 });

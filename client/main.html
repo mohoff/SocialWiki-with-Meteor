@@ -4,7 +4,16 @@
     {{> yield region='nav'}}
 
     <div class="container">
-      {{> yield}}
+      <div id="main" class="col-xs-12 col-md-9">
+
+        {{> yield}}
+
+      </div>
+      <div id="sidebar" class="col-xs-12 col-md-3">
+
+        {{> yield region='sidebar'}}
+
+      </div>
     </div>
     <!-- push-container to realize sticky footer -->
     <div id="push"></div>
