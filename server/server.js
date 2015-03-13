@@ -200,20 +200,22 @@ Accounts.onLogin(function (user) {
   if(lastLoginAt){
     if(currentTimestamp.getDate() == lastLoginAt.getDate()){
       // IS SAME DAY, don't check month and don't check login streak
+      console.log("-- isSameDay, don't check month and login streak");
     } else {
       if(currentTimestamp.getMonth() != lastLoginAt.getMonth()){
         // IS NEW MONTH, reset all vote boni and login streaks anyway
         console.log("-- isNewMonth");
       } else {
-        if(lastLoginAt >= yesterdayStart && lastLoginAt <= yesterdayEnd){
+        // IS SAME MONTH
+        if((lastLoginAt >= yesterdayStart) && (lastLoginAt <= yesterdayEnd)){
           // IS NEW DAY AND USER EXTENDS LOGIN STREAK
-          console.log("-- isInLoginStreak");
-          consecutiveLogins = consecutiveLogins + 1;
-          currentVotePower = initialVoteBonus + consecutiveLogins - 1;
+          console.log("-- isInLoginStreak, consecutiveLogins++");
+          consecutiveLogins += 1;
         }
       }
     }
   }
+  currentVotePower = initialVoteBonus + consecutiveLogins - 1;
 
   console.log('-- STORED: initialVoteBonus:' + initialVoteBonus);
   console.log('-- STORED: lastLoginAt:' + lastLoginAt);
