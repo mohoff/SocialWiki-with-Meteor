@@ -87,7 +87,7 @@ Template.hero.helpers({
     return classes;
   },
 
-  path_to_avatar: function(){
+  srcPathAvatar: function(){
     var normalizedName = UI._globalHelpers['normalizeString'](this.hero.name);
     //var normalizedName = Meteor.call('normalizeString', this.hero.name);
 
@@ -95,6 +95,10 @@ Template.hero.helpers({
     var path = "/img_heroes/" + normalizedName + "/avatar.jpg";
     //console.log("PATHTOAVATAR: " + path);
     return path;
+  },
+
+  srcPathType: function(){
+    return '/img_herotypes/' + this.hero.type + '.png';
   },
 
   // LEGACY

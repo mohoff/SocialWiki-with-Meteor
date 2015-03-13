@@ -1,46 +1,40 @@
 <template name="hero">
-  <div class="col-xs-2 heroavatar">
-    <img src={{path_to_avatar}} class="img-responsive" alt="pic" />
+  <div class="col-xs-2 hero-avatar">
+    <img src={{srcPathAvatar}} class="img-responsive" alt="pic" />
   </div>
   <div class="col-xs-7 herooverview">
-    <!-- TEST ENTRY <br /> -->
-    <!--
-    CreatedAt: {{createdAt}}<br />
-    CreatedFrom: {{createdFrom}}<br />
-    UpdatedAt: {{updatedAt}}<br />
-    UpdatedFrom: {{updatedFrom}}<br />
-    -->
-    <h2>{{hero.name}}</h2>
-    <img src="heotype" alt="herotype" /><br />
+    <div class="herooverview-heading">
+      <img src="{{srcPathType}}" class="hero-type" alt="herotype" />
+      <span class="hero-name">{{hero.name}}</span>
+      <span class="hero-order"><sub>{{hero.lineuporder}}</sub></span>
+    </div>
     <!-- description - should be stored in hero-collection too! -->
     <p>
       <span class="hero-surname">{{hero.surname}}:</span>
       Middle line Mage, who can deal massive area damage with his two heads.
     </p>
-
-    <!--
-    Vorname: {{hero.surname}}<br />
-    Growthstats / AGI: {{hero.growthstats.agi}}<br />
-    Growthstats / INT: {{hero.growthstats.int}}<br />
-    Growthstats / STR: {{hero.growthstats.str}}<br />
-    -->
-    Type: {{hero.type}}<br />
-    Badges: {{#each hero.badges}}
-              {{this}},
-            {{/each}}<br />
-    Lineup-Order: {{hero.lineuporder}}<br />
-    <!--
-    Skills: {{#each hero.skills}}
-              Skill / Name: {{this.name}}<br />
-              Skill / Description: {{this.desc}}<br />
-              Skill / Initial Damage: {{this.lvl1.damage}}<br />
-              Skill / Damage per Lvl: {{this.perlvl.damage}}<br />
-              ///////<br />
-            {{/each}}
-    -->
-    Synergy: {{#each hero.synergy}}
-               {{this.name}}, Ups: {{this.upvotes}}, Downs: {{this.downvotes}}
-             {{/each}}<br />
+    <div class="hero-badges">
+      {{#each hero.badges}}
+        <span class="hero-badge">
+          <span class="label label-primary">{{this}}</span>
+        </span>
+      {{/each}}
+      {{#each hero.attributes}}
+        <span class="hero-badge-or-synergy">
+          <span class="label label-info">{{this}}</span>
+        </span>
+      {{/each}}
+    </div><br />
+    <div class="hero-divider"></div>
+    <div class="hero-synergies">
+      {{#each hero.synergy}}
+        <span class="hero-badge-or-synergy">
+          <span class="label label-success">
+            {{this.name}} ({{this.upvotes}}:{{this.downvotes}})
+          </span>
+        </span>
+      {{/each}}
+    </div><br />
   </div>
   <div class="col-xs-3">
     <div class="center-horizontal-inline">

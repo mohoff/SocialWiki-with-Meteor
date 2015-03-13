@@ -2,28 +2,68 @@
 .herowrapper {
   margin-bottom: 1em;
   background-color: #aaa;
+  border-radius: 3px;
 }
 
-.heroavatar {
+.hero-avatar {
   padding-right: 0.5em !important;
   padding-left: 5px !important;
   padding-top: 5px;        /* same as herooverview */
   padding-bottom: 5px;     /* same as herooverview */
 }
 
+.hero-avatar img {
+  border-radius: 3px;
+}
+
 .herooverview {
   align-self: flex-start;
-  padding-top: 5px;        /* same as heroavatar-wrapper */
-  padding-bottom: 5px;     /* same as heroavatar-wrapper */
+  padding-top: 0.5em;        /* same as heroavatar-wrapper */
+  padding-bottom: 0.5em;     /* same as heroavatar-wrapper */
+}
+
+.herooverview-heading {
+  margin-bottom: 8px;
+}
+
+.hero-type {
+  float: left;
+  max-height: 1.9em;
+  margin-right: 0.6em;
+  margin-top: 0.4em;
 }
 
 .hero-surname {
   color: #555;
 }
 
-h2 {
-  display: inline;
-  margin-top: 0.3em;
+.hero-name {
+  font-size: 2em;
+}
+
+.hero-order {
+  /*font-size: 0.7em;*/
+}
+
+.hero-badges {
+  display: inline-block;
+}
+
+.hero-synergies {
+  display: inline-block;
+}
+
+.hero-badge-or-synergy {
+  display: inline-block;
+  float: left;
+  margin: 0 5px 5px 0;
+}
+
+.hero-divider {
+  width: 100%;
+  height: 1px;
+  margin: 12px 0 8px 0;
+  background-color: #333;
 }
 
 .votecontrols {

@@ -85,11 +85,11 @@ Template.addhero.events({
 
     var type;
     if(str > int && str > agi){
-      type = "STR";
+      type = "str";
     } else if(int > str && int > agi){
-      type = "INT";
+      type = "int";
     } else {
-      type = "AGI";
+      type = "agi";
     }
 
     var currentTime = new Date();
