@@ -1,4 +1,4 @@
-Template.hero.helpers({
+Template.heroRankingsElement.helpers({
   /*normalizedRankingCategory: function(){
     return UI._globalHelpers['getNormalizedRankingCategory']();
   },*/
@@ -148,7 +148,7 @@ Template.hero.helpers({
   }
 });
 
-Template.hero.events({
+Template.heroRankingsElement.events({
   'click .downvote': function(event){
     event.preventDefault();
     //var voteFor = event.target.getAttribute('data-votefor');

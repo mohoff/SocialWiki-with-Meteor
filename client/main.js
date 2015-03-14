@@ -12,7 +12,10 @@ postMeta = _.sortBy(postMeta, 'order');
 
 var clientIp;
 
-Meteor.subscribe("heroes");
+Meteor.subscribe("heroes", function() {
+  Session.set('loadedHeroes', true);
+  console.log("- SUBSCRIBED to heroes");
+});
 Meteor.subscribe("userData", function() {
   Session.set('loadedUserData', true);
   console.log("- SUBSCRIBED to userData");
@@ -76,7 +79,7 @@ Template.registerHelper("loginStreakLength",function(value){
   }
 });
 
-Template.addhero.events({
+Template.heroAdd.events({
   "submit #addheroform": function (event) {
 
     var str = parseFloat(event.target.growthstatsstr.value);

@@ -1,4 +1,4 @@
-<template name="heroesRanking">
+<template name="heroRankings">
   <h1>{{rankingCategory}} Ranking</h1>
   search for: .... <br />
   sort by: top, trend, controvers, ...<br />
@@ -7,7 +7,7 @@
   <div class="container-fluid">
   {{#each this}}
     <div class="row herowrapper vertical-align">
-      {{> hero}}
+      {{> heroRankingsElement}}
     </div>
   {{/each}}
   </div>

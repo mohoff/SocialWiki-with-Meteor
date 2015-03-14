@@ -1,6 +1,10 @@
 - TERMINAL:
     * 'killmeteor' killt meteor-ghostinstaces, alias ist entsprechend angelegt
 
+- REDO IronRouter-stuff... apparently other syntax now.
+--> and fix waitOn, data, ..., so that it really waits on the subscription
+  dto be ready before processing Heroes-collection
+
 - formatDate hours+minutes fix: alles <10 wird als single-digit angeyeigt,
   obwohl double-digit besser ist
 
@@ -13,7 +17,7 @@
   obwohl alle 3 den gleichen Zeitpunkt darstellen sollen.
   Problem koennte runtime execution delay sein
   // server > server.js
-
+  
 - UTC vs. GMT+01 checken. aktuell wird glaube ich falsch gespeichert,
   da custom-methode convertDateToUTC() in lib > common.js
   // server > server.js
