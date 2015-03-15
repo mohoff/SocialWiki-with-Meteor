@@ -3,7 +3,7 @@ Template.heroRankingsElement.helpers({
     return UI._globalHelpers['getNormalizedRankingCategory']();
   },*/
 
-  upvotes: function(){
+  /*upvotes: function(){
     var category = UI._globalHelpers['getNormalizedRankingCategory']();
     var points = this.hero.ratings[category].upvoteCountAlltime;
     return points;
@@ -25,7 +25,7 @@ Template.heroRankingsElement.helpers({
     var score = upPoints - downPoints;
     return score;
   },
-
+*/
   scoreDiff: function(){
     var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
     userId = Meteor.userId();
@@ -55,9 +55,9 @@ Template.heroRankingsElement.helpers({
       prefix = '+';
     } else if(upOrDownOrUnvote == 'down'){
       prefix = '-';
-    } /* else if(upOrDownOrUnvote == 'unvote'){
+    } // else if(upOrDownOrUnvote == 'unvote'){
       // do nothing
-    }*/
+    //}
     return prefix + votePower;
   },
 
@@ -87,7 +87,7 @@ Template.heroRankingsElement.helpers({
     return classes;
   },
 
-  srcPathAvatar: function(){
+  /*srcPathAvatar: function(){
     var normalizedName = UI._globalHelpers['normalizeString'](this.hero.name);
     //var normalizedName = Meteor.call('normalizeString', this.hero.name);
 
@@ -99,13 +99,6 @@ Template.heroRankingsElement.helpers({
 
   srcPathType: function(){
     return '/img_herotypes/' + this.hero.type + '.png';
-  },
-
-  // LEGACY
-  /*scoreCrusade: function(){
-    var upvotes = this.hero.ratings.crusade.upvoteCountAlltime;
-    var downvotes = this.hero.ratings.crusade.downvoteCountAlltime;
-    return upvotes-downvotes;
   },*/
 
   votedSrc: function(upOrDown){

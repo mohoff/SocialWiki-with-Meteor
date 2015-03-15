@@ -1,6 +1,49 @@
+Template.heroDetails.helpers({
+	synergyVotedSrc: function(name){
+		console.log("in synergyVotedSrc");
+		var userIdentifier = Meteor.userId();
+
+		var synergyArray = [];
+		if(this.hero && this.hero.synergy){
+			console.log("es gibt this.hero.synergy");
+			synergyArray = this.hero.synergy;
+		}
+		console.log("nach IF");
+		var storedVoters, votes;
+		for(var synergy in synergyArray){
+			if(synergy.name === name){
+				storedVoters = synergy.voters;
+				votes = synergy.votes;
+				break;
+			}
+		}
+
+		console.log("SynergyVoters: " + JSON.stringify(storedVoters));
+		console.log("SynergyVotes: " + votes);
+
+		var hasAlreadyVoted = _.contains(storedVoters, userIdentifier);
+		if(hasAlreadyVoted){
+			return '/voted-down.png';
+		} else {
+			return '/voteable-up.png';
+		}
+	}
+});
+
+Template.heroDetails.events({
+  'click .synergyVote': function(event){
+    event.preventDefault();
+    var votedSynergyName = this.name; // since we're in the each-loop, 'this' references one synergyObj
+    var currentUser = Meteor.user();
+		//console.log("votedSynergyName: " + votedSynergyName);
+    Meteor.call('voteSynergy', currentUser, votedSynergyName);
+  }
+});
+
 Template.heroDetails.rendered = function () {
+	//console.log("heroDetailsTHIS: " + JSON.stringify(this.hero));
 	var dim = $('#growstats-chart').width();
-	console.log("DIM: " + dim);
+	//console.log("DIM: " + dim);
 
 ////////////////////////////////////////////
 /////////// Initiate legend ////////////////
@@ -9,9 +52,10 @@ Template.heroDetails.rendered = function () {
 var svg = d3.select('#growstats-chart')
 	.selectAll('svg')
 	.append('svg')
-	.attr("width", dim)
+
+	//.attr("width", dim)
 	//.attr("width", w+300)
-	.attr("height", dim)
+	//.attr("height", dim)
 /*
 //Create the title for the legend
 var text = svg.append("text")
@@ -68,7 +112,7 @@ var RadarChart = {
 		  radians: 2 * Math.PI,
 		  opacityArea: 0.5,
 		  ToRight: 5,
-		  TranslateX: 0,//80, // offset direction right
+		  TranslateX: 20,//80, // offset direction right
 		  TranslateY: 30,//30, // offset direction bottom // 30 needed, so top axis text is visible
 		  ExtraWidthX: 0, //100
 		  ExtraWidthY: 0, //100
@@ -97,10 +141,14 @@ var RadarChart = {
 
 	var g = d3.select(id)
 			.append("svg")
-			.attr("width", cfg.w + cfg.ExtraWidthX)
-			.attr("height", cfg.h + cfg.ExtraWidthY)
+			.attr("viewBox", "0 0 " + dim + " " + dim )
+		  .attr("preserveAspectRatio", "xMidYMid meet")
+			.classed("svg-content-responsive", true)
+			//.attr("width", cfg.w + cfg.ExtraWidthX)
+			//.attr("height", cfg.h + cfg.ExtraWidthY)
 			.append("g")
-			.attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
+			.attr("transform", "scale(0.9) translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
+			//.attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
 
 
 	var tooltip;
@@ -289,17 +337,18 @@ var RadarChart = {
 //var w = 500,	h = 500;
 var colorscale = d3.scale.category10();
 //Legend titles
-var LegendOptions = ['YOUR HERO','AVG HERO'];
+var LegendOptions = [this.data.hero.name,'AVG HERO'];
 //Data
+//console.log("this.data: " + JSON.stringify(this.data));
 var data = [
 		  [
-  			{axis:"STR",value:5.2},
-  			{axis:"INT",value:3.3},
-  			{axis:"AGI",value:1.9}
+  			{axis: "STR", value: this.data.hero.growthstats.str},
+  			{axis: "INT", value: this.data.hero.growthstats.int},
+  			{axis: "AGI", value: this.data.hero.growthstats.agi}
 		  ],[
-        {axis:"STR",value:3.3},
-  			{axis:"INT",value:3.6},
-  			{axis:"AGI",value:3.1}
+        {axis: "STR", value: 3.3},
+  			{axis: "INT", value: 3.6},
+  			{axis: "AGI", value: 3.1}
 		  ]
 		];
 

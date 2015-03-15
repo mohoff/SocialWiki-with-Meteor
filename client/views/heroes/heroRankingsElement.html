@@ -1,14 +1,14 @@
 <template name="heroRankingsElement">
   <div class="col-xs-2 hero-avatar">
-    <img src={{srcPathAvatar}} class="img-responsive" alt="pic" />
+    <img src={{srcPathAvatar this}} class="img-responsive" alt="pic" />
   </div>
   <div class="col-xs-7 herooverview">
-    <div class="herooverview-heading">
-      <img src="{{srcPathType}}" class="hero-type" alt="herotype" />
+    <div class="heroRankings-heading">
+      <img src="{{srcPathType this}}" class="hero-type" alt="herotype" />
       <a href="{{pathFor 'heroDetails' heroname=this._id}}">
         <span class="hero-name">{{hero.name}}</span>
       </a>
-      <span class="hero-order"><sub>{{hero.lineuporder}}</sub></span>
+      <span><sub>{{hero.lineuporder}}</sub></span>
     </div>
     <!-- description - should be stored in hero-collection too! -->
     <p>
@@ -46,7 +46,7 @@
     </div>
     <div class="score-wrapper">
       <span class="score-inner">
-        <span class="score">{{score}}</span>
+        <span class="score">{{scoreHeroRankings this}}</span>
         <span class="badge score-diff {{scoreDiffStyle}}">{{scoreDiff}}</span>
       </span>
     </div>

@@ -1,19 +1,95 @@
 <template name="heroDetails">
-  <h1>{{hero.name}}</h1>
-
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-
-    </div>
-    <div id="growstats-chart" class="col-xs-12 col-md-6">
-      <div id="chart"></div>
+  <div class="row heroDetails-row">
+    <div class="heroDetails-heading col-xs-12">
+      <img src={{srcPathType this}} class="heroDetails-type" alt="herotype" />
+      <!--<h1><span class="hero-name">--><h1>{{hero.name}}</h1><!--</span></h1>-->
+      <span><sub>{{hero.lineuporder}}</sub></span>
     </div>
   </div>
 
-  <div class="row">
-    <!-- SKILLS -->
-    <div class="col-xs-12">
+  <div class="row heroDetails-row">
+    <!--<div class="col-xs-1"></div>-->
+    <div class="col-xs-2"><!-- removed class "hero-avatar" (compared to heroRankings.html) -->
+      <img src={{srcPathAvatar this}} class="img-responsive" alt="pic" />
+    </div>
+    <div class="col-xs-10"><!-- removed class "herooverview"-->
+      <!-- description - should be stored in hero-collection too! -->
+      <p>
+        <span class="hero-surname">{{hero.surname}}:</span>
+        Middle line Mage, who can deal massive area damage with his two heads.
+      </p>
+      <div class="heroDetails-divider"></div>
+      <div class="hero-badges">
+        {{#each hero.badges}}
+          <span class="hero-badge">
+            <span class="label label-primary">{{this}}</span>
+          </span>
+        {{/each}}
+        {{#each hero.attributes}}
+          <span class="hero-badge-or-synergy">
+            <span class="label label-info">{{this}}</span>
+          </span>
+        {{/each}}
+      </div><br />
+    </div>
+    <!--<div class="col-xs-1"></div>-->
+  </div>
 
+  <div class="row heroDetails-row">
+    <div class="col-xs-12 col-md-6">
+      <h2>Synergies</h2>
+      {{#each hero.synergy}}
+        <!--<span class="hero-badge-or-synergy">-->
+        <div class="heroDetails-synergy">
+          <span class="label label-success">
+            {{this.name}} ({{this.upvotes}}:{{this.downvotes}})
+          </span>
+          {{#if currentUser}}
+            <a href="#" class="synergyVote" data-id={{this.name}}>
+              <img src={{synergyVotedSrc this.name}} alt="synergy upvote button"/>
+            </a>
+          {{/if}}
+        </div><br />
+      {{/each}}
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <h2>Rankings</h2>
+      Arena: {{scoreHeroDetails this 'arena'}}<br />
+      Crusade: {{scoreHeroDetails this 'crusade'}}<br />
+      PvE & Farming: {{scoreHeroDetails this 'pvefarming'}}<br />
+    </div>
+  </div>
+
+  <div class="row heroDetails-row">
+    <div class="col-xs-12">
+      <h2>Skills</h2>
+      ....
+    </div>
+  </div>
+
+  <div class="row heroDetails-row">
+    <div class="col-xs-12">
+      <h2>Stats Details</h2>
+    </div>
+  </div>
+  <div class="row heroDetails-row">
+    <div class="col-xs-6">
+      ArmorPen:<br />
+      MagicPen (MagicResistanceIgnored):<br />
+      LifeSteal:<br />
+      HP:<br />
+      AttackDamage:<br />
+      MagicPower:<br />
+      Armor:<br />
+      MagicResistance:<br />
+      PhysicalCrit:<br />
+      MagicCrit:<br />
+      HP Regeneration:<br />
+      Energy Regeneration:<br />
+      Dodge:<br />
+    </div>
+    <div id="growstats-chart" class="col-xs-6">
+      <div id="chart" class="svg-container"></div>
     </div>
   </div>
 
