@@ -1,10 +1,40 @@
 <template name="heroDetails">
-  <div class="herowrapper">
-    <!-- TEST ENTRY <br /> -->
+  <h1>{{hero.name}}</h1>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+
+    </div>
+    <div id="growstats-chart" class="col-xs-12 col-md-6">
+      <div id="chart"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- SKILLS -->
+    <div class="col-xs-12">
+
+    </div>
+  </div>
+
+  <!--
+  <div id="body">
+	  <div id="chart"></div>
+  </div>
+  -->
+
+
+
+
+
+
+
+
+    <!--
     <a href="#" data-id={{_id}} data-votefor="crusade" data-votetype="up" class="upvote btn {{votedClass 'up' 'crusade'}}">UPVOTE</a><br />
     {{scoreCrusade}}<br />
     <a href="#" data-id={{_id}} data-votefor="crusade" data-votetype="down" class="downvote btn {{votedClass 'down' 'crusade'}}">DOWNVOTE</a><br />
-    ----
+
     <img src={{path_to_avatar}} alt="pic" />
     CreatedAt: {{createdAt}}<br />
     CreatedFrom: {{createdFrom}}<br />
@@ -36,4 +66,5 @@
   </div>
   <br />
   <br />
+  -->
 </template>

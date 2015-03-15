@@ -156,7 +156,8 @@ Meteor.methods({
 
 Accounts.onLogin(function (user) {
   console.log("- onLogin START");
-  var userId = user.user._id;
+  var userObj = user.user;
+  var userId = userObj._id;
   //console.log("user: " + user.user._id);
   /*var user = Meteor.users.find(
     { _id: userId}
@@ -164,8 +165,8 @@ Accounts.onLogin(function (user) {
 
   console.log("-- userId: " + userId);
   var lastLoginAt;
-  if(user.user.userdata && user.user.userdata.login && user.user.userdata.login.newLoginAt){
-    lastLoginAt = user.user.userdata.login.newLoginAt; // newLoginAt becomes lastLoginAt by relogin
+  if(userObj.userdata && userObj.userdata.login && userObj.userdata.login.newLoginAt){
+    lastLoginAt = userObj.userdata.login.newLoginAt; // newLoginAt becomes lastLoginAt by relogin
   } else {
     lastLoginAt = null;
   }
@@ -175,11 +176,11 @@ Accounts.onLogin(function (user) {
   var consecutiveLogins = 1;
   var initialVoteBonus = 5;
   // overwrite default values if values present in user object
-  if(user.userdata && user.userdata.login && user.userdata.login.consecutiveLogins){
-    consecutiveLogins = user.userdata.login.consecutiveLogins;
+  if(userObj.userdata && userObj.userdata.login && userObj.userdata.login.consecutiveLogins){
+    consecutiveLogins = userObj.userdata.login.consecutiveLogins;
   }
-  if(user.userdata && user.userdata.voting && user.userdata.voting.initalVoteBonus){
-    initialVoteBonus = user.initialVoteBonus;
+  if(userObj.userdata && userObj.userdata.voting && userObj.userdata.voting.initalVoteBonus){
+    initialVoteBonus = userObj.initialVoteBonus;
   }
   var currentVotePower = initialVoteBonus;
 
@@ -211,6 +212,8 @@ Accounts.onLogin(function (user) {
           // IS NEW DAY AND USER EXTENDS LOGIN STREAK
           console.log("-- isInLoginStreak, consecutiveLogins++");
           consecutiveLogins += 1;
+        } else {
+          consecutiveLogins = 1;
         }
       }
     }
