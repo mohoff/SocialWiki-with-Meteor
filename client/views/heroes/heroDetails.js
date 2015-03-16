@@ -1,19 +1,22 @@
 Template.heroDetails.helpers({
 	synergyVotedSrc: function(name){
-		console.log("in synergyVotedSrc");
+		//console.log("in synergyVotedSrc - this: " + JSON.stringify(this));
 		var userIdentifier = Meteor.userId();
+		var heroObj = this.parent;
 
 		var synergyArray = [];
-		if(this.hero && this.hero.synergy){
-			console.log("es gibt this.hero.synergy");
-			synergyArray = this.hero.synergy;
+		if(heroObj.hero && heroObj.hero.synergy){
+			//console.log("es gibt this.hero.synergy");
+			synergyArray = heroObj.hero.synergy;
 		}
-		console.log("nach IF");
+		//console.log("nach IF. name: " + name);
+		//console.log("synergyArray: " + JSON.stringify(synergyArray));
 		var storedVoters, votes;
-		for(var synergy in synergyArray){
-			if(synergy.name === name){
-				storedVoters = synergy.voters;
-				votes = synergy.votes;
+		for(var i=0; i<synergyArray.length; i++){
+			//console.log("synergy.name: " + JSON.stringify(synergyArray[i]));
+			if(synergyArray[i].name === name){
+				storedVoters = synergyArray[i].voters;
+				votes = synergyArray[i].votes;
 				break;
 			}
 		}
@@ -23,7 +26,7 @@ Template.heroDetails.helpers({
 
 		var hasAlreadyVoted = _.contains(storedVoters, userIdentifier);
 		if(hasAlreadyVoted){
-			return '/voted-down.png';
+			return '/voted-up.png';
 		} else {
 			return '/voteable-up.png';
 		}
@@ -33,11 +36,22 @@ Template.heroDetails.helpers({
 Template.heroDetails.events({
   'click .synergyVote': function(event){
     event.preventDefault();
-    var votedSynergyName = this.name; // since we're in the each-loop, 'this' references one synergyObj
+		var hero = this.parent;
+    var votedSynergyName = this.context.name; // since we're in the each-loop, 'this' references one synergyObj
     var currentUser = Meteor.user();
-		//console.log("votedSynergyName: " + votedSynergyName);
-    Meteor.call('voteSynergy', currentUser, votedSynergyName);
-  }
+		console.log("votedSynergyName: " + votedSynergyName);
+    Meteor.call('voteSynergy', currentUser, hero, votedSynergyName);
+  },
+
+	'submit #addsynergyform': function(event){
+		//event.preventDefault();
+		var hero = this;
+		var synergyName = event.target.name.value;
+		var currentUser = Meteor.user();
+		console.log("synergyName: " + synergyName);
+		//console.log("hero: " + JSON.stringify(hero));
+		Meteor.call('addSynergy', currentUser, hero, synergyName);
+	}
 });
 
 Template.heroDetails.rendered = function () {
