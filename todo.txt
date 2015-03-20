@@ -5,6 +5,17 @@
   helden (zugeordnet zu INT,AGI oder STR-typ) eingetragen werden, sodass diese
   als overlay in spidernet/radargraph angezeigt werden koennen.
 
+- heroDetails > Synergies >> deleteRequests anlegen, wo registrierte User loeschungen von syenergy-entries
+  beantragen koennen. ab gewissem treshold wird dieser deaktiviert
+  (ueber status-feld)
+
+- heroDetails > Synergies >> ueberlegen wie schadcode als eingabe vermieden
+  werden kann.
+
+- heroDetails > Synergies >> ueberlegen wie angezeigte anyahl von Synergies
+  limitiert wird. und trotzdem auch neue addSynergies nicht untergehen...
+
+
 
 CHECK - REDO IronRouter-stuff... apparently other syntax now.
 --> and fix waitOn, data, ..., so that it really waits on the subscription
