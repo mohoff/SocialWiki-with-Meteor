@@ -2,6 +2,7 @@
 
 .heroDetails-row {
   margin-top: 1.5em;
+  padding-left: 15px; /* still responsive? */
 }
 
 .heroDetails-heading {
@@ -26,33 +27,43 @@
   background-color: #333;
 }
 
+.heroDetails-synergies, .heroDetails-rankings {
+  margin-top: 20px;
+}
+
 .heroDetails-synergy {
   margin-top: 10px;
 }
 
 .heroDetails-synergy a {
-  margin-left: 1em;
+  display: inline-block;
+}
+
+.heroDetails-synergy .synergyVote {
+  /*margin-left: 1em;*/
+}
+
+.heroDetails-synergy .synergyDeleteVote {
+  margin-left: 0.5em;
 }
 
 .heroDetails-synergy img {
-  max-height: 16px;
-  max-width: 16px;
+  height: 16px;
+  width: 16px;
 }
 
-.heroDetails- {
-
+.heroDetails-synergyControl {
+  padding-left: 0px !important;
+  padding-right: 5px !important;
 }
 
-.heroDetails- {
-
+.addSynergy, .addSynergy img {
+  display: block !important;
+  margin: 0 auto;
 }
 
-.heroDetails- {
-
-}
-
-.heroDetails- {
-
+.heroDetails-rankings {
+  text-align: center;
 }
 
 // to make SVG (growthstats-graph) responsive

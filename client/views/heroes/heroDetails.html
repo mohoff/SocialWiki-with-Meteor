@@ -12,7 +12,7 @@
     <div class="col-xs-2"><!-- removed class "hero-avatar" (compared to heroRankings.html) -->
       <img src={{srcPathAvatar this}} class="img-responsive" alt="pic" />
     </div>
-    <div class="col-xs-10"><!-- removed class "herooverview"-->
+    <div class="col-xs-10 col-md-9"><!-- removed class "herooverview"-->
       <!-- description - should be stored in hero-collection too! -->
       <p>
         <span class="hero-surname">{{hero.surname}}:</span>
@@ -32,40 +32,67 @@
         {{/each}}
       </div><br />
     </div>
-    <!--<div class="col-xs-1"></div>-->
+    <div class="col-xs-0 col-md-1"></div>
   </div>
 
   <div class="row heroDetails-row">
     <div class="col-xs-12 col-md-6">
       <h3>Synergies</h3>
-      {{#each hero.synergy}}
-        <!--<span class="hero-badge-or-synergy">-->
-        <div class="heroDetails-synergy">
-          <span class="label label-success">
-            {{this.name}} ({{this.upvotes}}:{{this.downvotes}})
-          </span>
-          {{#if currentUser}}
-            {{#with context=this parent=..}}
-              <a href="#" class="synergyVote">
-                <img src={{synergyVotedSrc context.name}} alt="synergy upvote button"/>
+      <div class="heroDetails-synergies">
+        {{#each filteredAndSortedSynergies hero.synergy}}
+          <div class="row heroDetails-synergy">
+            <div class="col-xs-10">
+              <p class="label-p" style="background-color: {{synergyLabelColor this}};">
+                {{this.name}} ({{this.upvotes}}:{{this.downvotes}})
+              </p>
+            </div>
+            <div class="col-xs-2 heroDetails-synergyControl">
+              {{#if currentUser}}
+                {{#with context=this parent=..}}
+                  <a href="#" class="synergyVote">
+                    <img src={{synergyVotedSrc context.name}} alt="synergy upvote button"/>
+                  </a>
+                  <a href="#" class="synergyDeleteVote">
+                    <img src={{synergyDeleteVotedSrc context.name}} alt="synergy delete request button"/>
+                  </a>
+                {{/with}}
+              {{/if}}
+            </div>
+          </div>
+        {{/each}}
+        {{#if currentUser}}
+          <div class="row heroDetails-synergy">
+            <div class="col-xs-12">
+              <a href="#" class="addSynergy" data-toggle="modal" data-target="#addSynergyModal">
+                <img src="/img_synergies/add-synergy.png" alt="synergy add button"/>
               </a>
-            {{/with}}
-          {{/if}}
-        </div>
-      {{/each}}
-      {{#if currentUser}}
-        <div class="heroDetails-synergy">
-          <a href="#" class="addSynergy" data-toggle="modal" data-target="#addSynergyModal">
-            <img src="/img_general/add-synergy.png" alt="synergy add button"/>
-          </a>
-        </div>
-      {{/if}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
     </div>
     <div class="col-xs-12 col-md-6">
       <h3>Rankings</h3>
-      Arena: {{scoreHeroDetails this 'arena'}}<br />
-      Crusade: {{scoreHeroDetails this 'crusade'}}<br />
-      PvE & Farming: {{scoreHeroDetails this 'pvefarming'}}<br />
+      <div class="heroDetails-rankings">
+        <div class="col-xs-4">
+          Arena<br />
+          <span class="score">
+            {{scoreHeroDetails this 'arena'}}
+          </span>
+        </div>
+        <div class="col-xs-4">
+          Crusade<br />
+          <span class="score">
+            {{scoreHeroDetails this 'crusade'}}
+          </span>
+        </div>
+        <div class="col-xs-4">
+          PvE & Farming<br />
+          <span class="score">
+            {{scoreHeroDetails this 'pvefarming'}}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 

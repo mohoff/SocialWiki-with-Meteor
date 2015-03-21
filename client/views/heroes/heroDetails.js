@@ -1,4 +1,45 @@
 Template.heroDetails.helpers({
+	filteredAndSortedSynergies: function(synergies){
+		var filteredAndSorted = [];
+		for(var i=0; i<synergies.length; i++){
+			// at least 5 deleteVotes and deleteVotes need to be higher than normal votes to ignore the synergy
+			if(!((synergies[i].deleteVotes >= 5) &&
+				(synergies[i].deleteVotes > synergies[i].votes))){
+					filteredAndSorted.push(synergies[i]);
+			}
+		}
+		filteredAndSorted.sort(function(a,b){
+			return b.votes - a.votes; // sort descending
+		});
+		Session.set('highestVotesAmongSynergies', filteredAndSorted[0].votes);
+		return filteredAndSorted;
+	},
+
+	synergyLabelColor: function(synergy){
+		console.log("synergyLabelColor INPUT: " + JSON.stringify(synergy));
+		var highestVoted = parseInt(Session.get('highestVotesAmongSynergies'));
+		console.log("highestVoted: " + highestVoted);
+		var saturationFactor;
+		if(highestVoted > 0){
+			saturationFactor = synergy.votes / highestVoted - 0.2;
+		} else {
+			saturationFactor = 0.5;
+		}
+		var rMax = 51;//92;
+		var gMax = 144;//184;
+		var bMax = 0;//92;
+
+		var alpha = Math.max(Math.ceil(saturationFactor*10)/10, 0.3);
+
+		//var r = Math.max(Math.ceil(rMax*saturationFactor), Math.ceil(rMax*0.2));
+		//var g = Math.max(Math.ceil(gMax*saturationFactor), Math.ceil(gMax*0.2));
+		//var b = Math.max(Math.ceil(bMax*saturationFactor), Math.ceil(bMax*0.2));
+
+		//console.log('rgb(' + r + ', ' + g + ', ' + b + ')');
+		//return 'rgb(' + r + ', ' + g + ', 0)';
+		return 'rgba(' + rMax + ', ' + gMax + ', 0 ,' + alpha + ')';
+	},
+
 	synergyVotedSrc: function(name){
 		//console.log("in synergyVotedSrc - this: " + JSON.stringify(this));
 		var userIdentifier = Meteor.userId();
@@ -30,6 +71,38 @@ Template.heroDetails.helpers({
 		} else {
 			return '/voteable-up.png';
 		}
+	},
+	synergyDeleteVotedSrc: function(name){
+		//console.log("in synergyVotedSrc - this: " + JSON.stringify(this));
+		var userIdentifier = Meteor.userId();
+		var heroObj = this.parent;
+
+		var synergyArray = [];
+		if(heroObj.hero && heroObj.hero.synergy){
+			//console.log("es gibt this.hero.synergy");
+			synergyArray = heroObj.hero.synergy;
+		}
+		//console.log("nach IF. name: " + name);
+		//console.log("synergyArray: " + JSON.stringify(synergyArray));
+		var storedDeleteVoters, deleteVotes;
+		for(var i=0; i<synergyArray.length; i++){
+			//console.log("synergy.name: " + JSON.stringify(synergyArray[i]));
+			if(synergyArray[i].name === name){
+				storedDeleteVoters = synergyArray[i].deleteVoters;
+				deleteVotes = synergyArray[i].deleteVotes;
+				break;
+			}
+		}
+
+		console.log("SynergyDeleteVoters: " + JSON.stringify(storedDeleteVoters));
+		console.log("SynergyDeleteVotes: " + deleteVotes);
+
+		var hasAlreadyVoted = _.contains(storedDeleteVoters, userIdentifier);
+		if(hasAlreadyVoted){
+			return '/img_synergies/delete-synergy-voted.png';
+		} else {
+			return '/img_synergies/delete-synergy-votable.png';
+		}
 	}
 });
 
@@ -41,6 +114,14 @@ Template.heroDetails.events({
     var currentUser = Meteor.user();
 		console.log("votedSynergyName: " + votedSynergyName);
     Meteor.call('voteSynergy', currentUser, hero, votedSynergyName);
+  },
+	'click .synergyDeleteVote': function(event){
+    event.preventDefault();
+		var hero = this.parent;
+    var votedSynergyName = this.context.name; // since we're in the each-loop, 'this' references one synergyObj
+    var currentUser = Meteor.user();
+		console.log("votedSynergyName: " + votedSynergyName);
+    Meteor.call('voteDeleteSynergy', currentUser, hero, votedSynergyName);
   },
 
 	'submit #addsynergyform': function(event){
