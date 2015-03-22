@@ -99,7 +99,61 @@
   <div class="row heroDetails-row">
     <div class="col-xs-12">
       <h3>Skills</h3>
-      ....
+      <div class="heroDetails-skills">
+        <div class="row heroDetails-beforeSkills">
+          <div class="col-md-5 col-xs-7">
+          </div>
+          <div class="col-md-7 col-xs-5 skillAttributeRow">
+            <div class="col-md-4 col-xs-6">
+            </div>
+            <div class="col-md-2 hidden-sm hidden-xs">
+              LVL 1
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+              per LVL
+            </div>
+            <div class="col-md-3 col-xs-6">
+              at LVL 50
+            </div>
+          </div>
+        </div>
+        <div>
+        {{#each skills hero.skills}}
+          {{#with context=this parent=..}}
+            <div class="row heroDetails-skill" style="background-color: {{skillBgColor context.order}}">
+              <div class="col-md-5 col-xs-7">
+                <div class="col-xs-4">
+                  <img src="{{skillImageSrc context.order parent.hero.name}}" alt="skill imgage" />
+                </div>
+                <div class="col-xs-8">
+                  <h4>{{context.name}}</h4>
+                  {{context.desc}}<br />
+                  {{#each context.types}}
+                    {{this}},
+                  {{/each}}
+                </div>
+              </div>
+              <div class="col-md-7 col-xs-5">
+                <div class="row skillAttributeRow">
+                  <div class="col-md-4 col-xs-6">
+                    Damage
+                  </div>
+                  <div class="col-md-2 hidden-sm hidden-xs">
+                    400
+                  </div>
+                  <div class="col-md-3 hidden-sm hidden-xs">
+                    30
+                  </div>
+                  <div class="col-md-3 col-xs-6">
+                    10000
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/with}}
+        {{/each}}
+        </div>
+      </div>
     </div>
   </div>
 

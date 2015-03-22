@@ -43,12 +43,25 @@ var modelHero =
       "mirrors"
     ],
     "lineupOrder": 500,			// unique
-    "skills": {
-      "1": {
+    "skills": [
+      {
+        "order": 1,
         "name": "Chilling Wave",
         "description": "Pallathion blasts out a wave of super-chilled air that freezes enemies before him.",
         "types": [
           "Frost"
+        ],
+        "stats": [
+          {
+            "type": "Damage",
+            "lvl1": 22.5,
+            "perLvl": 5
+          },
+          {
+            "type": "Hitzone",
+            "lvl1": "",
+            "perLvl": "Increase"
+          }
         ],
         "LevelOne": {
           "Damage": 50,
@@ -73,8 +86,8 @@ var modelHero =
           "AuraMagicPen": false
           */
         }
-      },
-      "2": {
+      },{
+        "order": 2,
         "name": "Thermal Shock",
         "description": "A blast of ice and fire .....",
         "types": [
@@ -93,7 +106,7 @@ var modelHero =
           ]
         }
       }
-    },
+    ],
     "ratings": {
       //"forDay": 20150301,	// yyyymmdd-integer, der bei jedem (registered) user-vote gecheckt wird.
       // Falls currentDate > forDay, reset upvoters und downvoters (+daily votes)unten.
