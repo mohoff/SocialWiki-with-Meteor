@@ -31,6 +31,15 @@
               <li><a href="{{pathFor 'guides_farming'}}" alt="guides_farming">Farming</a></li>
             </ul>
           </li>
+          {{#if isAdmin}}
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin-Area
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu inverse-dropdown">
+                <li><a href="{{pathFor 'adminAddHero'}}" alt="admin_addhero">Add Hero</a></li>
+              </ul>
+            </li>
+          {{/if}}
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {{#if currentUser}}

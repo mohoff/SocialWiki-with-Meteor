@@ -138,6 +138,36 @@ Template.heroRankingsElement.helpers({
         return '/voteable-down.png';
       }
     }
+  },
+
+  filteredSynergies: function(synergiesArray){
+    var lengthCounter = 0;
+    var lengthLimit = 75;
+    var filteredSynergies = [];
+
+    synergiesArray.sort(function(a,b){
+      return b.votes - a.votes;
+    });
+
+    for(var i=0; i<synergiesArray.length; i++){
+      if((lengthCounter + synergiesArray[i].name.length) < lengthLimit){
+        filteredSynergies.push(synergiesArray[i]);
+        lengthCounter += (4 + synergiesArray[i].name.length);
+      } else {
+        filteredSynergies.push('...');
+        break;
+      }
+    }
+
+    return filteredSynergies;
+  },
+
+  isNoTeaser: function(synergyObj){
+    if(synergyObj === '...'){
+      return false;
+    } else {
+      return true;
+    }
   }
 });
 

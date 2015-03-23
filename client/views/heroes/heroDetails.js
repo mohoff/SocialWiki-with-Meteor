@@ -126,6 +126,8 @@ Template.heroDetails.helpers({
 		// generate srcPath as /img_heroes/<heroname>/<order>
 		console.log("order: " + order);
 		console.log("heroname: " + JSON.stringify(heroname));
+		var normalizedName = UI._globalHelpers['normalizeString'](heroname);
+		return '/img_heroes/' + normalizedName + '/' + order + '.jpg';		// change to .png when footage exists
 	},
 
 	skillBgColor: function(order){
@@ -141,6 +143,11 @@ Template.heroDetails.helpers({
 		*/
 		var colorArray = ['133,131,132', '61,164,65', '35,155,223', '195,35,223', '224,129,25'];
 		return 'rgba(' + colorArray[index] + ',' + alphaFactor + ');';
+	},
+
+	srcPathSkillType: function(type){
+		var lowercaseType = type.toLowerCase();
+		return '/img_skilltypes/' + lowercaseType + '.png';
 	}
 });
 

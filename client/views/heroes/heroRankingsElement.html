@@ -29,11 +29,15 @@
     </div><br />
     <div class="hero-divider"></div>
     <div class="hero-synergies">
-      {{#each hero.synergy}}
+      {{#each filteredSynergies hero.synergy}}
         <span class="hero-badge-or-synergy">
-          <span class="label label-success">
-            {{this.name}} ({{this.upvotes}}:{{this.downvotes}})
-          </span>
+          {{#if isNoTeaser this}}
+            <span class="label label-success">
+              {{this.name}} ({{this.upvotes}}:{{this.downvotes}})
+            </span>
+          {{else}}
+            {{this}}
+          {{/if}}
         </span>
       {{/each}}
     </div><br />

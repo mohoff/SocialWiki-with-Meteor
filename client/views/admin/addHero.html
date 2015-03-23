@@ -1,0 +1,236 @@
+<template name="adminAddHero">
+  <h1>Add Hero</h1>
+  <br />
+
+  <form id="addheroform" class="form-horizontal">
+    <div class="form-group">
+      <label for="inputName" class="col-xs-2 control-label">Name</label>
+      <div class="col-xs-10">
+        <input type="text" class="form-control" id="inputName" placeholder="Commando">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputSurname" class="col-xs-2 control-label">Surname</label>
+      <div class="col-xs-10">
+        <input type="text" class="form-control" id="inputSurname" placeholder="Octavia">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputGrowthstatsSTR" class="col-xs-2 control-label">Growth-Stats</label>
+      <div class="col-xs-10">
+        <div class="col-xs-4 left-input">
+          <div class="input-group">
+            <span class="input-group-addon">STR</span>
+            <input type="number" class="form-control" id="inputGrowthstatsSTR" placeholder="at Star 1">
+          </div>
+        </div>
+        <div class="col-xs-4 middle-input">
+          <div class="input-group">
+            <span class="input-group-addon">INT</span>
+            <input type="number" class="form-control" id="inputGrowthstatsINT" placeholder="at Star 1">
+          </div>
+        </div>
+        <div class="col-xs-4 right-input">
+          <div class="input-group">
+            <span class="input-group-addon">AGI</span>
+            <input type="number" class="form-control" id="inputGrowthstatsAGI" placeholder="at Star 1">
+          </div>
+        </div>
+        <span id="helpGrowthstats" class="help-block">Explanation: Please fill in the Growth-Stats for Evolution-Level 1 (1 Star)</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputOrder" class="col-xs-2 control-label">Lineup-Order</label>
+      <div class="col-xs-10">
+        <input type="number" class="form-control" id="inputOrder" placeholder="23" aria-describedby="helpOrder">
+        <span id="helpOrder" class="help-block">Explanation: Each hero has a ordering number which determines if it's a front, central or back-line hero. Example: Savage One = 1</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputBadges" class="col-xs-2 control-label">Badges</label>
+      <div class="col-xs-10">
+        <textarea class="form-control" id="inputBadges" rows="3" aria-describedby="helpBadges" placeholder="Separate with comma as in the examples below"></textarea>
+        <span id="helpBadges" class="help-block">Examples: Swordmanship, Pilgrims, Naga Race, Archery, Axe Gang, The Originals, Troll Race</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAttributes" class="col-xs-2 control-label">Attributes</label>
+      <div class="col-xs-10">
+        <textarea class="form-control" id="inputAttributes" rows="3" aria-describedby="helpAttributes" placeholder="Separate with comma as in the examples below"></textarea>
+        <span id="helpAttributes" class="help-block">Examples: AoE, hard CC, DoT, Flying, Burst, Heal/Sustain, Mirror Images, Aura, ...</span>
+      </div>
+    </div>
+
+
+    <!-- SKILL 1 -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Skill 1</label>
+      <div id="inputSkill1" class="col-xs-10">
+        <div class="form-group">
+          <label for="inputSkillName" class="col-xs-2 control-label">Name</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+          <div class="col-xs-10">
+            <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">Skill-Stats</label>
+          <div class="col-xs-10">
+            <div class="inputSkillStatsContainer">
+              <div class="inputSkillStatsHeadline">
+                <span class="col-xs-4 left-input">Name</span>
+                <span class="col-xs-4 middle-input">Lvl 1</span>
+                <span class="col-xs-4 right-input">per Lvl</span>
+              </div>
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            </div>
+            <input type="button" data-id="1" value="Add Attribute" class="addButton btn btn-default"/>
+            <input type="button" data-id="1" value="Remove Attribute" class="removeButton btn btn-default"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILL 2 -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Skill 2</label>
+      <div id="inputSkill2" class="col-xs-10">
+        <div class="form-group">
+          <label for="inputSkillName" class="col-xs-2 control-label">Name</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+          <div class="col-xs-10">
+            <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">Skill-Stats</label>
+          <div class="col-xs-10">
+            <div class="inputSkillStatsContainer">
+              <div class="inputSkillStatsHeadline">
+                <span class="col-xs-4 left-input">Name</span>
+                <span class="col-xs-4 middle-input">Lvl 1</span>
+                <span class="col-xs-4 right-input">per Lvl</span>
+              </div>
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            </div>
+            <input type="button" data-id="2" value="Add Attribute" class="addButton btn btn-default"/>
+            <input type="button" data-id="2" value="Remove Attribute" class="removeButton btn btn-default"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- SYNERGIES -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Synergies</label>
+      <div class="col-xs-10">
+        <div id="inputSynergies">
+          <textarea class="form-control inputSynergy" rows="2" aria-describedby="helpAttributes" placeholder="See examples below. Please keep it as short as possible."></textarea>
+        </div>
+        <input type="button" value="Add Synergy" class="addSynergyButton btn btn-default"/>
+        <input type="button" value="Remove Synergy" class="removeSynergyButton btn btn-default"/>
+        <span id="helpSynergies" class="help-block">Examples: Good with other mages, Weak against Arcane Sapper, Excellent VS Guild-Raid-Endbosses</span>
+      </div>
+    </div>
+
+
+
+<!--
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Remember me
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Sign in</button>
+      </div>
+    </div>
+  </form>
+-->
+
+<!--
+  <form id="addheroform">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name"/><br />
+    <label for="surname">Surname:</label>
+    <input type="text" name="surname" id="surname"/><br />
+
+    <label for="growthstats-str">Growth-Stats Strength:</label>
+    <input type="text" name="growthstatsstr" id="growthstats-str"/><br />
+    <label for="growthstats-agi">Growth-Stats Agility:</label>
+    <input type="text" name="growthstatsagi" id="growthstats-agi"/><br />
+    <label for="growthstats-int">Growth-Stats Intelligence:</label>
+    <input type="text" name="growthstatsint" id="growthstats-int"/><br />
+
+    <label for="badge1">Badge 1:</label>
+    <input type="text" name="badge1" id="badge1"/><br />
+
+    <label for="lineuporder">Lineup Order:</label>
+    <input type="text" name="lineuporder" id="lineuporder"/><br />
+
+    <label for="skill1-name">Skill 1 - Name:</label>
+    <input type="text" name="skill1name" id="skill1-name"/><br />
+    <label for="skill1-desc">Skill 1 - Description:</label>
+    <input type="text" name="skill1desc" id="skill1-desc"/><br />
+    <label for="skill1-initialdmg1">Skill 1 - Inital Damage:</label>
+    <input type="text" name="skill1initialdmg1" id="skill1-initialdmg1"/><br />
+    <label for="skill1-perlvlgrowth1">Skill 1 - per Level Growth:</label>
+    <input type="text" name="skill1perlvlgrowth1" id="skill1-perlvlgrowth1"/><br />
+
+    <label for="synergy1">Synergy 1:</label>
+    <input type="text" name="synergy1" id="synergy1"/><br />
+
+    <input type="submit" name="Submit" />
+  </form>
+-->
+  </form>
+</template>
