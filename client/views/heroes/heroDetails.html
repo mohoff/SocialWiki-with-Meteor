@@ -132,7 +132,7 @@
                   {{/each}}
                   <p>
                     {{context.desc}}
-                  </p>          
+                  </p>
                 </div>
               </div>
               <div class="col-md-7 col-xs-5">
@@ -162,23 +162,28 @@
   <div class="row heroDetails-row">
     <div class="col-xs-12">
       <h3>Stats Details</h3>
+      <span class="italic">
+        Stats are very vague. There are no official numbers or formulas
+        in how far the primary stats (STR, INT, AGI) affect the secondary
+        ones (HP, Armor, ...). If you have more exact information, feel
+        free to contact me. Thank you.
+      </span>
     </div>
   </div>
   <div class="row heroDetails-row">
     <div class="col-xs-6">
-      ArmorPen:<br />
-      MagicPen (MagicResistanceIgnored):<br />
-      LifeSteal:<br />
-      HP:<br />
-      AttackDamage:<br />
-      MagicPower:<br />
-      Armor:<br />
-      MagicResistance:<br />
-      PhysicalCrit:<br />
-      MagicCrit:<br />
-      HP Regeneration:<br />
-      Energy Regeneration:<br />
-      Dodge:<br />
+      <p><span class="bold">HP:</span> ~18*STR</p>
+      <p><span class="bold">Attack Power:</span> ~0.7*AGI + 1.4*STR</p>
+      <p><span class="bold">Magic Power:</span> ~2.4*INT</p>
+      <p><span class="bold">Armor:</span> ~0.25*STR + 0.1*AGI</p>
+      <p><span class="bold">Magic Resistance:</span> ~0.1*INT</p>
+      <p><span class="bold">Physical Crit:</span> ~(0.4-0.5)*AGI</p>
+      <p><span class="bold">Magic Crit:</span> depends on equipped items</p>
+      <p><span class="bold">Ignored Magic Resistance:</span> depends on equipped items</p>
+      <p><span class="bold">Life Steal:</span> depends on equipped items</p>
+      <p><span class="bold">HP Regeneration:</span> depends on equipped items</p>
+      <p><span class="bold">Energy Regeneration:</span> depends on equipped items</p>
+      <p><span class="bold">Dodge:</span> depends on equipped items</p>
     </div>
     <div id="growstats-chart" class="col-xs-6">
       <div id="chart" class="svg-container"></div>

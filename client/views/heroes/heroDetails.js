@@ -149,6 +149,10 @@ Template.heroDetails.helpers({
 		var lowercaseType = type.toLowerCase();
 		return '/img_skilltypes/' + lowercaseType + '.png';
 	}
+
+	/*statsHP: function(hero){
+		return 18 * hero.hero.
+	}*/
 });
 
 Template.heroDetails.events({
@@ -428,12 +432,13 @@ var RadarChart = {
 					newX =  parseFloat(d3.select(this).attr('cx')) - 10;
 					newY =  parseFloat(d3.select(this).attr('cy')) - 5;
 
-					tooltip
+					// tooltips were duplicated, this being commented out works fine
+					/*tooltip
 						.attr('x', newX)
 						.attr('y', newY)
 						.text(Format(d.value))
 						.transition(200)
-						.style('opacity', 1);
+						.style('opacity', 1);*/
 
 					z = "polygon."+d3.select(this).attr("class");
 					g.selectAll("polygon")
@@ -480,11 +485,16 @@ var colorscale = d3.scale.category10();
 var LegendOptions = [this.data.hero.name,'AVG HERO'];
 //Data
 //console.log("this.data: " + JSON.stringify(this.data));
+var str = this.data.hero.growthstats.str;
+var int = this.data.hero.growthstats.int;
+var agi = this.data.hero.growthstats.agi;
+
+
 var data = [
 		  [
-  			{axis: "STR", value: this.data.hero.growthstats.str},
-  			{axis: "INT", value: this.data.hero.growthstats.int},
-  			{axis: "AGI", value: this.data.hero.growthstats.agi}
+  			{axis: "STR", value: str},
+  			{axis: "INT", value: int},
+  			{axis: "AGI", value: agi}
 		  ],[
         {axis: "STR", value: 3.3},
   			{axis: "INT", value: 3.6},
@@ -492,12 +502,15 @@ var data = [
 		  ]
 		];
 
+getMaxNumber = function(arg1, arg2, arg3){
+	return Math.max(Math.max(arg1, arg2), arg3);
+};
 //Options for the Radar chart, other than default
 var mycfg = {
   w: dim,
   h: dim,
-  maxValue: 6,
-  levels: 6,
+  maxValue: getMaxNumber(str, int, agi) + 1,
+  levels: getMaxNumber(str, int, agi) + 1,
   ExtraWidthX: 0 //300
 };
 
