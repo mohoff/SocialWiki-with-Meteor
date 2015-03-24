@@ -1,4 +1,11 @@
 Template.adminAddHero.helpers({
+  skillColor : function(skillOrder){
+    var index = skillOrder - 1;
+    var alphaFactor = 0.5;
+    console.log("skillOrder: " + indexToColor[index]);
+    return 'color: rgba(' + colorArray[indexToColor[index]] + ', ' + alphaFactor + ');';
+  }
+
 });
 
 

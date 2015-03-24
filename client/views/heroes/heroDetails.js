@@ -133,16 +133,8 @@ Template.heroDetails.helpers({
 	skillBgColor: function(order){
 		var index = parseInt(order) - 1;
 		var alphaFactor = 0.3;
-		/*
-				// not offical, just colorpicked from ingame screenshots
-				gray:   #858384 = rgb(133,131,132)
-				green:  #3DA441 = rgb(61,164,65)
-				blue:   #239BDF = rgb(35,155,223)
-				purple: #C323DF = rgb(195,35,223)
-				yellow: #E08119 = rgb(224,129,25)
-		*/
-		var colorArray = ['133,131,132', '61,164,65', '35,155,223', '195,35,223', '224,129,25'];
-		return 'rgba(' + colorArray[index] + ',' + alphaFactor + ');';
+		//var colorArray = ['133,131,132', '61,164,65', '35,155,223', '195,35,223', '224,129,25'];
+		return 'rgba(' + colorArray[indexToColor[index]] + ',' + alphaFactor + ');';
 	},
 
 	srcPathSkillType: function(type){
