@@ -22,7 +22,7 @@ Template.registerHelper("scoreHeroRankings", function(hero){
       return hero.hero.ratings[category].upvoteCountAlltime;
     }
     if(hero.hero.ratings[category].downvoteCountAlltime){
-      return hero.hero.ratings[category].downvoteCountAlltime;
+      return -hero.hero.ratings[category].downvoteCountAlltime;
     }
   }
   return 0;
@@ -58,7 +58,8 @@ Template.registerHelper("srcPathAvatar", function(hero){
 });
 
 Template.registerHelper("srcPathType", function(hero){
-  return '/img_herotypes/' + hero.hero.type + '.png';
+  var type = hero.hero.type.toLowerCase();
+  return '/img_herotypes/' + type + '.png';
 });
 
 

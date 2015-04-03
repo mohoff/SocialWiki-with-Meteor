@@ -62,6 +62,7 @@ Template.heroRankingsElement.helpers({
     } // else if(upOrDownOrUnvote == 'unvote'){
       // do nothing
     //}
+    console.log(prefix + votePower);
     return prefix + votePower;
   },
 

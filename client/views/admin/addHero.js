@@ -42,7 +42,7 @@ Template.adminAddHero.rendered = function(){
       alert("You can't remove all Stats. Enter at least one.");
       return false;
     }
-    $('.inputSkill' + skillId + ' .inputSkillStatsContainer .inputSkillStatsRow:last').remove();
+    $('#inputSkill' + skillId + ' .inputSkillStatsContainer .inputSkillStatsRow:last').remove();
   });
 
   /* add Synergy */

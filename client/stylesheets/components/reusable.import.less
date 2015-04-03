@@ -2,10 +2,12 @@
 
 html, body {
     height: 100%;
+    background-color: #111120;
+    color: #ccc;
 }
 
 a, a:hover {
-  color: #333;
+  color: #ccc;
 }
 
 a:visited {
@@ -33,7 +35,7 @@ a:visited {
 #main, #sidebar {
   margin-bottom: 25px;
   padding-bottom: 25px;
-  background-color: #ddd;
+  background-color: #181818;
 }
 
 .label-as-badge {
@@ -81,4 +83,54 @@ a:visited {
 
 .italic {
   font-style: italic;
+}
+
+.btn {
+  color: #ddd !important;
+  background-color: #222 !important;
+  border-color: #444 !important;
+}
+
+
+@colorSTR: #c92317;
+@colorINT: #2a65c5;
+@colorAGI: #35ad0f;
+
+@colorSTRdark: darken(@colorSTR, 35%);
+@colorINTdark: darken(@colorINT, 35%);
+@colorAGIdark: darken(@colorAGI, 28%);
+
+@colorSTRnormal: darken(@colorSTR, 15%);
+@colorINTnormal: darken(@colorINT, 15%);
+@colorAGInormal: darken(@colorAGI, 12%);
+
+.inputSTR {
+  color: @colorSTRnormal;
+}
+.inputINT{
+  color: @colorINTnormal;
+}
+.inputAGI {
+  color: @colorAGInormal;
+}
+
+
+.inputBgSTR {
+  background-color: @colorSTRdark;
+}
+.inputBgINT{
+  background-color: @colorINTdark;
+}
+.inputBgAGI {
+  background-color: @colorAGIdark;
+}
+// overwritten in BOOTSTRAP
+// placeholder
+@input-color-placeholder: #555;
+
+.input-group-addon {
+  /*background-color: #555;*/
+  color: white;
+  border: 1px solid #444;
+  border-radius: 4px;
 }
