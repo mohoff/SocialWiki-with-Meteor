@@ -39,7 +39,11 @@ Template.heroRankingsElement.helpers({
       userIdentifier = Session.get('clientIp');
     }
     // helper receives e.g. nested rating.crusade object, and checks if it contains the passed userIdentifier
-    upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+    if(this.hero && this.hero.ratings && this.hero.ratings[voteFor]){
+      upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+    } else {
+      return; // don't show anything
+    }
 
     if(Meteor.user() &&
         Meteor.user().userdata &&
@@ -74,7 +78,12 @@ Template.heroRankingsElement.helpers({
       userIdentifier = Session.get('clientIp');
     }
     // helper receives e.g. nested rating.crusade object, and checks if it contains the passed userIdentifier
-    upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+    if(this.hero && this.hero.ratings && this.hero.ratings[voteFor] && userIdentifier){
+      upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+    } else {
+      upOrDownOrUnvote = 'unvote'; // so that it gets rendered to 'gone'
+    }
+
 
     var classes;
     if(upOrDownOrUnvote == 'up'){
@@ -113,7 +122,11 @@ Template.heroRankingsElement.helpers({
       voteSource = 'Unr';
       userIdentifier = Session.get('clientIp');
     }
-    var storedVoters = this.hero.ratings[voteFor][upOrDown + "votersDaily"+voteSource+"egistered"];
+    var storedVoters = [];
+    if(this.hero && this.hero.ratings && this.hero.ratings[voteFor] &&
+          this.hero.ratings[voteFor][upOrDown + "votersDaily"+voteSource+"egistered"]){
+      storedVoters  = this.hero.ratings[voteFor][upOrDown + "votersDaily"+voteSource+"egistered"];
+    }
 
     console.log("-UI- Invoked " + upOrDown + "vote from: " + userIdentifier);
     console.log("-UI- stored " + upOrDown + "voters: " + JSON.stringify(storedVoters));
@@ -145,8 +158,16 @@ Template.heroRankingsElement.helpers({
     var lengthLimit = 75;
     var filteredSynergies = [];
 
+    if((synergiesArray.length) && (synergiesArray.length === 0)){
+      return filteredSynergies; // empty array
+    }
+
     synergiesArray.sort(function(a,b){
-      return b.votes - a.votes;
+      if(a.votes && b.votes){
+        return b.votes - a.votes;
+      } else {
+        return 0;
+      }
     });
 
     for(var i=0; i<synergiesArray.length; i++){

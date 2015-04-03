@@ -38,8 +38,8 @@ Schemas.Hero = new SimpleSchema({
       } else {
         this.unset();
       }
-    },
-    denyUpdate: true
+    }
+    //denyUpdate: true    // causes conflict with autoValue
   },
   createdBy: {
     type: String,
@@ -51,16 +51,28 @@ Schemas.Hero = new SimpleSchema({
       } else {
         this.unset();
       }
-    },
-    denyUpdate: true
+    }
+    //denyUpdate: true    // causes conflict with autoValue
   },
   updatedAt: {
     type: Date,
-    defaultValue: new Date()
+    autoValue: function(){
+      if(this.isUpdate || this.isUpsert){
+        return new Date();
+      }
+    },
+    denyInsert: true,
+    optional: true
   },
   updatedBy: {
     type: String,
-    defaultValue: this.userId
+    autoValue: function(){
+      if(this.isUpdate || this.isUpsert){
+        return this.userId;
+      }
+    },
+    denyInsert: true,
+    optional: true
   },
   status: {
     type: String,
@@ -85,25 +97,82 @@ Schemas.Hero = new SimpleSchema({
     type: String,
     allowedValues: allowedTypes
   },
-  "hero.growthstats": {
+
+  /* Stats (primary, secondary, base, growth) */
+  "hero.stats": {
     type: Object,
     optional: true
   },
-  "hero.growthstats.str": {
+  "hero.stats.initialGrowth": {
+    type: Object,
+    optional: true
+  },
+  "hero.stats.initialGrowth.str": {
     type: Number,
     decimal: true,
     optional: true
   },
-  "hero.growthstats.int": {
+  "hero.stats.initialGrowth.int": {
     type: Number,
     decimal: true,
     optional: true
   },
-  "hero.growthstats.agi": {
+  "hero.stats.initialGrowth.agi": {
     type: Number,
     decimal: true,
     optional: true
   },
+  "hero.stats.base": {
+    type: Object,
+    optional: true
+  },
+  "hero.stats.base.str": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.int": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.agi": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.ad": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.ap": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.hp": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.armor": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.mres": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+  "hero.stats.base.crit": {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
+
+
   "hero.badges": {
     type: [String],
     optional: true
@@ -138,6 +207,7 @@ Schemas.Hero = new SimpleSchema({
   },
   "hero.skills.$.name": {
     type: String,
+    optional: true
   },
   "hero.skills.$.desc": {
     type: String,
@@ -151,7 +221,8 @@ Schemas.Hero = new SimpleSchema({
     // string
   },*/
   "hero.skills.$.stats": {
-    type: [Object]
+    type: [Object],
+    optional: true
   },
   /*"hero.skills.$.stats.$": {
     // object
@@ -160,10 +231,12 @@ Schemas.Hero = new SimpleSchema({
     type: String
   },
   "hero.skills.$.stats.$.lvl1": {
-    type: String
+    type: String,
+    optional: true
   },
   "hero.skills.$.stats.$.perLvl": {
-    type: String
+    type: String,
+    optional: true
   },
   "hero.ratings": {
     type: Object,
@@ -351,7 +424,8 @@ Schemas.Hero = new SimpleSchema({
 
   "hero.synergies": {
     type: [Object],
-    optional: true
+    optional: true,
+    blackbox: true
   },
   "hero.synergies.$.createdAt": {
     type: Date,

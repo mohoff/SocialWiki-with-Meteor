@@ -9,7 +9,7 @@
 Meteor.methods({
   getIP: function(){
     return this.connection.clientAddress;
-  },
+  }/*,
   addHero: function(input) {
     console.log("we are in addHero.");
     console.log(input);
@@ -18,7 +18,7 @@ Meteor.methods({
     console.log('Hero successfully added.');
 
     // BADGES je nach anzahl mit for-schleif ein json-obj rein
-  }
+  }*/
 });
 
 Accounts.onLogin(function (user) {
@@ -75,6 +75,7 @@ Accounts.onLogin(function (user) {
         // IS NEW MONTH, reset all vote boni and login streaks anyway
         //unsetRatingsFor('Monthly');
         console.log("-- isNewMonth");
+        consecutiveLogins = 1;
       } else {
         // IS SAME MONTH
         if((lastLoginAt >= yesterdayStart) && (lastLoginAt <= yesterdayEnd)){

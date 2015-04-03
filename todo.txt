@@ -1,6 +1,11 @@
 - TERMINAL:
     * 'killmeteor' killt meteor-ghostinstaces, alias ist entsprechend angelegt
 
+
+
+- meteor notify package/addon hinzufuegen. demo page ist in den firefox-bookmarks
+  hinterlegt.
+
 - collection avgGrowthstats anlegen, wo STR,AGI,INT-werte durchscnitte von allen
   helden (zugeordnet zu INT,AGI oder STR-typ) eingetragen werden, sodass diese
   als overlay in spidernet/radargraph angezeigt werden koennen.

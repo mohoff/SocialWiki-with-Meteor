@@ -1,5 +1,6 @@
 Template.registerHelper("initialVoteBonus",function(value){
-  if(Meteor.user() && Meteor.user().userdata.voting.initialVoteBonus){
+  if(Meteor.user() && Meteor.user().userdata && Meteor.user().userdata.voting &&
+      Meteor.user().userdata.voting.initialVoteBonus){
     return Meteor.user().userdata.voting.initialVoteBonus;
   } else {
     return 1; // for unregistered users, votePower = 1
@@ -8,17 +9,43 @@ Template.registerHelper("initialVoteBonus",function(value){
 
 Template.registerHelper("scoreHeroRankings", function(hero){
   var category = UI._globalHelpers['getNormalizedRankingCategory']();
-  var upPoints = hero.hero.ratings[category].upvoteCountAlltime;
-  var downPoints = hero.hero.ratings[category].downvoteCountAlltime;
-  var score = upPoints - downPoints;
-  return score;
+  if(hero && hero.hero && hero.hero.ratings && hero.hero.ratings[category] &&
+      hero.hero.ratings[category]){
+
+    if(hero.hero.ratings[category].upvoteCountAlltime && hero.hero.ratings[category].downvoteCountAlltime){
+      var upPoints = hero.hero.ratings[category].upvoteCountAlltime;
+      var downPoints = hero.hero.ratings[category].downvoteCountAlltime;
+      var score = upPoints - downPoints;
+      return score;
+    }
+    if(hero.hero.ratings[category].upvoteCountAlltime){
+      return hero.hero.ratings[category].upvoteCountAlltime;
+    }
+    if(hero.hero.ratings[category].downvoteCountAlltime){
+      return hero.hero.ratings[category].downvoteCountAlltime;
+    }
+  }
+  return 0;
 });
 
 Template.registerHelper("scoreHeroDetails", function(hero, category){
-  var upPoints = hero.hero.ratings[category].upvoteCountAlltime;
-  var downPoints = hero.hero.ratings[category].downvoteCountAlltime;
-  var score = upPoints - downPoints;
-  return score;
+  if(hero && hero.hero && hero.hero.ratings && hero.hero.ratings[category] &&
+      hero.hero.ratings[category]){
+
+    if(hero.hero.ratings[category].upvoteCountAlltime && hero.hero.ratings[category].downvoteCountAlltime){
+      var upPoints = hero.hero.ratings[category].upvoteCountAlltime;
+      var downPoints = hero.hero.ratings[category].downvoteCountAlltime;
+      var score = upPoints - downPoints;
+      return score;
+    }
+    if(hero.hero.ratings[category].upvoteCountAlltime){
+      return hero.hero.ratings[category].upvoteCountAlltime;
+    }
+    if(hero.hero.ratings[category].downvoteCountAlltime){
+      return hero.hero.ratings[category].downvoteCountAlltime;
+    }
+  }
+  return 0;
 });
 
 Template.registerHelper("srcPathAvatar", function(hero){
