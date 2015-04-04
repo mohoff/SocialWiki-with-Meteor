@@ -140,6 +140,29 @@ Template.heroDetails.helpers({
 	srcPathSkillType: function(type){
 		var lowercaseType = type.toLowerCase();
 		return '/img_skilltypes/' + lowercaseType + '.png';
+	},
+
+  forLevelValue: function(){
+		return Session.get('forLevel') || 1;
+	},
+	forStarValue: function(){
+		return Session.get('forStar') || 1;
+	},
+
+	stats: function(){
+		var lvl = Session.get('forLevel') || 1;
+		var star = Session.get('forStar') || 1;
+		console.log("LEVEL: " + lvl);
+		var stats = this.hero.stats;
+		var result = {
+			hp: Math.round((stats.base.hp || 0) + (stats.base.str + (stats.growth.str*(star+1))*lvl) * 18),
+			ad: Math.round((stats.base.ad || 0) + (stats.base.str + (stats.growth.str*(star+1))*lvl) * 1.4 + (stats.base.agi + (stats.growth.agi*(star+1))*lvl) * 0.7),
+			ap: Math.round((stats.base.ap || 0) + (stats.base.int + (stats.growth.int*(star+1))*lvl) * 2.4),
+			armor: Math.round((stats.base.armor || 0) + (stats.base.str + (stats.growth.str*(star+1))*lvl) * 0.25 + (stats.base.agi + (stats.growth.agi*(star+1))*lvl) * 0.1),
+			mres: Math.round((stats.base.mres || 0) + (stats.base.int + (stats.growth.int*(star+1))*lvl) * 0.1),
+			crit: Math.round((stats.base.crit || 0) + (stats.base.agi + (stats.growth.agi*(star+1))*lvl) * 0.4)
+		};
+		return result;
 	}
 
 	/*statsHP: function(hero){
@@ -177,6 +200,45 @@ Template.heroDetails.events({
 });
 
 Template.heroDetails.rendered = function () {
+
+	$('#forLevelInput').change(function() {
+		var val = $(this).val();
+		if((val >= 1) && (val <= 90)){
+			Session.set('forLevel', val);
+		} else {
+			if(val < 1){
+				$(this).val(1);
+				Session.set('forLevel', 1);
+			} else if(val > 90){
+				$(this).val(90);
+				Session.set('forLevel', 90);
+			}
+		}
+	});
+	$('#forStarInput').change(function() {
+		var val = $(this).val();
+		if((val >= 1) && (val <= 5)){
+			Session.set('forStar', val);
+		} else {
+			if(val < 1){
+				$(this).val(1);
+				Session.set('forStar', 1);
+			} else if(val > 5){
+				$(this).val(5);
+				Session.set('forStar', 5);
+			}
+		}
+	});
+	$('#forLevelInput, #forStarInput').bind("enterKey", function(e) {
+		$(this).blur();
+	});
+	$('#forLevelInput, #forStarInput').keyup(function(e){
+		if(e.keyCode == 13){
+			$(this).trigger("enterKey");
+		}
+	});
+
+
 
 	var type = this.data.hero.type.toUpperCase();
 	colorTriangle = function(x){
@@ -508,14 +570,14 @@ Template.heroDetails.rendered = function () {
 	//var w = 500,	h = 500;
 
 	if(this.data && this.data.hero && this.data.hero.stats &&
-			this.data.hero.stats.initialGrowth &&
-			this.data.hero.stats.initialGrowth.str &&
-			this.data.hero.stats.initialGrowth.int &&
-			this.data.hero.stats.initialGrowth.agi){
+			this.data.hero.stats.growth &&
+			this.data.hero.stats.growth.str &&
+			this.data.hero.stats.growth.int &&
+			this.data.hero.stats.growth.agi){
 
-		var str = this.data.hero.stats.initialGrowth.str;
-		var int = this.data.hero.stats.initialGrowth.int;
-		var agi = this.data.hero.stats.initialGrowth.agi;
+		var str = this.data.hero.stats.growth.str * 2; // multiplied by 2, so it represents value for Star=1
+		var int = this.data.hero.stats.growth.int * 2; // multiplied by 2, so it represents value for Star=1
+		var agi = this.data.hero.stats.growth.agi * 2; // multiplied by 2, so it represents value for Star=1
 
 		var data = [
 									[

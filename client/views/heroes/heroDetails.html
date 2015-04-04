@@ -162,28 +162,45 @@
   <div class="row heroDetails-row">
     <div class="col-xs-12">
       <h3>Stats Details</h3>
+      <!--
       <span class="italic">
         Stats are very vague. There are no official numbers or formulas
         in how far the primary stats (STR, INT, AGI) affect the secondary
         ones (HP, Armor, ...). If you have more exact information, feel
         free to contact me. Thank you.
       </span>
+      -->
     </div>
   </div>
   <div class="row heroDetails-row">
     <div class="col-xs-6">
-      <p><span class="bold">HP:</span> ~18*STR</p>
-      <p><span class="bold">Attack Power:</span> ~0.7*AGI + 1.4*STR</p>
-      <p><span class="bold">Magic Power:</span> ~2.4*INT</p>
-      <p><span class="bold">Armor:</span> ~0.25*STR + 0.1*AGI</p>
-      <p><span class="bold">Magic Resistance:</span> ~0.1*INT</p>
-      <p><span class="bold">Physical Crit:</span> ~(0.4-0.5)*AGI</p>
-      <p><span class="bold">Magic Crit:</span> depends on equipped items</p>
-      <p><span class="bold">Ignored Magic Resistance:</span> depends on equipped items</p>
-      <p><span class="bold">Life Steal:</span> depends on equipped items</p>
-      <p><span class="bold">HP Regeneration:</span> depends on equipped items</p>
-      <p><span class="bold">Energy Regeneration:</span> depends on equipped items</p>
-      <p><span class="bold">Dodge:</span> depends on equipped items</p>
+      <div class="row">
+        <div class="col-xs-12 form-inline" id="forWrapper">
+          <label for="forLevelInput" class="control-label" id="forLevelLabel">
+            for Level
+            <input type="number" class="form-control input-sm" id="forLevelInput" value={{forLevelValue}} min="1" max="90" />
+          </label>
+          <label for="forStarInput" class="control-label" id="forStarLabel">
+            and
+            <input type="number" class="form-control input-sm" id="forStarInput" value={{forStarValue}} min="1" max="5" />
+            Stars
+          </label>
+        </div>
+      </div>
+      {{#with stats}}
+      <p><span class="bold">HP:</span> {{hp}}</p>
+      <p><span class="bold">Attack Power:</span> {{ad}}</p>
+      <p><span class="bold">Magic Power:</span> {{ap}}</p>
+      <p><span class="bold">Armor:</span> {{armor}}</p>
+      <p><span class="bold">Magic Resistance:</span> {{mres}}</p>
+      <p><span class="bold">Physical Crit:</span> {{crit}}</p>
+      <p><span class="bold">Magic Crit:</span><span class="statsBasedOnItems"> depends on equipped items</span></p>
+      <p><span class="bold">Ignored Magic Resistance:</span><span class="statsBasedOnItems"> depends on equipped items</span></p>
+      <p><span class="bold">Life Steal:</span><span class="statsBasedOnItems"> depends on equipped items</span></p>
+      <p><span class="bold">HP Regeneration:</span><span class="statsBasedOnItems"> depends on equipped items</span></p>
+      <p><span class="bold">Energy Regeneration:</span><span class="statsBasedOnItems"> depends on equipped items</span></p>
+      <p><span class="bold">Dodge:</span><span class="statsBasedOnItems"> depends on equipped items</span></p>
+      {{/with}}
     </div>
     <div id="growstats-chart" class="col-xs-6">
       <div id="chart" class="svg-container"></div>

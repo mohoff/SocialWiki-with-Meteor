@@ -21,6 +21,14 @@
         <input type="text" class="form-control" id="inputSurname" placeholder="Octavia" required>
       </div>
     </div>
+    <!-- Description -->
+    <div class="form-group">
+      <label for="inputDescription" class="col-xs-2 control-label">Description</label>
+      <div class="col-xs-10">
+        <textarea class="form-control" id="inputDescription" rows="3" aria-describedby="helpDescription" placeholder="e.g. Middle line Mage, who can deal massive area damage with his two heads."></textarea>
+        <span id="helpDescription" class="help-block">Fill in text which is written as Introduction in Hero-Stats panel</span>
+      </div>
+    </div>
     <!-- Type -->
     <div class="form-group">
       <label for="inputType" class="col-xs-2 control-label">
@@ -110,7 +118,7 @@
           <div>
             <div class="col-xs-4"></div>
             <div class="col-xs-8">
-              <span id="helpBaseSecondaryStats" class="help-block">Explanation: Please fill in the Secondary Base-Stats (Hero-Level 1, Star 1). Usually the base Magic Resistance, Magic Power and Crit are 0.</span>
+              <span id="helpBaseSecondaryStats" class="help-block">Explanation: Please fill in the Secondary Base-Stats (Hero-Level 1, Star 1). Usually the base Magic Resistance, Magic Power and Crit equal 0.</span>
             </div>
           </div>
         </div>
@@ -120,25 +128,35 @@
     <div class="form-group">
       <label for="inputGrowthstatsSTR" class="col-xs-2 control-label">Growth-Stats</label>
       <div class="col-xs-10">
-        <div class="col-xs-4 left-input">
-          <div class="input-group">
-            <span class="input-group-addon inputBgSTR">STR</span>
-            <input type="text" class="form-control" id="inputGrowthstatsSTR" aria-describedby="helpGrowthstats" placeholder="at Star 1">
+        <div class="col-xs-12">
+          <div class="col-xs-4 left-input">
+            <div class="input-group">
+              <span class="input-group-addon inputBgSTR">STR</span>
+              <input type="text" class="form-control" id="inputGrowthstatsSTR" aria-describedby="helpGrowthstats" placeholder="at Star 1">
+            </div>
+          </div>
+          <div class="col-xs-4 middle-input">
+            <div class="input-group">
+              <span class="input-group-addon inputBgINT">INT</span>
+              <input type="text" class="form-control" id="inputGrowthstatsINT" aria-describedby="helpGrowthstats" placeholder="at Star 1">
+            </div>
+          </div>
+          <div class="col-xs-4 right-input">
+            <div class="input-group">
+              <span class="input-group-addon inputBgAGI">AGI</span>
+              <input type="text" class="form-control" id="inputGrowthstatsAGI" aria-describedby="helpGrowthstats" placeholder="at Star 1">
+            </div>
+          </div>
+          <span id="helpGrowthstats" class="help-block">Explanation: Please fill in the Growth-Stats for Evolution-Level 1 (=Star 1)</span>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="col-xs-7 control-label" for="inputGrowthstatsStars">Observation made at Evolution-Level (# of Stars): </label>
+            <div class="col-xs-5">
+              <input type="number" class="form-control" id="inputGrowthstatsStars" placeholder="e.g. 1" min="0" max="5">
+            </div>
           </div>
         </div>
-        <div class="col-xs-4 middle-input">
-          <div class="input-group">
-            <span class="input-group-addon inputBgINT">INT</span>
-            <input type="text" class="form-control" id="inputGrowthstatsINT" aria-describedby="helpGrowthstats" placeholder="at Star 1">
-          </div>
-        </div>
-        <div class="col-xs-4 right-input">
-          <div class="input-group">
-            <span class="input-group-addon inputBgAGI">AGI</span>
-            <input type="text" class="form-control" id="inputGrowthstatsAGI" aria-describedby="helpGrowthstats" placeholder="at Star 1">
-          </div>
-        </div>
-        <span id="helpGrowthstats" class="help-block">Explanation: Please fill in the Growth-Stats for Evolution-Level 1 (=Star 1)</span>
       </div>
     </div>
     <!-- Lineup-Order -->

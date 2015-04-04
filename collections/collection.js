@@ -93,6 +93,10 @@ Schemas.Hero = new SimpleSchema({
   "hero.surname": {
     type: String
   },
+  "hero.desc": {
+    type: String,
+    optional: true
+  },
   "hero.type": {
     type: String,
     allowedValues: allowedTypes
@@ -103,21 +107,21 @@ Schemas.Hero = new SimpleSchema({
     type: Object,
     optional: true
   },
-  "hero.stats.initialGrowth": {
+  "hero.stats.growth": {
     type: Object,
     optional: true
   },
-  "hero.stats.initialGrowth.str": {
+  "hero.stats.growth.str": {
     type: Number,
     decimal: true,
     optional: true
   },
-  "hero.stats.initialGrowth.int": {
+  "hero.stats.growth.int": {
     type: Number,
     decimal: true,
     optional: true
   },
-  "hero.stats.initialGrowth.agi": {
+  "hero.stats.growth.agi": {
     type: Number,
     decimal: true,
     optional: true

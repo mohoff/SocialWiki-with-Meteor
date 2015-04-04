@@ -76,6 +76,7 @@ Template.adminAddHero.events({
 
     var name = $('#inputName').val();
     var surname = $('#inputSurname').val();
+    var desc = $('#inputDescription').val();
     var type = $('.inputTypeWrapper input:radio[name=type]:checked').val();
     console.log("type: " + type);
 
@@ -91,10 +92,14 @@ Template.adminAddHero.events({
     stats.base.ap = $('#inputSecondaryStatMagicPower').val();
     stats.base.crit = $('#inputSecondaryStatPhysCrit').val();
 
-    stats.initialGrowth = {};
-    stats.initialGrowth.str = $('#inputGrowthstatsSTR').val();
-    stats.initialGrowth.int = $('#inputGrowthstatsINT').val();
-    stats.initialGrowth.agi = $('#inputGrowthstatsAGI').val();
+    var growthStatsObservationStars = parseFloat($('#inputGrowthstatsStars').val());
+    console.log("GROWTHSTAT Observation stars: " + growthStatsObservationStars);
+    console.log("preTEST: " + parseFloat($('#inputGrowthstatsSTR').val()));
+    console.log("TEST: " + parseFloat($('#inputGrowthstatsSTR').val()) / (growthStatsObservationStars+1));
+    stats.growth = {};
+    stats.growth.str = (parseFloat($('#inputGrowthstatsSTR').val()) / (growthStatsObservationStars+1));
+    stats.growth.int = (parseFloat($('#inputGrowthstatsINT').val()) / (growthStatsObservationStars+1));
+    stats.growth.agi = (parseFloat($('#inputGrowthstatsAGI').val()) / (growthStatsObservationStars+1));
 
     var lineuporder = $('#inputOrder').val();
 
@@ -158,6 +163,7 @@ Template.adminAddHero.events({
     heroData = {};
     heroData.name = name;
     heroData.surname = surname;
+    heroData.desc = desc;
     heroData.type = type;
     heroData.stats = stats;
     heroData.lineuporder = lineuporder;
