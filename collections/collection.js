@@ -101,6 +101,10 @@ Schemas.Hero = new SimpleSchema({
     type: String,
     allowedValues: allowedTypes
   },
+  "hero.lineuporder": {
+    type: Number,
+    optional: true
+  },
 
   /* Stats (primary, secondary, base, growth) */
   "hero.stats": {
@@ -191,10 +195,6 @@ Schemas.Hero = new SimpleSchema({
   /*"hero.attributes.$": {       // or how else define array-element?
 
   },*/
-  "hero.lineupOrder": {
-    type: [Number],
-    optional: true
-  },
 
   /* ---- SKILLS ---- */
 

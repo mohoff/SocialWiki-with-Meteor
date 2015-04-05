@@ -1,0 +1,16 @@
+<template name="adminAddOrEditHero">
+  <h1>
+    {{#if this.hero}}
+      Edit
+    {{else}}
+      Add
+    {{/if}}
+    Hero
+  </h1>
+  <br />
+  {{#if this.hero}}
+    {{> addOrEditForm this.hero}}
+  {{else}}
+    {{> addOrEditForm}}
+  {{/if}}
+</template>

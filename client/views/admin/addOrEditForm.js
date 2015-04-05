@@ -1,15 +1,33 @@
-Template.adminAddHero.helpers({
+Template.addOrEditForm.helpers({
   skillColor : function(skillOrder){
     var index = skillOrder - 1;
     var alphaFactor = 0.5;
     console.log("skillOrder: " + indexToColor[index]);
     return 'color: rgba(' + colorArray[indexToColor[index]] + ', ' + alphaFactor + ');';
-  }
+  },
+  checked : function(type){
+    // type = [STR,INT,AGI]
 
+    if(this && this.type){
+      // we are in EDIT
+      console.log("actualHeroType: " + this.type + ", inputType: " + type);
+      if(this.type === type){
+        return "checked";
+      } else {
+        return;
+      }
+    } else {
+      // we are in ADD
+      return;
+    }
+  },
+  stringified : function(number){
+    return number.toString();
+  }
 });
 
 
-Template.adminAddHero.rendered = function(){
+Template.addOrEditForm.rendered = function(){
 
   /* add Skill-Stat */
   $(".addButton").click(function(){
@@ -47,30 +65,80 @@ Template.adminAddHero.rendered = function(){
 
   /* add Synergy */
   $(".addSynergyButton").click(function(){
-    if(($('#inputSynergies .inputSynergy').length+1) > 5){
+    /*if(($('#inputSynergies .inputSynergyWrapper').length) > 5){
       alert("Only 5 initial Synergies allowed");
       return false;
-    }
-    var statId = ($('#inputSynergies .inputSynergy').length + 1).toString();
+    }*/
+    var statId = ($('#inputSynergies .inputSynergyWrapper').length + 1).toString();
     $('#inputSynergies').append(
-      '<textarea class="form-control inputSynergy" rows="2" aria-describedby="helpSynergies" placeholder="See examples below. Please keep it as short as possible."></textarea>'
+      //'<textarea class="form-control inputSynergy" rows="2" aria-describedby="helpSynergies" placeholder="See examples below. Please keep it as short as possible."></textarea>'
+      '<div class="row inputSynergyWrapper">' +
+        '<div class="col-xs-6">' +
+          '<textarea class="form-control inputSynergy" rows="2" aria-describedby="helpAttributes" placeholder="See examples below. Please keep it as short as possible."></textarea>' +
+        '</div>' +
+        '<div class="col-xs-6">' +
+          'Status: TBD<br />' +
+          'Votes: 0<br />' +
+          'DeleteRequests: 0<br />' +
+        '</div>' +
+      '</div>'
     );
   });
 
   /* remove Synergy */
+  var that = this;
   $(".removeSynergyButton").click(function(){
-    var skillId = $(this).attr('data-id');
-    if($('#inputSynergies .inputSynergy').length == 1){
+    //var skillId = $(this).attr('data-id');
+    /*if($('#inputSynergies .inputSynergy').length == 1){
       alert("You can't remove all Synergies. Enter at least one.");
       return false;
+    }*/
+    var numberOfCurrentSynergies = $('#inputSynergies .inputSynergyWrapper').length;
+
+    if(that.data && that.data.synergies && that.data.synergies.length){
+      // we are in EDIT
+      numberOfSavedSynergies = that.data.synergies.length || Session.get('numberOfSavedSynergies');
+      Session.set('numberOfSavedSynergies', numberOfSavedSynergies);
+      if(numberOfCurrentSynergies > numberOfSavedSynergies){
+        $('#inputSynergies .inputSynergyWrapper:last').remove();
+      } else {
+        alert("You can't delete more Synergies.");
+      }
+    } else {
+      if(numberOfCurrentSynergies > 1){
+        $('#inputSynergies .inputSynergyWrapper:last').remove();
+      } else {
+        alert("You can't delete more Synergies.");
+      }
     }
-    $('#inputSynergies .inputSynergy:last').remove();
+
+/* // LEGACY
+
+    var numberOfSavedSynergies = 0;
+    if((that.data.synergies && that.data.synergies.length) || (Session.get('numberOfSavedSynergies'))){
+      console.log("WE HAVE # OF SAVED SYNS");
+      numberOfSavedSynergies = that.data.synergies.length || Session.get('numberOfSavedSynergies');
+      Session.set('numberOfSavedSynergies', numberOfSavedSynergies);
+    }
+
+    if(that.data && that.data.synergies && that.data.synergies.length &&
+        (numberOfCurrentSynergies > numberOfSavedSynergies)){
+      $('#inputSynergies .inputSynergyWrapper:last').remove();
+    } else {
+      alert("You can't delete more Synergies.");
+    }
+*/
   });
 
 };
 
+Template.addOrEditForm.onDestroyed = function(){
+  // doesn't get fired, but also not needed right now
+  Session.set('numberOfSavedSynergies', null);
+  console.log("Template addOrEditForm destroyed!");
+};
 
-Template.adminAddHero.events({
+Template.addOrEditForm.events({
   "submit form": function (event) {   // form as html-tag identifier
     event.preventDefault();
 
@@ -85,17 +153,17 @@ Template.adminAddHero.events({
     stats.base.str = $('#inputBasestatSTR').val();
     stats.base.int = $('#inputBasestatINT').val();
     stats.base.agi = $('#inputBasestatAGI').val();
-    stats.base.hp = $('#inputSecondaryStatHP').val();
-    stats.base.armor = $('#inputSecondaryStatArmor').val();
-    stats.base.mres = $('#inputSecondaryStatMagicRes').val();
-    stats.base.ad = $('#inputSecondaryStatAttackPower').val();
-    stats.base.ap = $('#inputSecondaryStatMagicPower').val();
-    stats.base.crit = $('#inputSecondaryStatPhysCrit').val();
-
+    stats.base.hp = $('#inputSecondaryStatHP').val() || 0;
+    stats.base.armor = $('#inputSecondaryStatArmor').val() || 0;
+    stats.base.mres = $('#inputSecondaryStatMagicRes').val() || 0;
+    stats.base.ad = $('#inputSecondaryStatAttackPower').val() || 0;
+    stats.base.ap = $('#inputSecondaryStatMagicPower').val() || 0;
+    stats.base.crit = $('#inputSecondaryStatPhysCrit').val() || 0;
+    //console.log("mres: " + $('#inputSecondaryStatMagicRes').val());
     var growthStatsObservationStars = parseFloat($('#inputGrowthstatsStars').val());
-    console.log("GROWTHSTAT Observation stars: " + growthStatsObservationStars);
-    console.log("preTEST: " + parseFloat($('#inputGrowthstatsSTR').val()));
-    console.log("TEST: " + parseFloat($('#inputGrowthstatsSTR').val()) / (growthStatsObservationStars+1));
+    //console.log("GROWTHSTAT Observation stars: " + growthStatsObservationStars);
+    //console.log("preTEST: " + parseFloat($('#inputGrowthstatsSTR').val()));
+    //console.log("TEST: " + parseFloat($('#inputGrowthstatsSTR').val()) / (growthStatsObservationStars+1));
     stats.growth = {};
     stats.growth.str = (parseFloat($('#inputGrowthstatsSTR').val()) / (growthStatsObservationStars+1));
     stats.growth.int = (parseFloat($('#inputGrowthstatsINT').val()) / (growthStatsObservationStars+1));
@@ -105,15 +173,16 @@ Template.adminAddHero.events({
 
     var badges = [];
     if($('#inputBadges').val() !== ''){
-      badges = $('#inputBadges').val().replace(/\s+/, "").split(",");
+      badges = $('#inputBadges').val().replace(/\s+/g,"").split(",");
     }
-    console.log("badges: " + JSON.stringify(badges));
+    badges = cleanArray(badges);
+    //console.log("badges: " + JSON.stringify(badges));
     var attributes = [];
     if($('#inputAttributes').val() !== ''){
-      attributes = $('#inputAttributes').val().replace(/\s+/, "").split(",");
+      attributes = $('#inputAttributes').val().replace(/\s+/g,"").split(",");
     }
-    //attributes = $('#inputAttributes').val().replace(/\s+/, "").split(",");
-    console.log("attributes: " + JSON.stringify(attributes));
+    attributes = cleanArray(attributes);
+    //console.log("attributes: " + JSON.stringify(attributes));
 
     var skills = [];
     for(var i=0; i<5; i++){
@@ -147,9 +216,14 @@ Template.adminAddHero.events({
     }
     console.log("skills: " + JSON.stringify(skills));
 
+
+    // be careful with other synergy.properties:d
+    // if you overwrite synergy.name, all other properties will be maintained
+    // possibility: also display createdBy, createdAt, deleteRequests, votes, etc. with the option to delete those in the UI.
     var synergies = [];
-    var synergyRows = $('#inputSynergies .inputSynergy');
-    $(synergyRows).each(function(){
+    var synergyRows = $('#inputSynergies .inputSynergyWrapper .inputSynergy');
+
+    $(synergyRows).each(function(i,elem){
       if($(this).val() !== ''){
         synergies.push({
           name: $(this).val()
@@ -172,7 +246,14 @@ Template.adminAddHero.events({
     heroData.skills = skills;
     heroData.synergies = synergies;
 
-    Meteor.call('upsertHero', heroData);
+    Meteor.call('upsertHero', heroData, function(err, data){
+      if(err){
+        alert("Server Error");
+      } else {
+        console.log("sucess data: " + JSON.stringify(data));
+        alert("Success");
+      }
+    });
 
     //return false;
   }
