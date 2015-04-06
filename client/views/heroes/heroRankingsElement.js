@@ -26,6 +26,12 @@ Template.heroRankingsElement.helpers({
     return score;
   },
 */
+  /*heroDetailsPath: function() {
+    return { heroname: UI._globalHelpers['normalizeString'](this.name)};
+    //return UI._globalHelpers['normalizeString'](this.hero.name);
+  },*/
+
+
   scoreDiff: function(){
     var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
     userId = Meteor.userId();

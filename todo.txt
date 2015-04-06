@@ -1,7 +1,13 @@
 - TERMINAL:
     * 'killmeteor' killt meteor-ghostinstaces, alias ist entsprechend angelegt
 
+- DANGEROUS: with current heroname=>normalizedName-resolution, the every word in
+  'hero.heroname' needs to start with a capital letter.
 
+  ---------------------------------------------------------------
+
+- offenbar mus sman sich keine geadnken ueber sanatizing/escapnig machen.
+  user input wird ueber hdnlebars automatisch escaped
 
 - meteor notify package/addon hinzufuegen. demo page ist in den firefox-bookmarks
   hinterlegt.

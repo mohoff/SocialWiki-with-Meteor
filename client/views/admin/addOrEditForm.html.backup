@@ -213,7 +213,7 @@
       </div>
     </div>
 
-    <!-- Skills -->
+
     {{#each skills}}
       {{> skill}}
     {{else}}
@@ -224,6 +224,269 @@
       {{> skill order='5'}}
     {{/each}}
 
+      <!--{{> skill order='1' skill 1}}-->
+      <!--{{> skill order='2'}}
+      {{> skill order='3'}}
+      {{> skill order='4'}}
+      {{> skill order='5'}}-->
+
+    <!-- SKILL 1 -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label" style={{skillColor 1}}>Skill 1</label>
+      <div id="inputSkill1" class="col-xs-10">
+        <div class="form-group">
+          <label for="inputSkillName" class="col-xs-2 control-label">
+            Name <span class="requiredField">*</span>
+          </label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower" required
+              value="bla"
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+          <div class="col-xs-10">
+            <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">Skill-Stats</label>
+          <div class="col-xs-10">
+            <div class="inputSkillStatsContainer">
+              <div class="inputSkillStatsHeadline">
+                <span class="col-xs-4 left-input">Name</span>
+                <span class="col-xs-4 middle-input">Lvl 1</span>
+                <span class="col-xs-4 right-input">per Lvl</span>
+              </div>
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            </div>
+            <input type="button" data-id="1" value="Add Attribute" class="addButton btn btn-default"/>
+            <input type="button" data-id="1" value="Remove Attribute" class="removeButton btn btn-default"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SKILL 2 -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label" style={{skillColor 2}}>Skill 2</label>
+      <div id="inputSkill2" class="col-xs-10">
+        <div class="form-group">
+          <label for="inputSkillName" class="col-xs-2 control-label">
+            Name <span class="requiredField">*</span>
+          </label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+          <div class="col-xs-10">
+            <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">Skill-Stats</label>
+          <div class="col-xs-10">
+            <div class="inputSkillStatsContainer">
+              <div class="inputSkillStatsHeadline">
+                <span class="col-xs-4 left-input">Name</span>
+                <span class="col-xs-4 middle-input">Lvl 1</span>
+                <span class="col-xs-4 right-input">per Lvl</span>
+              </div>
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            </div>
+            <input type="button" data-id="2" value="Add Attribute" class="addButton btn btn-default"/>
+            <input type="button" data-id="2" value="Remove Attribute" class="removeButton btn btn-default"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SKILL 3 -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label" style={{skillColor 3}}>Skill 3</label>
+      <div id="inputSkill3" class="col-xs-10">
+        <div class="form-group">
+          <label for="inputSkillName" class="col-xs-2 control-label">
+            Name <span class="requiredField">*</span>
+          </label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+          <div class="col-xs-10">
+            <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">Skill-Stats</label>
+          <div class="col-xs-10">
+            <div class="inputSkillStatsContainer">
+              <div class="inputSkillStatsHeadline">
+                <span class="col-xs-4 left-input">Name</span>
+                <span class="col-xs-4 middle-input">Lvl 1</span>
+                <span class="col-xs-4 right-input">per Lvl</span>
+              </div>
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            </div>
+            <input type="button" data-id="3" value="Add Attribute" class="addButton btn btn-default"/>
+            <input type="button" data-id="3" value="Remove Attribute" class="removeButton btn btn-default"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SKILL 4 -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label" style={{skillColor 4}}>Skill 4</label>
+      <div id="inputSkill4" class="col-xs-10">
+        <div class="form-group">
+          <label for="inputSkillName" class="col-xs-2 control-label">
+            Name <span class="requiredField">*</span>
+          </label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+          <div class="col-xs-10">
+            <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">Skill-Stats</label>
+          <div class="col-xs-10">
+            <div class="inputSkillStatsContainer">
+              <div class="inputSkillStatsHeadline">
+                <span class="col-xs-4 left-input">Name</span>
+                <span class="col-xs-4 middle-input">Lvl 1</span>
+                <span class="col-xs-4 right-input">per Lvl</span>
+              </div>
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            </div>
+            <input type="button" data-id="4" value="Add Attribute" class="addButton btn btn-default"/>
+            <input type="button" data-id="4" value="Remove Attribute" class="removeButton btn btn-default"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SKILL 5 -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label" style={{skillColor 5}}>Skill 5</label>
+      <div id="inputSkill5" class="col-xs-10">
+        <div class="form-group">
+          <label for="inputSkillName" class="col-xs-2 control-label">
+            Name
+          </label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+          <div class="col-xs-10">
+            <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage."></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+          <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-2 control-label">Skill-Stats</label>
+          <div class="col-xs-10">
+            <div class="inputSkillStatsContainer">
+              <div class="inputSkillStatsHeadline">
+                <span class="col-xs-4 left-input">Name</span>
+                <span class="col-xs-4 middle-input">Lvl 1</span>
+                <span class="col-xs-4 right-input">per Lvl</span>
+              </div>
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            </div>
+            <input type="button" data-id="5" value="Add Attribute" class="addButton btn btn-default"/>
+            <input type="button" data-id="5" value="Remove Attribute" class="removeButton btn btn-default"/>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Synergies -->
     <div class="form-group">
       <label class="col-xs-2 control-label">Synergies</label>

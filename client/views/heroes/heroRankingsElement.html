@@ -5,7 +5,8 @@
   <div class="col-xs-7 herooverview">
     <div class="heroRankings-heading">
       <img src="{{srcPathType this}}" class="hero-type" alt="herotype" />
-      <a href="{{pathFor 'heroDetails' heroname=this._id}}">
+      <!--<a href="{{pathFor 'heroDetails' heroname=this._id}}">-->
+      <a href="{{pathFor 'heroDetails' heroname=hero.namenormalized}}">
         <span class="hero-name">{{hero.name}}</span>
       </a>
       <span><sub>{{hero.lineuporder}}</sub></span>

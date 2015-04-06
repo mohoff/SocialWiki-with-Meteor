@@ -2,7 +2,7 @@ Template.addOrEditForm.helpers({
   skillColor : function(skillOrder){
     var index = skillOrder - 1;
     var alphaFactor = 0.5;
-    console.log("skillOrder: " + indexToColor[index]);
+    //console.log("skillOrder: " + indexToColor[index]);
     return 'color: rgba(' + colorArray[indexToColor[index]] + ', ' + alphaFactor + ');';
   },
   checked : function(type){
@@ -143,6 +143,7 @@ Template.addOrEditForm.events({
     event.preventDefault();
 
     var name = $('#inputName').val();
+    var namenormalized = UI._globalHelpers['normalizeString'](name);
     var surname = $('#inputSurname').val();
     var desc = $('#inputDescription').val();
     var type = $('.inputTypeWrapper input:radio[name=type]:checked').val();
@@ -186,7 +187,7 @@ Template.addOrEditForm.events({
 
     var skills = [];
     for(var i=0; i<5; i++){
-      var skillstats = [];
+      var skillStats = [];
       var statRows = $('#inputSkill' + (i+1) + ' .inputSkillStatsRow');
       $(statRows).each(function(){
         //console.log("TEST1: " + $(this));
@@ -194,7 +195,7 @@ Template.addOrEditForm.events({
         //console.log("TEST3: " + $(this).find('.statsName').val());
         var statsType = $(this).find('.statsName').val();
         if(statsType !== ''){
-          skillstats.push({
+          skillStats.push({
             type: statsType,
             lvl1: $(this).find('.statsLvl1').val(),
             perLvl: $(this).find('.statsPerLvl').val()
@@ -202,16 +203,19 @@ Template.addOrEditForm.events({
         }
       });
 
+
       var skillTypes = [];
       if($('#inputSkill' + (i+1) + ' #inputSkillType').val() !== ''){
-        skillTypes = $('#inputSkill' + (i+1) + ' #inputSkillType').val().replace(/\s+/, "").split(",");
+        skillTypes = $('#inputSkill' + (i+1) + ' #inputSkillType').val().replace(/\s+/g,"").split(",");
       }
+      skillTypes = cleanArray(skillTypes);
+
       skills.push({
         order: i+1,
         name: $('#inputSkill' + (i+1) + ' #inputSkillName').val(),
         desc: $('#inputSkill' + (i+1) + ' #inputSkillDesc').val(),
         types: skillTypes,
-        stats: skillstats
+        stats: skillStats
       });
     }
     console.log("skills: " + JSON.stringify(skills));
@@ -236,6 +240,7 @@ Template.addOrEditForm.events({
     /* composition of Hero.hero */
     heroData = {};
     heroData.name = name;
+    heroData.namenormalized = namenormalized;
     heroData.surname = surname;
     heroData.desc = desc;
     heroData.type = type;

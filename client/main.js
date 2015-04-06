@@ -56,7 +56,8 @@ Template.registerHelper("lastLoginAt",function(){
 });
 
 Template.registerHelper("currentVotePower",function(value){
-  if(Meteor.user() && Meteor.user().userdata.voting.currentVotePower){
+  if(Meteor.user() && Meteor.user().userdata &&
+      Meteor.user().userdata.voting && Meteor.user().userdata.voting.currentVotePower){
     return Meteor.user().userdata.voting.currentVotePower;
   } else {
     return 1; // for unregistered users, votePower = 1
@@ -64,7 +65,8 @@ Template.registerHelper("currentVotePower",function(value){
 });
 
 Template.registerHelper("initialVoteBonus",function(value){
-  if(Meteor.user() && Meteor.user().userdata.voting.initialVoteBonus){
+  if(Meteor.user() && Meteor.user().userdata &&
+      Meteor.user().userdata.voting && Meteor.user().userdata.voting.initialVoteBonus){
     return Meteor.user().userdata.voting.initialVoteBonus;
   } else {
     return 1; // for unregistered users, votePower = 1
@@ -72,7 +74,8 @@ Template.registerHelper("initialVoteBonus",function(value){
 });
 
 Template.registerHelper("loginStreakLength",function(value){
-  if(Meteor.user() && Meteor.user().userdata.login.consecutiveLogins){
+  if(Meteor.user() && Meteor.user().userdata &&
+      Meteor.user().userdata.login && Meteor.user().userdata.login.consecutiveLogins){
     return Meteor.user().userdata.login.consecutiveLogins - 1; // -1 so 'today'-login is ignored
   } else {
     return null;

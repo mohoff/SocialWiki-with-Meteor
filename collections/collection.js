@@ -90,6 +90,9 @@ Schemas.Hero = new SimpleSchema({
   "hero.name": {
     type: String
   },
+  "hero.namenormalized": {
+    type: String
+  },
   "hero.surname": {
     type: String
   },
@@ -242,11 +245,13 @@ Schemas.Hero = new SimpleSchema({
     type: String,
     optional: true
   },
+
+  /* ---- RATINGS ---- */
+
   "hero.ratings": {
     type: Object,
     optional: true
   },
-
   /* ---- ARENA ---- */
 
   "hero.ratings.arena": {

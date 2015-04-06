@@ -1,0 +1,83 @@
+<template name="skill">
+  <!--
+    if rendered with Skill-context (EDIT): {{order}}, {{name}}, {{desc}}, ...
+    if rendered without Skill-context (ADD): {{order}} only
+  -->
+  <div class="form-group">
+    <label class="col-xs-2 control-label" style={{skillColor order}}>Skill {{order}}</label>
+    <div id="inputSkill{{order}}" class="col-xs-10">
+      <div class="form-group">
+        <label for="inputSkillName" class="col-xs-2 control-label">
+          Name {{#unless isFifthSkill}}<span class="requiredField">*</span>{{/unless}}
+        </label>
+        <div class="col-xs-10">
+          <input type="text" class="form-control" id="inputSkillName" placeholder="Meteor Shower"
+          {{isFifthSkillRequiredString}}
+            value={{#if name}}{{name}}{{/if}}
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputSkillDesc" class="col-xs-2 control-label">Description</label>
+        <div class="col-xs-10">
+          <textarea class="form-control" id="inputSkillDesc" rows="3" placeholder="e.g. Octavia summons a meteor shower to crush her foes nearby and deal magic damage.">{{#if desc}}{{desc}}{{/if}}</textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputSkillType" class="col-xs-2 control-label">Type</label>
+        <div class="col-xs-10">
+          <input type="text" class="form-control" id="inputSkillType" placeholder="e.g. Fire, Frost, Lightning"
+            value="{{#each types}}{{this}}, {{/each}}"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-2 control-label">Skill-Stats</label>
+        <div class="col-xs-10">
+          <div class="inputSkillStatsContainer">
+            <div class="inputSkillStatsHeadline">
+              <span class="col-xs-4 left-input">Name</span>
+              <span class="col-xs-4 middle-input">Lvl 1</span>
+              <span class="col-xs-4 right-input">per Lvl</span>
+            </div>
+            {{#each stats}}
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone"
+                    value="{{#if type}}{{type}}{{/if}}"
+                  >
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40"
+                    value="{{#if lvl1}}{{lvl1}}{{/if}}"
+                  >
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase"
+                    value="{{#if perLvl}}{{perLvl}}{{/if}}"
+                  >
+                </div>
+              </div>
+            {{else}}
+              <div class="inputSkillStatsRow">
+                <div class="col-xs-4 left-input">
+                  <input type="text" class="form-control statsName" placeholder="e.g. Damage, Hitzone">
+                </div>
+                <div class="col-xs-4 middle-input">
+                  <input type="text" class="form-control statsLvl1" placeholder="e.g. 40">
+                </div>
+                <div class="col-xs-4 right-input">
+                  <input type="text" class="form-control statsPerLvl" placeholder="e.g. 12, Increase">
+                </div>
+              </div>
+            {{/each}}
+          </div>
+          <input type="button" data-id="1" value="Add Attribute" class="addButton btn btn-default"/>
+          <input type="button" data-id="1" value="Remove Attribute" class="removeButton btn btn-default"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</template>
