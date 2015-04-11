@@ -108,6 +108,10 @@ Schemas.Hero = new SimpleSchema({
     type: Number,
     optional: true
   },
+  "hero.releasedAt": {
+    type: Date,
+    optional: true
+  },
 
   /* Stats (primary, secondary, base, growth) */
   "hero.stats": {

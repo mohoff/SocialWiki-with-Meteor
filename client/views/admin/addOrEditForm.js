@@ -24,10 +24,26 @@ Template.addOrEditForm.helpers({
   stringified : function(number){
     return number.toString();
   }
+  /*dateForInput : function(dbInput){
+    console.log("dbinput date: " + dbInput);
+    $('#inputRelease').datepicker('method', arg1);
+    return dbInput;
+  }*/
 });
 
 
 Template.addOrEditForm.rendered = function(){
+  // init date picker
+  $('#inputRelease').datepicker({
+    autoclose: true,
+    todayHighlight: true,
+    todayBtn: "linked"
+  });
+  if(this.data && this.data.releasedAt){
+    var date = this.data.releasedAt;
+    $('#inputRelease').datepicker('setUTCDate', date);
+  }
+
 
   /* add Skill-Stat */
   $(".addButton").click(function(){
@@ -142,6 +158,8 @@ Template.addOrEditForm.events({
   "submit form": function (event) {   // form as html-tag identifier
     event.preventDefault();
 
+    var releasedAt = $('#inputRelease').datepicker('getUTCDate');
+    console.log("getUTCDtae: " + releasedAt);
     var name = $('#inputName').val();
     var namenormalized = UI._globalHelpers['normalizeString'](name);
     var surname = $('#inputSurname').val();
@@ -239,6 +257,7 @@ Template.addOrEditForm.events({
 
     /* composition of Hero.hero */
     heroData = {};
+    heroData.releasedAt = releasedAt;
     heroData.name = name;
     heroData.namenormalized = namenormalized;
     heroData.surname = surname;

@@ -61,4 +61,11 @@
       </a>
     </div>
   </div>
+  {{#if isAdmin}}
+    <div class="editHero">
+      <a href="{{pathFor route='hero.edit' heroname=hero.namenormalized}}">
+        <img src="/edit.png" alt="EDIT" />
+      </a>
+    </div>
+  {{/if}}
 </template>

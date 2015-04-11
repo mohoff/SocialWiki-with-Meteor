@@ -1,5 +1,17 @@
 <template name="addOrEditForm">
   <form id="addheroform" class="form-horizontal">
+    <!-- Released At -->
+    <div class="form-group">
+      <label for="inputRelease" class="col-xs-2 control-label">
+        Released At
+      </label>
+      <div class="col-xs-10">
+        <div class="input-group date">
+          <span class="input-group-addon dateIconBg"><i class="glyphicon glyphicon-th"></i></span>
+          <input type="text" class="form-control" id="inputRelease" placeholder="click here to pick date">
+        </div>
+      </div>
+    </div>
     <!-- Name -->
     <div class="form-group">
       <label for="inputName" class="col-xs-2 control-label">
@@ -106,7 +118,7 @@
             <label for="inputSecondaryStatMagicRes" class="col-xs-4 control-label">Magic Resistance:</label>
             <div class="col-xs-8">
               <input type="text" class="form-control" id="inputSecondaryStatMagicRes" aria-describedby="helpBaseSecondaryStats" placeholder="e.g. 0"
-                value={{#if stringified stats.base.mres}}{{stats.base.mres}}{{/if}}
+                value={{#if stats.base.mres}}{{stats.base.mres}}{{/if}}
               >
             </div>
           </div>
