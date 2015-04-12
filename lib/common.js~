@@ -442,7 +442,7 @@ Meteor.methods({
     console.log("-- votedDeleteSynergyName: " + votedDeleteSynergyName);
     var userIdentifier = user._id;
     var synergyIndex;
-    var synergyArray = hero.hero.synergies;
+    var synergyArray = hero.hero.synergy;
     for(var i=0; i<synergyArray.length; i++){
       if(synergyArray[i].name === votedDeleteSynergyName){
         synergyIndex = i;

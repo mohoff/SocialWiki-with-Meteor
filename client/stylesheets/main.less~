@@ -3,7 +3,6 @@
 @import "components/nav.import.less";
 @import "components/heroes.import.less";
 @import "components/sidebar.import.less";
-@import "components/modal.import.less";
 // Sites
 @import "sites/specific.import.less";
 @import "sites/heroRankings.import.less";

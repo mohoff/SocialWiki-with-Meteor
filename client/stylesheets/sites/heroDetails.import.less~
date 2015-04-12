@@ -51,10 +51,10 @@
   margin-left: 0.5em;
 }
 
-.heroDetails-synergy img {
+/*.heroDetails-synergy img {
   height: 16px;
   width: 16px;
-}
+}*/
 
 .heroDetails-synergyControl {
   padding-left: 0px !important;

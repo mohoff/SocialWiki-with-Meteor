@@ -33,12 +33,9 @@ Template.heroRankings.rendered = function(){
 		var val = $(this).val();
 		Session.set('searchQuery', val);
 	});
-	$('#search').bind("enterKey", function(e) {
-		$(this).blur();
-	});
-	$('#search').keyup(function(e){
-		if(e.keyCode == 13){
-			$(this).trigger("enterKey");
-		}
+	$('#search').keypress(function(e) {
+    if(e.which == 13) {
+			$(this).blur();
+    }
 	});
 };

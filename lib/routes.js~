@@ -181,7 +181,7 @@ Meteor.startup(function() {
   Router.onBeforeAction('loading');
 
   Router.onAfterAction(function() {
-    var title = 'HeroesCharge.org';
+    var title = 'heroescharge.org';
     console.log("routename: " + this.route.getName());
     //if(this.route){
     //  title += ' :: ' + this.route.getName();

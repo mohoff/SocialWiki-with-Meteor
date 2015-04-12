@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{pathFor 'welcome'}}">
-					&nbsp;&nbsp;&nbsp;HeroesCharge.org&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;heroescharge.org&nbsp;&nbsp;&nbsp;
 				</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">

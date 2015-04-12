@@ -125,8 +125,8 @@ Template.heroDetails.helpers({
 		// order = 1,2,3,4
 		// heroname
 		// generate srcPath as /img_heroes/<heroname>/<order>
-		console.log("Skill #" + order);
-		//console.log("heroname: " + JSON.stringify(heroname));
+		console.log("order: " + order);
+		console.log("heroname: " + JSON.stringify(heroname));
 		var normalizedName = UI._globalHelpers['normalizeString'](heroname);
 		return '/img_heroes/' + normalizedName + '/' + order + '.jpg';		// change to .png when footage exists
 	},

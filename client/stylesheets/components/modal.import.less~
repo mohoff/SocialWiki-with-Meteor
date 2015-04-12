@@ -1,0 +1,15 @@
+.modal {
+	color: #ccc;
+	/*background-color: #181818;*/
+}
+
+.modal-header {
+	border-bottom: 1px solid #333 !important;
+}
+.modal-footer {
+	border-top: 1px solid #333 !important;
+}
+
+.close > span {
+	color: #ccc;
+}
