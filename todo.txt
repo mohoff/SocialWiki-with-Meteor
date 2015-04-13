@@ -6,6 +6,8 @@
 
   ---------------------------------------------------------------
 
+- global constants.js anlegen, wo initialVotePower=5 und solche dinge festgelegt werden.
+
 - offenbar mus sman sich keine geadnken ueber sanatizing/escapnig machen.
   user input wird ueber hdnlebars automatisch escaped
 

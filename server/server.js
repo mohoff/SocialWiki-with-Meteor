@@ -9,16 +9,35 @@
 Meteor.methods({
   getIP: function(){
     return this.connection.clientAddress;
-  }/*,
-  addHero: function(input) {
-    console.log("we are in addHero.");
-    console.log(input);
+  },
 
-    Heroes.insert(input);
-    console.log('Hero successfully added.');
+  resetHeroVotings: function(interval){
+		// interval = [Monthly, Daily]
+		var sub = {};
+		sub['hero.ratings.arena.downvoteCount' + interval] = 0;
+		sub['hero.ratings.arena.upvoteCount' + interval] = 0;
+		sub['hero.ratings.crusade.downvoteCount' + interval] = 0;
+		sub['hero.ratings.crusade.upvoteCount' + interval] = 0;
+		sub['hero.ratings.pvefarming.downvoteCount' + interval] = 0;
+		sub['hero.ratings.pvefarming.upvoteCount' + interval] = 0;
 
-    // BADGES je nach anzahl mit for-schleif ein json-obj rein
-  }*/
+		var affected = Heroes.update({
+		}, {
+			$set: sub		// or use $unset but make sure that votings also works with non-existing vote-counters
+		});
+		console.log("Loginstreaks resetted for " + affected + " Users");
+	},
+
+	resetLoginStreaks: function(){
+		var affected = Meteor.users.update({
+		}, {
+			$set: {
+				'userdata.login.consecutiveLogins': 0,
+				'userdata.voting.currentVotePower': 5,		// create constants in some globals.js and set initialVoteBonus = 5 , so we can use it here
+			}
+		});
+		console.log("Loginstreaks resetted for " + affected + " Users");
+	}
 });
 
 Accounts.onLogin(function (user) {

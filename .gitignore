@@ -1,0 +1,12 @@
+### Meteor ###
+.meteor/local
+.meteor/meteorite
+
+# temporary files (gedit, vim)
+*~
+
+# MongoDB dump
+dump/
+
+# TODO
+todo.txt
