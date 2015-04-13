@@ -4,6 +4,9 @@
 
 # temporary files (gedit, vim)
 *~
+# vim specific
+*.swp
+*.swo
 
 # MongoDB dump
 dump/
