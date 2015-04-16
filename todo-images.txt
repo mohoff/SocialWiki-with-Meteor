@@ -1,0 +1,15 @@
+skill-images missing:
+-------------------------
+
+death-bringer
+ancient-protector
+lightning-spirit
+stormlord
+ember-blade
+ninja assassin
+swordmaster
+
+other
+--------
+
+3. skillimage missing warrior monk

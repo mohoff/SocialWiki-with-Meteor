@@ -6,6 +6,9 @@
 
   ---------------------------------------------------------------
 
+- for non-existing images we can use a fall-back background-image
+	(e.g. maxsized subtle	cross)
+
 - meteor pages als addon zur pagination passt nicht richtig.
   besser das "infinite scrolling" manuell implementieren, damit
   sorting besser kontrolliert werden kann!

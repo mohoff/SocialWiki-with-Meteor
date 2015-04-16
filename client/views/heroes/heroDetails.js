@@ -103,9 +103,9 @@ Template.heroDetails.helpers({
 
 		var hasAlreadyVoted = _.contains(storedDeleteVoters, userIdentifier);
 		if(hasAlreadyVoted){
-			return '/img_synergies/delete-synergy-voted.png';
+			return '/img_cross/cross_16px_red.png';
 		} else {
-			return '/img_synergies/delete-synergy-votable.png';
+			return '/img_cross/cross_16px_grey.png';
 		}
 	},
 
@@ -128,7 +128,7 @@ Template.heroDetails.helpers({
 		console.log("Skill #" + order);
 		//console.log("heroname: " + JSON.stringify(heroname));
 		var normalizedName = UI._globalHelpers['normalizeString'](heroname);
-		return '/img_heroes/' + normalizedName + '/' + order + '.jpg';		// change to .png when footage exists
+		return '/img_heroes/' + normalizedName + '/' + order + '.jpg';
 	},
 
 	skillBgColor: function(order){

@@ -123,8 +123,11 @@
           {{#with context=this parent=..}}
             <div class="row heroDetails-skill" style="background-color: {{skillBgColor context.order}}">
               <div class="col-md-5 col-xs-7">
-                <div class="col-xs-4 skillImageWrapper">
-                  <img src="{{skillImageSrc context.order parent.hero.name}}" class="img-responsive" alt="skill imgage" />
+                <div class="col-xs-4 skillImageCol">
+									<div class="skillImageWrapper">
+	                  <img src="{{skillImageSrc context.order parent.hero.name}}" class="img-responsive skillImage" alt="" />
+										<img src="/img_skillframe/skillframe_grey.png" class="img-responsive skillFrame" alt="" />
+									</div>
                 </div>
                 <div class="col-xs-8 skillNameAndDescWrapper">
                   <h4>{{context.name}}</h4>

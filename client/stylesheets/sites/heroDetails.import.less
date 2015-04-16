@@ -93,11 +93,29 @@
   padding: 10px 5px;
   margin-bottom: 5px;
 }
-.skillImageWrapper {
+.skillImageCol {
   padding-left: 0px !important;
   padding-right: 5px !important;
-  /*padding-top: 5px;
-  padding-bottom: 5px;*/
+}
+.skillImageWrapper {
+	/*display: block;*/
+	position: relative;
+	height: auto;
+  max-width: 78px;
+	margin: 5px 0px;
+	background-image: url(/img_cross/cross_32px_darkred.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.skillImage {
+	border-radius: 15%;
+	position: absolute;
+	top: 0px;
+	z-index: 1;
+}
+.skillFrame {
+	position: relative;
+	z-index: 2;
 }
 .skillNameAndDescWrapper {
   margin: 5px 0px;

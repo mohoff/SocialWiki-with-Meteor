@@ -52,7 +52,7 @@ Template.registerHelper("srcPathAvatar", function(hero){
   var normalizedName = UI._globalHelpers['normalizeString'](hero.hero.name);
 
   //console.log(normalizedName);
-  var path = "/img_heroes/" + normalizedName + "/avatar.jpg";
+  var path = "/img_heroes/" + normalizedName + "/artwork.jpg";
   //console.log("PATHTOAVATAR: " + path);
   return path;
 });

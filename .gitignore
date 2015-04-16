@@ -11,5 +11,8 @@
 # MongoDB dump
 dump/
 
+# Thumbs.db (from Windows OS?)
+Thumbs.db
+
 # TODO
 todo.txt
