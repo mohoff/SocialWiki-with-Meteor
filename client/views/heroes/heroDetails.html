@@ -10,7 +10,11 @@
   <div class="row heroDetails-row">
     <!--<div class="col-xs-1"></div>-->
     <div class="col-xs-2"><!-- removed class "hero-avatar" (compared to heroRankings.html) -->
-      <img src={{srcPathAvatar this}} class="img-responsive" alt="pic" />
+			<div class="avatarWrapper">
+				<img src="{{srcPathAvatar this}}" class="img-responsive avatarImage" alt="" />
+				<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+			</div>
+      <!--<img src={{srcPathAvatar this}} class="img-responsive" alt="pic" />-->
     </div>
     <div class="col-xs-10 col-md-9"><!-- removed class "herooverview"-->
       <!-- description - should be stored in hero-collection too! -->
@@ -126,7 +130,7 @@
                 <div class="col-xs-4 skillImageCol">
 									<div class="skillImageWrapper">
 	                  <img src="{{skillImageSrc context.order parent.hero.name}}" class="img-responsive skillImage" alt="" />
-										<img src="/img_skillframe/skillframe_grey.png" class="img-responsive skillFrame" alt="" />
+										<img src="/img_frames/skillframe_grey.png" class="img-responsive skillFrame" alt="" />
 									</div>
                 </div>
                 <div class="col-xs-8 skillNameAndDescWrapper">

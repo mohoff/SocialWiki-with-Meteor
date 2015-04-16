@@ -1,7 +1,11 @@
 <template name="heroRankingsElement">
 <!--<div class="row herowrapper vertical-align">-->
   <div class="col-xs-2 hero-avatar">
-    <img src={{srcPathAvatar this}} class="img-responsive" alt="pic" />
+    <!--<img src={{srcPathAvatar this}} class="img-responsive" alt="pic" />-->
+		<div class="avatarWrapper">
+			<img src="{{srcPathAvatar this}}" class="img-responsive avatarImage" alt="" />
+			<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+		</div>
   </div>
   <div class="col-xs-7 herooverview">
     <div class="heroRankings-heading">
