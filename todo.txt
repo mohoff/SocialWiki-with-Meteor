@@ -6,6 +6,10 @@
 
   ---------------------------------------------------------------
 
+- meteor pages als addon zur pagination passt nicht richtig.
+  besser das "infinite scrolling" manuell implementieren, damit
+  sorting besser kontrolliert werden kann!
+
 - global constants.js anlegen, wo initialVotePower=5 und solche dinge festgelegt werden.
 
 - offenbar mus sman sich keine geadnken ueber sanatizing/escapnig machen.

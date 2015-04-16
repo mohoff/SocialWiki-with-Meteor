@@ -12,10 +12,10 @@ postMeta = _.sortBy(postMeta, 'order');
 
 var clientIp;
 
-Meteor.subscribe("heroes", function() {
+/*Meteor.subscribe("heroes", function() {
   Session.set('loadedHeroes', true);
   console.log("- SUBSCRIBED to heroes");
-});
+});*/
 Meteor.subscribe("userData", function() {
   Session.set('loadedUserData', true);
   console.log("- SUBSCRIBED to userData");

@@ -20,12 +20,26 @@ Meteor.methods({
 		sub['hero.ratings.crusade.upvoteCount' + interval] = 0;
 		sub['hero.ratings.pvefarming.downvoteCount' + interval] = 0;
 		sub['hero.ratings.pvefarming.upvoteCount' + interval] = 0;
+		// voter arrays
+		sub['hero.ratings.arena.upvotersDailyRegistered'] = [];
+		sub['hero.ratings.arena.upvotersDailyUnregistered'] = [];
+		sub['hero.ratings.arena.downvotersDailyRegistered'] = [];
+		sub['hero.ratings.arena.downvotersDailyUnregistered'] = [];
+		sub['hero.ratings.crusade.upvotersDailyRegistered'] = [];
+		sub['hero.ratings.crusade.upvotersDailyUnregistered'] = [];
+		sub['hero.ratings.crusade.downvotersDailyRegistered'] = [];
+		sub['hero.ratings.crusade.downvotersDailyUnregistered'] = [];
+		sub['hero.ratings.pvefarming.upvotersDailyRegistered'] = [];
+		sub['hero.ratings.pvefarming.upvotersDailyUnregistered'] = [];
+		sub['hero.ratings.pvefarming.downvotersDailyRegistered'] = [];
+		sub['hero.ratings.pvefarming.downvotersDailyUnregistered'] = [];
+
 
 		var affected = Heroes.update({
 		}, {
 			$set: sub		// or use $unset but make sure that votings also works with non-existing vote-counters
 		});
-		console.log("Loginstreaks resetted for " + affected + " Users");
+		console.log("Loginstreaks resetted for " + affected + " Heroes");
 	},
 
 	resetLoginStreaks: function(){

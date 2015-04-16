@@ -5,10 +5,11 @@
 		<input type="text" class="form-control" id="search" placeholder="Commando, INT, Flying, ...">
 	</div>
   <div class="container-fluid rankingsWrapper">
-  {{#each heroes}}
-    <div class="row herowrapper vertical-align">
-      {{> heroRankingsElement}}
-    </div>
-  {{/each}}
+		{{#each heroes}}
+		  <div class="row herowrapper vertical-align">
+		    {{> heroRankingsElement}}
+		  </div>
+		{{/each}}
+		<!--{{> heroes}}-->
   </div>
 </template>
