@@ -1,4 +1,4 @@
-var Schemas = {};
+
 
 // default: all specified fields/arrays/etc are mandatory!
 
@@ -24,8 +24,6 @@ var Schemas = {};
 
 
 */
-var adminArray = [''];
-var allowedTypes = ['STR', 'INT', 'AGI'];
 
 Schemas.Hero = new SimpleSchema({
   createdAt: {
@@ -495,6 +493,7 @@ Schemas.Hero = new SimpleSchema({
     optional: true
   }
 });
+
 
 Heroes.attachSchema(Schemas.Hero);
 

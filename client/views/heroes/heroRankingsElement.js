@@ -30,7 +30,15 @@ Template.heroRankingsElement.helpers({
     return { heroname: UI._globalHelpers['normalizeString'](this.name)};
     //return UI._globalHelpers['normalizeString'](this.hero.name);
   },*/
-
+	ribbon: function(text){ // 2nd parameter: color ?
+		var before30Days = new Date().getTime() - (30*24*60*60*1000);
+		//console.log("before 30 days: " + before30Days + ", releasedAt: " + this.hero.releasedAt);
+		if(this.hero && this.hero.releasedAt && (this.hero.releasedAt > before30Days)){
+			return '<div class="corner-ribbon ribbon-shadow">' + text + '</div>';
+		}
+		return;
+	},
+	
 
   scoreDiff: function(){
     var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
