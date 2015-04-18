@@ -6,7 +6,13 @@
 
   ---------------------------------------------------------------
 
-- for non-existing images we can use a fall-back background-image
+- platzierung der heroes auch in avatar mit unterbringen. Z.B. in bottom dunklem
+	Kreis	der zentriert die jewelige Platzierung enthaelt.
+
+- implement Search for "NEW" heroes. So you can type "new" in order to see all newly
+	released heroes.
+
+CHECK - for non-existing images we can use a fall-back background-image
 	(e.g. maxsized subtle	cross)
 
 - meteor pages als addon zur pagination passt nicht richtig.

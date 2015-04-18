@@ -7,6 +7,7 @@ Template.heroRankings.helpers({
     var searchQuery = Session.get("searchQuery");
 
 		if(searchQuery){
+			console.log("searchQuery: " + searchQuery);
 			var searchQueryRegExp = new RegExp(searchQuery, 'i');
    		heroes = Heroes.find({
 				$or: [
@@ -17,9 +18,12 @@ Template.heroRankings.helpers({
 		      {'hero.attributes': searchQueryRegExp}
 				]
 			});
+			//heroes = heroes.toArray().sort(MYCUSTOMSORTMETRIC);
 		} else {
-			heroes = Heroes.find({});
+			return this;		// might be better because "this" is already sorted heroes-array
+			//heroes = Heroes.find({});
 		}
+		console.log("outputerion: " + JSON.stringify(this));	// this = heroes-Array
     return heroes;
 	}
 });
