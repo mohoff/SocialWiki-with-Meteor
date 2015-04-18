@@ -84,6 +84,9 @@ Schemas.Lineup = new SimpleSchema({
   "lineup": {
     type: Object
   },
+	"lineup.name": {
+    type: String
+  },
   "lineup.levelColor": {
     type: String,
 		allowedValues: allowedLevelColors

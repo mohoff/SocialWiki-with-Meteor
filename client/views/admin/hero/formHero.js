@@ -1,4 +1,4 @@
-Template.addOrEditForm.helpers({
+Template.formHero.helpers({
   skillColor : function(skillOrder){
     var index = skillOrder - 1;
     var alphaFactor = 0.5;
@@ -32,7 +32,7 @@ Template.addOrEditForm.helpers({
 });
 
 
-Template.addOrEditForm.rendered = function(){
+Template.formHero.rendered = function(){
   // init date picker
   $('#inputRelease').datepicker({
     autoclose: true,
@@ -148,13 +148,13 @@ Template.addOrEditForm.rendered = function(){
 
 };
 
-Template.addOrEditForm.onDestroyed = function(){
+Template.formHero.onDestroyed = function(){
   // doesn't get fired, but also not needed right now
   Session.set('numberOfSavedSynergies', null);
   console.log("Template addOrEditForm destroyed!");
 };
 
-Template.addOrEditForm.events({
+Template.formHero.events({
   "submit form": function (event) {   // form as html-tag identifier
     event.preventDefault();
 

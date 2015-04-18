@@ -1,0 +1,16 @@
+<template name="adminAddOrEditLineup">
+  <h1>
+    {{#if this.lineup}}
+      Edit
+    {{else}}
+      Add
+    {{/if}}
+    Lineup
+  </h1>
+  <br />
+  {{#if this.lineup}}
+    {{> formLineup this.lineup}}
+  {{else}}
+    {{> formLineup}}
+  {{/if}}
+</template>

@@ -1,0 +1,74 @@
+<template name="formLineup">
+  <form id="addlineupform" class="form-horizontal">
+    <!-- Name -->
+    <div class="form-group">
+      <label for="inputName" class="col-xs-2 control-label">
+        Name <span class="requiredField">*</span>
+      </label>
+      <div class="col-xs-10">
+        <input type="text" class="form-control" id="inputName" placeholder="NoTanksNoChance, My most successful Lineup, ..." required
+          value={{#if name}}{{name}}{{/if}}
+        >
+      </div>
+    </div>
+    <!-- LevelColor -->
+    <div class="form-group">
+      <label for="inputLevelColor" class="col-xs-2 control-label">
+        Level Color <span class="requiredField">*</span>
+      </label>
+      <div class="col-xs-10">
+        <select id="inputLevelColor" class="form-control" aria-describedby="helpLevelColor" name="levelColor" required>
+					<option>Grey</option>
+					<option>Green</option>
+					<option>Blue</option>
+					<option>Purple</option>
+					<option>Orange</option>
+				</select>
+        <span id="helpType" class="help-block">Explanation: Color of the Heroes' Promotion Level your Lineup is designed for.</span>
+      </div>
+    </div> 
+		<!-- Heroes -->
+    <div class="form-group">
+      <label for="inputHeroes" class="col-xs-2 control-label">Heroes</label>
+      <div class="col-xs-10">
+        <textarea class="form-control" id="inputHeroes" rows="3" aria-describedby="helpHeroes" placeholder="Mystic, Wahr Chief, Shadowleaf, Fallen Dominion, Old Curse">{{#each attributes}}{{this}}, {{/each}}</textarea>
+        <span id="helpHeroes" class="help-block">Explanation: Name 5 Heroes in no particular order in a comma-separated list.</span>
+      </div>
+    </div>
+    <!-- Synergies -->
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Synergies</label>
+      <div class="col-xs-10">
+        <div id="inputSynergies">
+          {{#each synergies}}
+            <div class="row inputSynergyWrapper">
+              <div class="col-xs-6">
+                <textarea class="form-control inputSynergy" rows="2" aria-describedby="helpAttributes" placeholder="See examples below. Please keep it as short as possible.">{{this.name}}</textarea>
+              </div>
+              <div class="col-xs-6">
+                Status: {{#if this.status}}{{this.status}}{{else}}n.a.{{/if}}<br />
+                Votes: {{#if this.votes}}{{this.votes}}{{else}}0{{/if}}<br />
+                DeleteRequests: {{#if this.votes}}{{this.votes}}{{else}}0{{/if}}<br />
+              </div>
+            </div>
+          {{else}}
+            <div class="row inputSynergyWrapper">
+              <div class="col-xs-6">
+                <textarea class="form-control inputSynergy" rows="2" aria-describedby="helpAttributes" placeholder="See examples below. Please keep it as short as possible."></textarea>
+              </div>
+              <div class="col-xs-6">
+                Status: TBD<br />
+                Votes: 0<br />
+                DeleteRequests: 0<br />
+              </div>
+            </div>
+          {{/each}}
+        </div>
+        <input type="button" value="Add Synergy" class="addSynergyButton btn btn-default"/>
+        <input type="button" value="Remove Synergy" class="removeSynergyButton btn btn-default"/>
+        <span id="helpSynergies" class="help-block">Examples: Excellent VS Tank Lineup, Heavy Burst, Full Magic Damage, ...</span>
+      </div>
+    </div>
+    <button type="submit" id="submitUpsertHero" class="btn btn-default btn-block btn-submit">Submit</button>
+  </form>
+</template>

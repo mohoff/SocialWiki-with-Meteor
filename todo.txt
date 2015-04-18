@@ -5,6 +5,13 @@
   'hero.heroname' needs to start with a capital letter.
 
   ---------------------------------------------------------------
+- Lineups:
+	*	bei insert+update pruefen, ob hero-names tatsaechlich welche sind, also
+		als Hero existieren.
+	* Hero-Reihenfolge bestimmen und automatisch bei insert/update festlegen.
+	* bei einem Lineup-update verbieten, die helden zu updaten (?). Weil neue Helden
+		eigentlich schon wieder ein neues Lineup sind.
+
 - meteor #isolate nutzen
 
 - platzierung der heroes auch in avatar mit unterbringen. Z.B. in bottom dunklem

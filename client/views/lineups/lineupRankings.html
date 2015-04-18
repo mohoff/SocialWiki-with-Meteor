@@ -1,11 +1,16 @@
 <template name="lineupRankings">
-  {{> comingSoon}}
-  <!--
-
-  {{#each this}}
-    {{> guide}}
-  {{/each}}
-
-
-  -->
+  <h1>Lineup Rankings</h1>
+  <div class="input-group searchWrapper">
+		<span class="input-group-addon dateIconBg"><i class="glyphicon glyphicon-search"></i></span>
+		<input type="text" class="form-control" id="search" placeholder="Commando, War Chief, ...">
+	</div>
+  <div class="container-fluid rankingsWrapper">
+		{{#each lineups}}
+		  <div class="row herowrapper vertical-align">
+		    <!--{{> lineupRankingsElement idx=@index}}-->
+				{{> lineupRankingsElement}}
+		  </div>
+		{{/each}}
+		<!--{{> lineups}}-->
+  </div>
 </template>
