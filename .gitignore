@@ -8,8 +8,9 @@
 *.swp
 *.swo
 
-# MongoDB dump
+# MongoDB dumps and backups
 dump/
+backup/backup_*
 
 # Thumbs.db (from Windows OS?)
 Thumbs.db

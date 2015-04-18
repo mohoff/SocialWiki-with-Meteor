@@ -18,18 +18,17 @@ Template.heroRankings.helpers({
 		      {'hero.attributes': searchQueryRegExp}
 				]
 			});
+
 			heroes.forEach(function(hero){
       	heroesArray.push(hero);
       });
-			
+
 			//console.log("rankingCategory: " + rankingCategory());
-			return sortHeroesArray(heroesArray, UI._globalHelpers['getNormalizedRankingCategory']());
+			var cat = UI._globalHelpers['getNormalizedRankingCategory']();	// [arena,crusade,pvefarming]
+			return sortHeroesArray(heroesArray, cat);
 		} else {
 			return this;		// might be better because "this" is already sorted heroes-array
-			//heroes = Heroes.find({});
 		}
-		console.log("outputerion: " + JSON.stringify(this));	// this = heroes-Array
-    //return heroes;
 	}
 });
 
