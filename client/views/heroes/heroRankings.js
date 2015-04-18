@@ -3,7 +3,7 @@ Template.heroRankings.helpers({
     return UI._globalHelpers['getRankingCategory']();
   },
 	heroes: function() {
-		var heroes;
+		var heroes, heroesArray = [];
     var searchQuery = Session.get("searchQuery");
 
 		if(searchQuery){
@@ -18,13 +18,18 @@ Template.heroRankings.helpers({
 		      {'hero.attributes': searchQueryRegExp}
 				]
 			});
-			//heroes = heroes.toArray().sort(MYCUSTOMSORTMETRIC);
+			heroes.forEach(function(hero){
+      	heroesArray.push(hero);
+      });
+			
+			//console.log("rankingCategory: " + rankingCategory());
+			return sortHeroesArray(heroesArray, UI._globalHelpers['getNormalizedRankingCategory']());
 		} else {
 			return this;		// might be better because "this" is already sorted heroes-array
 			//heroes = Heroes.find({});
 		}
 		console.log("outputerion: " + JSON.stringify(this));	// this = heroes-Array
-    return heroes;
+    //return heroes;
 	}
 });
 

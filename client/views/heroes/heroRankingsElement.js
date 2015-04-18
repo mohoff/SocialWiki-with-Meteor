@@ -30,6 +30,10 @@ Template.heroRankingsElement.helpers({
     return { heroname: UI._globalHelpers['normalizeString'](this.name)};
     //return UI._globalHelpers['normalizeString'](this.hero.name);
   },*/
+	position: function(index) {
+		return '<div class="position-bubble hidden-xs">' + index + '</div>';
+	},
+
 	ribbon: function(text){ // 2nd parameter: color ?
 		var before30Days = new Date().getTime() - (30*24*60*60*1000);
 		//console.log("before 30 days: " + before30Days + ", releasedAt: " + this.hero.releasedAt);
@@ -38,7 +42,6 @@ Template.heroRankingsElement.helpers({
 		}
 		return;
 	},
-	
 
   scoreDiff: function(){
     var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;

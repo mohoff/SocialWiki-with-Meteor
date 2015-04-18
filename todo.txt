@@ -5,6 +5,7 @@
   'hero.heroname' needs to start with a capital letter.
 
   ---------------------------------------------------------------
+- meteor #isolate nutzen
 
 - platzierung der heroes auch in avatar mit unterbringen. Z.B. in bottom dunklem
 	Kreis	der zentriert die jewelige Platzierung enthaelt.
