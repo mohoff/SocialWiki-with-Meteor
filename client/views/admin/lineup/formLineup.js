@@ -127,7 +127,7 @@ Template.formLineup.events({
 			for(var i=0; i<sortedHeroes.length; i++){
 				finalHeroArray.push(orderToName[sortedHeroes[i]]);
 			}
-			//console.log("SORTED HEROES: " + JSON.stringify(finalHeroArray));
+			console.log("SORTED HEROES: " + JSON.stringify(finalHeroArray));
 
 
 			var name = $('#inputName').val();
@@ -149,13 +149,13 @@ Template.formLineup.events({
 		      });
 		    }
 		  });
-		  //console.log("synergies: " + JSON.stringify(synergies));
+		  console.log("synergies: " + JSON.stringify(synergies));
 
 		  /* composition of Lineup.lineup */
 		  lineupData = {};
 		  lineupData.name = name;
 		  lineupData.levelColor = levelColor;
-		  lineupData.heroes = sortedHeroes;
+		  lineupData.heroes = finalHeroArray;
 		  lineupData.synergies = synergies;
 
 			var canBeUpdate = false;
