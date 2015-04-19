@@ -3,7 +3,7 @@ Template.formLineup.helpers({
     var index = skillOrder - 1;
     var alphaFactor = 0.5;
     //console.log("skillOrder: " + indexToColor[index]);
-    return 'color: rgba(' + colorArray[indexToColor[index]] + ', ' + alphaFactor + ');';
+    return 'color: rgba(' + colorArray[indexToColor[index]] + ', ' + alphaFactor + ') !important;';
   },
   selected : function(type){
     // type = [STR,INT,AGI]
@@ -28,6 +28,12 @@ Template.formLineup.helpers({
 
 
 Template.formLineup.rendered = function(){
+	/* set levelColor-<select> color */
+	$('#inputLevelColor').change(function() {
+		var style = $('#inputLevelColor option:selected').attr('style');
+		console.log("STYLE: " + JSON.stringify(style));
+	}).change();
+
 
   /* add Synergy */
   $(".addSynergyButton").click(function(){
@@ -91,46 +97,84 @@ Template.formLineup.events({
   "submit form": function (event) {   // form as html-tag identifier
     event.preventDefault();
 
-    var name = $('#inputName').val();
-    var namenormalized = UI._globalHelpers['normalizeString'](name);
-    var levelColor = $('#inputLevelColor option:selected').text();
-    
     var heroes = [];
     if($('#inputHeroes').val() !== ''){
-      heroes = $('#inputHeroes').val().replace(/\s+/g,"").split(",");
+      //heroes = $('#inputHeroes').val().replace(/\s+/g,"").split(",");
+			heroes = $('#inputHeroes').val().split(",");
     }
     heroes = cleanArray(heroes);
     
-    // be careful with other synergy.properties:d
-    // if you overwrite synergy.name, all other properties will be maintained
-    // possibility: also display createdBy, createdAt, deleteRequests, votes, etc. with the option to delete those in the UI.
-    var synergies = [];
-    var synergyRows = $('#inputSynergies .inputSynergyWrapper .inputSynergy');
+		console.log("die eingegebenen Heroes: " + JSON.stringify(heroes));
+		var matchedHeroes = Heroes.find({
+			"hero.name": {
+				$in: heroes
+			}
+	 	});
+		var orderToName = {}, sortedHeroes = [], unsortedHeroes = [], finalHeroArray = [];
+		if(matchedHeroes.count() == 5){		
+			matchedHeroes.forEach(function(matchedHero){
+				if(matchedHero.hero.lineuporder){
+					sortedHeroes.push(matchedHero.hero.lineuporder);
+					orderToName[matchedHero.hero.lineuporder] = matchedHero.hero.name;
+				} else {
+					unsortedHeroes.push(matchedHero.hero.name);
+				}
+			});
+			sortedHeroes.sort();
+			for(var i=0; i<unsortedHeroes.length; i++){
+				finalHeroArray.push(unsortedHeroes[i]);
+			}
+			for(var i=0; i<sortedHeroes.length; i++){
+				finalHeroArray.push(orderToName[sortedHeroes[i]]);
+			}
+			//console.log("SORTED HEROES: " + JSON.stringify(finalHeroArray));
 
-    $(synergyRows).each(function(i,elem){
-      if($(this).val() !== ''){
-        synergies.push({
-          name: $(this).val()
-        });
-      }
-    });
-    console.log("synergies: " + JSON.stringify(synergies));
+
+			var name = $('#inputName').val();
+		  var namenormalized = UI._globalHelpers['normalizeString'](name);
+		  var levelColor = $('#inputLevelColor option:selected').text();
+		  
+		  /*	be careful with other synergy.properties:d
+		  		if you overwrite synergy.name, all other properties will be maintained
+		  		possibility: also display createdBy, createdAt, deleteRequests, votes, etc.
+					with the option to delete those in the UI.
+			*/
+		  var synergies = [];
+		  var synergyRows = $('#inputSynergies .inputSynergyWrapper .inputSynergy');
+
+		  $(synergyRows).each(function(i,elem){
+		    if($(this).val() !== ''){
+		      synergies.push({
+		        name: $(this).val()
+		      });
+		    }
+		  });
+		  //console.log("synergies: " + JSON.stringify(synergies));
+
+		  /* composition of Lineup.lineup */
+		  lineupData = {};
+		  lineupData.name = name;
+		  lineupData.levelColor = levelColor;
+		  lineupData.heroes = sortedHeroes;
+		  lineupData.synergies = synergies;
+
+			var canBeUpdate = false;
+			if(isAdmin()){
+				canBeUpdate = true;
+			}
+		  Meteor.call('upsertLineup', lineupData, canBeUpdate, function(err, data){
+		    if(err){
+		      alert("Server Error");
+		    } else {
+		      console.log("sucess data: " + JSON.stringify(data));
+		      alert("Success");
+		    }
+		  });
 
 
-    /* composition of Lineup.lineup */
-    lineupData = {};
-    lineupData.name = name;
-    lineupData.levelColor = levelColor;
-    lineupData.heroes = heroes;
-    lineupData.synergies = synergies;
-
-    Meteor.call('upsertLineup', lineupData, function(err, data){
-      if(err){
-        alert("Server Error");
-      } else {
-        console.log("sucess data: " + JSON.stringify(data));
-        alert("Success");
-      }
-    });
+		} else {
+			console.log("Heroes list is invalid. Only matched " + matchedHeroes.count() + " Heroes");
+			return;
+		}
   }
 });

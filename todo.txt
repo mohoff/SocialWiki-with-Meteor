@@ -6,10 +6,10 @@
 
   ---------------------------------------------------------------
 - Lineups:
-	*	bei insert+update pruefen, ob hero-names tatsaechlich welche sind, also
+	CHECK*	bei insert+update pruefen, ob hero-names tatsaechlich welche sind, also
 		als Hero existieren.
-	* Hero-Reihenfolge bestimmen und automatisch bei insert/update festlegen.
-	* bei einem Lineup-update verbieten, die helden zu updaten (?). Weil neue Helden
+	CHECK* Hero-Reihenfolge bestimmen und automatisch bei insert/update festlegen.
+	CHECK* bei einem Lineup-update verbieten, die helden zu updaten (?). Weil neue Helden
 		eigentlich schon wieder ein neues Lineup sind.
 
 - meteor #isolate nutzen

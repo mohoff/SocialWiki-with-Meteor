@@ -16,6 +16,10 @@ Meteor.subscribe("heroes", function() {
   Session.set('loadedHeroes', true);
   console.log("- SUBSCRIBED to heroes");
 });
+Meteor.subscribe("lineups", function() {
+  Session.set('loadedLineups', true);
+  console.log("- SUBSCRIBED to lineups");
+});
 Meteor.subscribe("userData", function() {
   Session.set('loadedUserData', true);
   console.log("- SUBSCRIBED to userData");
