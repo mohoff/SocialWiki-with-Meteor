@@ -1,0 +1,17 @@
+<template name="lineupHero">
+	<div class="col-xs-2"> <!--{{#if equals this.order '1'}}col-xs-offset-1{{/if}}">-->
+		{{#with heroNameObj}}
+			<a href="{{pathFor 'heroDetails' heroname=this.namenormalized}}">
+				<div class="lineupAvatarWrapper">
+					<img src="{{srcPathAvatar this.namenormalized}}" class="img-responsive avatarImage" alt="" />
+					<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+					<div class="lineupHeroNameWrapper">
+						<div class="lineupHeroName">
+							{{this.name}}
+						</div>
+					</div>
+				</div>
+			</a>
+		{{/with}}	
+	</div>
+</template>

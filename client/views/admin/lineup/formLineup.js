@@ -154,6 +154,7 @@ Template.formLineup.events({
 		  /* composition of Lineup.lineup */
 		  lineupData = {};
 		  lineupData.name = name;
+		  lineupData.namenormalized = namenormalized;
 		  lineupData.levelColor = levelColor;
 		  lineupData.heroes = finalHeroArray;
 		  lineupData.synergies = synergies;

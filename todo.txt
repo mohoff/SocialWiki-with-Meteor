@@ -5,10 +5,13 @@
   'hero.heroname' needs to start with a capital letter.
 
   ---------------------------------------------------------------
+- lineup-creator-name noch irgendwo mit reinbringen? waere schon edel, aber wie
+	userId auf username mappen?
+
 - fix EDIT-button for lineups. Also implement lineupDetails-page.
-	* go to heroDetails-page when clicked on a hero
-	* implement headerrow with info "lineupName, lineupCreator"
-	* adapt voting mechanisms for lineup
+	CHECK* go to heroDetails-page when clicked on a hero
+	CHECK* implement headerrow with info "lineupName, lineupCreator"
+!	* adapt voting mechanisms for lineup
 
 - Lineups:
 	CHECK*	bei insert+update pruefen, ob hero-names tatsaechlich welche sind, also

@@ -1,4 +1,47 @@
 Template.lineupRankingsElement.helpers({
+
+	heroesAsObjs: function() {
+    var heroesAsObjs = [];
+		console.log("start for");
+    for(var i=0; i<this.lineup.heroes.length; i++) {
+				//heroesAsObjs[i] = {};
+        //heroesAsObjs[i].index = i+1;
+        //heroesAsObjs[i].hero = this.lineup.heroes[i];
+				heroesAsObjs.push({index: i+1, hero: this.lineup.heroes[i]});
+    }
+		console.log("ende for: " + JSON.stringify(heroesAsObjs));
+    return heroesAsObjs;
+	},
+
+	lineupNameObj: function(){
+		var lineupName = this.lineup.name;
+		var lineupNameNormed = UI._globalHelpers['normalizeString'](lineupName);
+		//console.log("normed lineup name: " + normed);
+		return {
+			name: lineupName,
+			namenormalized: lineupNameNormed
+		};
+	},
+
+	heroNameObj: function(heroOrder){
+		var heroName = this.lineup.heroes[heroOrder-1];	// heroOrder = {1...5}
+		var heroNameNormed = UI._globalHelpers['normalizeString'](heroName);
+		//console.log("normed lineup name: " + normed);
+		return {
+			name: heroName,
+			namenormalized: heroNameNormed
+		};
+	},
+
+	lineupNameObj: function(){
+		var normed = UI._globalHelpers['normalizeString'](this.lineup.name);
+		console.log("normed lineup name: " + normed);
+		return {
+			name: this.lineup.name,
+			namenormalized: normed
+		};
+	},
+
 	position: function(index) {
 		return '<div class="position-bubble hidden-xs">' + index + '</div>';
 	},

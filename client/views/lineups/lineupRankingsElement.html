@@ -1,52 +1,80 @@
 <template name="lineupRankingsElement">
 <!--<div class="row herowrapper vertical-align">-->
 	<div class="col-xs-12">
-		<div class="row lineupFirstRow vertical-align">
+		<div class="row lineupFirstRow">
+			<div class="col-xs-9">
+				<div class="row">
+					<div class="col-xs-2"></div>
+					<div class="col-xs-8">
+						{{#with lineupNameObj}}
+							<a href="{{pathFor 'lineupDetails' lineupname=this.namenormalized}}">
+								<span class="lineup-name">{{this.name}}</span>
+							</a>
+						{{/with}}	
+					</div>
+					<div class="col-xs-2"></div>
+				</div>			
+			</div>
+			<div class="col-xs-3"></div>
+		</div>
+		<div class="row lineupSecondRow vertical-align">
 			<div class="col-xs-9">
 				<div class="row lineupHeroes">
-					<div class="col-xs-2"></div>			
-					<div class="col-xs-2">
-						<div class="lineupAvatarWrapper">
-							<img src="{{srcPathAvatar this}}" class="img-responsive avatarImage" alt="" />
-							<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
-							{{{ribbon 'NEW'}}}
-							<!--{{{position this.index}}}-->
-						</div>
+					<div class="col-xs-2"></div>
+					{{#each heroesAsObjs}}
+						{{> lineupHero heroname=this.hero order=this.index}}
+					{{/each}}			
+					<!--<div class="col-xs-2">
+						{{#with heroNameObj '1'}}
+			      <a href="{{pathFor 'heroDetails' heroname=this.namenormalized}}">
+							<div class="lineupAvatarWrapper">
+								<img src="{{srcPathAvatar this.namenormalized}}" class="img-responsive avatarImage" alt="" />
+								<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+							</div>
+						</a>
+						{{/with}}	
 					</div>
 					<div class="col-xs-2">
-						<div class="lineupAvatarWrapper">
-							<img src="{{srcPathAvatar this}}" class="img-responsive avatarImage" alt="" />
-							<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
-							{{{ribbon 'NEW'}}}
-							<!--{{{position this.index}}}-->
-						</div>
+						{{#with heroNameObj '2'}}
+			      <a href="{{pathFor 'heroDetails' heroname=this.namenormalized}}">
+							<div class="lineupAvatarWrapper">
+								<img src="{{srcPathAvatar this.namenormalized}}" class="img-responsive avatarImage" alt="" />
+								<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+							</div>
+						</a>
+						{{/with}}	
 					</div>
 					<div class="col-xs-2">
-						<div class="lineupAvatarWrapper">
-							<img src="{{srcPathAvatar this}}" class="img-responsive avatarImage" alt="" />
-							<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
-							{{{ribbon 'NEW'}}}
-							<!--{{{position this.index}}}-->
-						</div>
+						{{#with heroNameObj '3'}}
+			      <a href="{{pathFor 'heroDetails' heroname=this.namenormalized}}">
+							<div class="lineupAvatarWrapper">
+								<img src="{{srcPathAvatar this.namenormalized}}" class="img-responsive avatarImage" alt="" />
+								<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+							</div>
+						</a>
+						{{/with}}	
 					</div>
 					<div class="col-xs-2">
-						<div class="lineupAvatarWrapper">
-							<img src="{{srcPathAvatar this}}" class="img-responsive avatarImage" alt="" />
-							<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
-							{{{ribbon 'NEW'}}}
-							<!--{{{position this.index}}}-->
-						</div>
+						{{#with heroNameObj '4'}}
+			      <a href="{{pathFor 'heroDetails' heroname=this.namenormalized}}">
+							<div class="lineupAvatarWrapper">
+								<img src="{{srcPathAvatar this.namenormalized}}" class="img-responsive avatarImage" alt="" />
+								<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+							</div>
+						</a>
+						{{/with}}	
 					</div>
 					<div class="col-xs-2">
-						<div class="lineupAvatarWrapper">
-							<img src="{{srcPathAvatar this}}" class="img-responsive avatarImage" alt="" />
-							<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
-							{{{ribbon 'NEW'}}}
-							<!--{{{position this.index}}}-->
-						</div>
+						{{#with heroNameObj '5'}}
+			      <a href="{{pathFor 'heroDetails' heroname=this.namenormalized}}">
+							<div class="lineupAvatarWrapper">
+								<img src="{{srcPathAvatar this.namenormalized}}" class="img-responsive avatarImage" alt="" />
+								<img src="/img_frames/heroframe_grey.png" class="img-responsive avatarFrame" alt="" />
+							</div>
+						</a>
+						{{/with}}	
 					</div>
-				
-					<!--<div class="col-xs-1"></div>-->
+-->
 				</div>
 			</div>
 
@@ -78,7 +106,7 @@
 			{{/if}}
 		</div>
 		<!-- Synergies -->
-		<div class="row lineupSecondRow">
+		<div class="row lineupThirdRow">
 			<div class="col-xs-9">
 				<div class="row">
 					<div class="col-xs-2"></div>

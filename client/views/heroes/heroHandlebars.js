@@ -48,8 +48,8 @@ Template.registerHelper("scoreHeroDetails", function(hero, category){
   return 0;
 });
 
-Template.registerHelper("srcPathAvatar", function(hero){
-  var normalizedName = UI._globalHelpers['normalizeString'](hero.hero.name);
+Template.registerHelper("srcPathAvatar", function(normalizedName){
+  //var normalizedName = UI._globalHelpers['normalizeString'](hero.hero.name);
 
   //console.log(normalizedName);
   var path = "/img_heroes/" + normalizedName + "/artwork.jpg";
@@ -62,6 +62,9 @@ Template.registerHelper("srcPathType", function(hero){
   return '/img_herotypes/' + type + '.png';
 });
 
+Template.registerHelper('equals', function (a, b) {
+  return a == b;
+});
 
 /*
 upvotes: function(){

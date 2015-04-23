@@ -1,8 +1,16 @@
 /* from heroDetails.import.less >>> reorganize! */
-.lineupFirstRow {
-	padding: 10px 0px;
+.lineup-name {
+  font-size: 1.5em;
+  color: #aaa;
 }
+.lineupFirstRow {
+	padding-top: 5px;
+}
+
 .lineupSecondRow {
+	padding: 5px 0px;
+}
+.lineupThirdRow {
 	padding-bottom: 5px;
 }
 
@@ -29,5 +37,25 @@
 }
 .avatarFrame {
 	position: relative;
+	z-index: 3;
+}
+
+
+.lineupHeroNameWrapper {
+	display: table;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	background-color: rgba(0, 0, 0, 0.75);
 	z-index: 2;
+	padding: 5px 8px;
+}
+
+.lineupHeroName {
+	color: #ccc;
+	font-size: 0.8em;
+	line-height: 1em;
+	display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
