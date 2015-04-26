@@ -6,7 +6,7 @@
 
   ---------------------------------------------------------------
 - lineup-creator-name noch irgendwo mit reinbringen? waere schon edel, aber wie
-	userId auf username mappen?
+	userId auf username mappen? username mit in schema aufnehmen ist wohl das beste
 
 - fix EDIT-button for lineups. Also implement lineupDetails-page.
 	CHECK* go to heroDetails-page when clicked on a hero

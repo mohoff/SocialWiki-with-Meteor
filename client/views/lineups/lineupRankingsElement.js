@@ -56,9 +56,9 @@ Template.lineupRankingsElement.helpers({
 	},
 
   scoreDiff: function(){
-    var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
+    var userId, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
     userId = Meteor.userId();
-    voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
+    //voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
 
     if(userId){
       voteSource = 'R';
@@ -68,8 +68,8 @@ Template.lineupRankingsElement.helpers({
       userIdentifier = Session.get('clientIp');
     }
     // helper receives e.g. nested rating.crusade object, and checks if it contains the passed userIdentifier
-    if(this.hero && this.hero.ratings && this.hero.ratings[voteFor]){
-      upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+    if(this.lineup && this.lineup.ratings){
+      upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.lineup.ratings, userIdentifier);
     } else {
       return; // don't show anything
     }
@@ -96,9 +96,9 @@ Template.lineupRankingsElement.helpers({
   },
 
   scoreDiffStyle: function(){
-    var userId, voteFor, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
+    var userId, voteSource, userIdentifier, votePower, upOrDownOrUnvote;
     userId = Meteor.userId();
-    voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
+    //voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
 
     if(userId){
       voteSource = 'R';
@@ -108,8 +108,8 @@ Template.lineupRankingsElement.helpers({
       userIdentifier = Session.get('clientIp');
     }
     // helper receives e.g. nested rating.crusade object, and checks if it contains the passed userIdentifier
-    if(this.hero && this.hero.ratings && this.hero.ratings[voteFor] && userIdentifier){
-      upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.hero.ratings[voteFor], userIdentifier);
+    if(this.lineup && this.lineup.ratings && userIdentifier){
+      upOrDownOrUnvote = UI._globalHelpers['upOrDownOrUnvote'](this.lineup.ratings, userIdentifier);
     } else {
       upOrDownOrUnvote = 'unvote'; // so that it gets rendered to 'gone'
     }
@@ -126,24 +126,10 @@ Template.lineupRankingsElement.helpers({
     return classes;
   },
 
-  /*srcPathAvatar: function(){
-    var normalizedName = UI._globalHelpers['normalizeString'](this.hero.name);
-    //var normalizedName = Meteor.call('normalizeString', this.hero.name);
-
-    //console.log(normalizedName);
-    var path = "/img_heroes/" + normalizedName + "/avatar.jpg";
-    //console.log("PATHTOAVATAR: " + path);
-    return path;
-  },
-
-  srcPathType: function(){
-    return '/img_herotypes/' + this.hero.type + '.png';
-  },*/
-
   votedSrc: function(upOrDown){
     var userId = Meteor.userId();
     var voteSource, userIdentifier;
-    var voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
+    //var voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
 
     if(userId){
       voteSource = 'R';
@@ -153,9 +139,9 @@ Template.lineupRankingsElement.helpers({
       userIdentifier = Session.get('clientIp');
     }
     var storedVoters = [];
-    if(this.hero && this.hero.ratings && this.hero.ratings[voteFor] &&
-          this.hero.ratings[voteFor][upOrDown + "votersDaily"+voteSource+"egistered"]){
-      storedVoters  = this.hero.ratings[voteFor][upOrDown + "votersDaily"+voteSource+"egistered"];
+    if(this.lineup && this.lineup.ratings &&
+          this.lineup.ratings[upOrDown + "votersDaily"+voteSource+"egistered"]){
+      storedVoters  = this.lineup.ratings[upOrDown + "votersDaily"+voteSource+"egistered"];
     }
 
     console.log("-UI- Invoked " + upOrDown + "vote from: " + userIdentifier);
@@ -225,8 +211,6 @@ Template.lineupRankingsElement.helpers({
 Template.lineupRankingsElement.events({
   'click .downvote': function(event){
     event.preventDefault();
-    //var voteFor = event.target.getAttribute('data-votefor');
-    var voteFor = UI._globalHelpers['getNormalizedRankingCategory']();
 
     var currentUser = Meteor.user(); // does that always return currentUser? Maybe Meteor.user() is better?
     Meteor.call('vote', this, currentUser, voteFor, 'down'); // this = Hero (collection), voteFor = crusade,pve,etc..
