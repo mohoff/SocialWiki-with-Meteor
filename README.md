@@ -1,0 +1,4 @@
+# interactive Wiki realized with Meteor
+To dig into Meteor, I created a wiki/compendium for a mobile game which should work without (or minimum) the assistance of admins. Unregistered and registered users (this staus will affect their voting power) can vote for articles or entries within articles. Things are displayed in order of that voted ranking. Users can also mark entries as "delete-worthy". As a delete-counter of an entry exceeds a certain treshold, it will be soft-deleted in the database. Registered users can extend their login streak daily in order to increase their voting power. Via forms admins/moderators or the most active contributors can create or edit wiki entries.
+
+Uses Meteor features like MongoDB, Latency Compensation, Optimistic UI and live updates, Routing, Publish-Subscipe Pattern, Mini-Database on the client (Minimongo), Handlebars/Spacebars, and more. Frontend supported by Bootstrap.
